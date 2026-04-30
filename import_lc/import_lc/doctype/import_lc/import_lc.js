@@ -1,30 +1,9 @@
-frappe.ui.form.on('Proforma Invoice', {
-    refresh: function(frm) {
-        if (frm.doc.docstatus === 1) {
-            // Create Import Insurance button
-            frm.add_custom_button(__('Import Insurance'), function() {
-                frappe.model.open_mapped_doc({
-                    method: 'import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_import_insurance',
-                    frm: frm
-                });
-            }, __('Create'));
+// Copyright (c) 2026, Invento Software Limited and contributors
+// For license information, please see license.txt
 
-            // Create Import LC button
-            frm.add_custom_button(__('Import LC'), function() {
-                frappe.model.open_mapped_doc({
-                    method: 'import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_import_lc',
-                    frm: frm
-                });
-            }, __('Create'));
-
-            // Create Sales Invoice button (standard ERPNext mapped flow)
-            frm.add_custom_button(__('Sales Invoice'), function() {
-                frappe.model.open_mapped_doc({
-                    method: 'import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_sales_invoice',
-                    frm: frm
-                });
-            }, __('Create'));
-        }
+frappe.ui.form.on("Import LC", {
+    refresh(frm) {
+        // Any refresh logic
     },
     tc_name: function(frm) {
         if (frm.doc.tc_name) {
@@ -50,7 +29,7 @@ frappe.ui.form.on('Proforma Invoice', {
     }
 });
 
-frappe.ui.form.on('Proforma Invoice Item', {
+frappe.ui.form.on('Import LC Item', {
     qty: function(frm, cdt, cdn) {
         calculate_item_amount(frm, cdt, cdn);
     },
@@ -66,7 +45,6 @@ var calculate_item_amount = function(frm, cdt, cdn) {
     var row = locals[cdt][cdn];
     var amount = flt(row.qty) * flt(row.rate);
     frappe.model.set_value(cdt, cdn, "amount", amount);
-    // Assuming Total Amount (USD) is same as amount for now, or you can add currency conversion logic
     frappe.model.set_value(cdt, cdn, "total_amount_usd", amount);
     calculate_totals(frm);
 };
@@ -78,10 +56,6 @@ var calculate_totals = function(frm) {
     });
     frm.set_value("subtotal", subtotal);
     
-    // Sync freight charges from Trade Details to Summary
-    frm.set_value("freight_charges_amount", frm.doc.freight_charges);
-    
     var grand_total = subtotal + flt(frm.doc.freight_charges);
     frm.set_value("grand_total", grand_total);
-    frm.set_value("rounded_total", Math.round(grand_total));
 };

@@ -6,47 +6,81 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "invoice_identification",
+  "basic_information_section",
+  "company",
   "pi_number",
   "pi_date",
+  "col_basic_1",
+  "invoice_date",
   "pi_validity_date",
-  "col_1",
-  "purchase_order",
-  "po_no",
-  "currency",
   "supplier_section",
   "supplier",
   "supplier_name",
-  "col_2",
   "supplier_address",
+  "col_seller_1",
   "address_display",
-  "col_bank",
-  "bank_name",
-  "swift_bic",
-  "iban",
+  "country_of_origin",
+  "supplier_bank_section",
+  "bank",
+  "swift_code",
+  "bank_branch",
+  "col_bank_1",
+  "account_number_iban",
+  "bank_address",
+  "buyer_information_section",
+  "buyer",
+  "buyer_name",
+  "phone_no",
+  "col_buyer_1",
+  "email",
+  "buyer_address",
+  "trade_commercial_section",
+  "currency",
+  "payment_terms",
+  "incoterm",
+  "tolerance_percent",
+  "col_trade_1",
+  "freight_charges",
+  "delivery_terms",
+  "safta_clause",
+  "shipment_details_section",
+  "port_of_loading",
+  "port_of_discharge",
+  "final_destination",
+  "col_shipment_1",
+  "country_of_final_destination",
+  "mode_of_transport",
+  "mode_of_shipment",
+  "col_shipment_2",
+  "transshipment",
+  "partial_shipment",
+  "shipment_conditions",
+  "reference_section",
+  "purchase_order",
+  "col_ref_1",
+  "po_no",
   "product_details_section",
   "items",
-  "totals_section",
-  "total_qty",
-  "total",
-  "totals_col",
+  "financial_summary_section",
+  "subtotal",
+  "freight_charges_amount",
+  "col_financial_1",
   "grand_total",
   "rounded_total",
   "in_words",
-  "payment_terms_section",
-  "payment_method",
-  "col_4",
-  "usance_period",
-  "lc_expiry_place",
+  "terms_conditions_section",
+  "tc_name",
+  "terms",
   "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "invoice_identification",
+   "fieldname": "basic_information_section",
    "fieldtype": "Section Break",
-   "label": "Invoice Identification"
+   "label": "Basic Information"
   },
   {
+   "description": "Unique PI reference number from supplier.",
    "fieldname": "pi_number",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -55,6 +89,7 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "pi_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -63,18 +98,22 @@
    "reqd": 1
   },
   {
-   "fieldname": "col_1",
+   "fieldname": "col_basic_1",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "pi_validity_date",
+   "default": "Today",
+   "description": "Date of invoice issuance.",
+   "fieldname": "invoice_date",
    "fieldtype": "Date",
-   "label": "PI Validity Date"
+   "label": "Invoice Date",
+   "reqd": 1
   },
   {
-   "fieldname": "supplier_section",
-   "fieldtype": "Section Break",
-   "label": "Supplier (Beneficiary) Details"
+   "description": "Offer valid until this date \u2014 triggers urgency on LC opening.",
+   "fieldname": "pi_validity_date",
+   "fieldtype": "Date",
+   "label": "PI Validity"
   },
   {
    "fieldname": "supplier",
@@ -89,11 +128,8 @@
    "fetch_from": "supplier.supplier_name",
    "fieldname": "supplier_name",
    "fieldtype": "Data",
-   "label": "Supplier Name"
-  },
-  {
-   "fieldname": "col_2",
-   "fieldtype": "Column Break"
+   "label": "Supplier Name",
+   "read_only": 1
   },
   {
    "fieldname": "supplier_address",
@@ -102,44 +138,86 @@
    "options": "Address"
   },
   {
+   "fieldname": "col_seller_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "supplier_address.address_display",
    "fieldname": "address_display",
    "fieldtype": "Small Text",
    "label": "Full Address",
    "read_only": 1
   },
   {
-   "fieldname": "col_bank",
+   "fetch_from": "supplier.country",
+   "fieldname": "country_of_origin",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "supplier_bank_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Bank Details"
+  },
+  {
+   "fieldname": "bank_branch",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "col_bank_1",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "bank_name",
+   "fieldname": "bank_address",
+   "fieldtype": "Small Text",
+   "label": "Bank Address"
+  },
+  {
+   "description": "Must be entered accurately into the LC application.",
+   "fieldname": "account_number_iban",
    "fieldtype": "Data",
-   "label": "Beneficiary Bank Name",
+   "label": "Account Number / IBAN",
    "reqd": 1
   },
   {
-   "fieldname": "swift_bic",
+   "description": "SWIFT BIC \u2014 issuing bank uses this to route MT700 and eventual payment.",
+   "fetch_from": "bank.swift_number",
+   "fieldname": "swift_code",
    "fieldtype": "Data",
-   "label": "SWIFT BIC",
+   "label": "SWIFT Code",
    "reqd": 1
   },
   {
-   "fieldname": "iban",
-   "fieldtype": "Data",
-   "label": "IBAN",
-   "reqd": 1
-  },
-  {
-   "fieldname": "product_details_section",
+   "collapsible": 1,
+   "fieldname": "buyer_information_section",
    "fieldtype": "Section Break",
-   "label": "PI Product Details"
+   "label": "Buyer Information"
   },
   {
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "options": "Proforma Invoice Item",
-   "reqd": 1
+   "description": "Exact legal name \u2014 becomes the LC applicant.",
+   "fetch_from": "buyer.company_name",
+   "fieldname": "buyer_name",
+   "fieldtype": "Data",
+   "label": "Buyer Name"
+  },
+  {
+   "fieldname": "buyer_address",
+   "fieldtype": "Small Text",
+   "label": "Buyer Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "col_buyer_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "trade_commercial_section",
+   "fieldtype": "Section Break",
+   "label": "Trade & Commercial Details"
   },
   {
    "fieldname": "currency",
@@ -149,30 +227,180 @@
    "reqd": 1
   },
   {
-   "fieldname": "totals_section",
-   "fieldtype": "Section Break"
+   "description": "LC at sight / usance / deferred payment.",
+   "fieldname": "payment_terms",
+   "fieldtype": "Select",
+   "label": "Payment Terms",
+   "options": "\nLC at Sight\nUsance\nDeferred Payment",
+   "reqd": 1
   },
   {
-   "fieldname": "total_qty",
+   "description": "Determines who arranges freight and insurance.",
+   "fieldname": "incoterm",
+   "fieldtype": "Link",
+   "label": "Incoterms",
+   "options": "Incoterm"
+  },
+  {
+   "fieldname": "col_trade_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_terms",
+   "fieldtype": "Small Text",
+   "label": "Delivery Terms"
+  },
+  {
+   "description": "Freight charges as agreed (separate from item prices).",
+   "fieldname": "freight_charges",
+   "fieldtype": "Currency",
+   "label": "Freight Charges",
+   "options": "currency"
+  },
+  {
+   "description": "+/- allowance on the total PI value, if agreed with supplier.",
+   "fieldname": "tolerance_percent",
    "fieldtype": "Float",
-   "label": "Total Quantity",
+   "label": "Tolerance (%) on Total PI Value"
+  },
+  {
+   "default": "0",
+   "description": "South Asian Free Trade Area preference \u2014 may reduce customs duty.",
+   "fieldname": "safta_clause",
+   "fieldtype": "Check",
+   "label": "SAFTA Clause"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "shipment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment Details"
+  },
+  {
+   "description": "Origin port \u2014 must match across LC, B/L and commercial invoice.",
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port of Loading"
+  },
+  {
+   "description": "Destination port \u2014 must match across all documents.",
+   "fieldname": "port_of_discharge",
+   "fieldtype": "Data",
+   "label": "Port of Discharge"
+  },
+  {
+   "fieldname": "final_destination",
+   "fieldtype": "Data",
+   "label": "Final Destination"
+  },
+  {
+   "fieldname": "col_shipment_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "country_of_final_destination",
+   "fieldtype": "Link",
+   "label": "Country of Final Destination",
+   "options": "Country"
+  },
+  {
+   "fieldname": "mode_of_transport",
+   "fieldtype": "Select",
+   "label": "Mode of Transport",
+   "options": "\nSea\nAir\nRoad\nRail\nMultimodal"
+  },
+  {
+   "description": "Container type, size, and other details.",
+   "fieldname": "mode_of_shipment",
+   "fieldtype": "Data",
+   "label": "Mode of Shipment (Container Details)"
+  },
+  {
+   "fieldname": "shipment_conditions",
+   "fieldtype": "Small Text",
+   "label": "Shipment Conditions"
+  },
+  {
+   "fieldname": "col_shipment_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "transshipment",
+   "fieldtype": "Select",
+   "label": "Transshipment",
+   "options": "\nAllowed\nNot Allowed"
+  },
+  {
+   "fieldname": "partial_shipment",
+   "fieldtype": "Select",
+   "label": "Partial Shipment",
+   "options": "\nAllowed\nNot Allowed"
+  },
+  {
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Purchase Order Reference",
+   "options": "Purchase Order"
+  },
+  {
+   "fieldname": "col_ref_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "purchase_order.custom_po_number",
+   "fieldname": "po_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "PO Number",
    "read_only": 1
   },
   {
-   "fieldname": "total",
+   "description": "Goods description wording MUST be frozen before LC application. Any subsequent change requires an LC amendment (MT707) and incurs charges.",
+   "fieldname": "product_details_section",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Proforma Invoice Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "financial_summary_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "subtotal",
    "fieldtype": "Currency",
-   "label": "Total",
+   "label": "Subtotal",
    "options": "currency",
    "read_only": 1
   },
   {
-   "fieldname": "totals_col",
+   "description": "Freight charges from Trade & Commercial Details.",
+   "fieldname": "freight_charges_amount",
+   "fieldtype": "Currency",
+   "label": "Freight Charges",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col_financial_1",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "grand_total",
    "fieldtype": "Currency",
-   "label": "Grand Total",
+   "label": "Grand Total Amount",
    "options": "currency",
    "read_only": 1
   },
@@ -190,31 +418,21 @@
    "read_only": 1
   },
   {
-   "fieldname": "payment_terms_section",
+   "collapsible": 1,
+   "fieldname": "terms_conditions_section",
    "fieldtype": "Section Break",
-   "label": "Payment Terms"
+   "label": "Terms & Conditions"
   },
   {
-   "fieldname": "payment_method",
-   "fieldtype": "Select",
-   "label": "Payment Method",
-   "options": "LC at sight\nUsance\nDeferred payment",
-   "reqd": 1
+   "fieldname": "tc_name",
+   "fieldtype": "Link",
+   "label": "Terms and Conditions",
+   "options": "Terms and Conditions"
   },
   {
-   "fieldname": "col_4",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.payment_method == 'Usance'",
-   "fieldname": "usance_period",
-   "fieldtype": "Data",
-   "label": "Usance Period"
-  },
-  {
-   "fieldname": "lc_expiry_place",
-   "fieldtype": "Data",
-   "label": "LC Expiry Place"
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms"
   },
   {
    "fieldname": "amended_from",
@@ -227,28 +445,51 @@
    "search_index": 1
   },
   {
-   "fetch_from": "purchase_order.custom_po_number",
-   "fieldname": "po_no",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "PO Reference No.",
-   "options": "Purchase Order"
+   "collapsible": 1,
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Information"
   },
   {
-   "fieldname": "purchase_order",
+   "description": "Beneficiary bank name \u2014 used by issuing bank to route payment.",
+   "fieldname": "bank",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Purchase Order Reference",
-   "options": "Purchase Order"
+   "label": "Bank",
+   "options": "Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "buyer",
+   "fieldtype": "Link",
+   "label": "Buyer",
+   "options": "Company"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fetch_from": "buyer.phone_no",
+   "fetch_if_empty": 1,
+   "fieldname": "phone_no",
+   "fieldtype": "Data",
+   "label": "Phone No."
+  },
+  {
+   "fetch_from": "buyer.email",
+   "fetch_if_empty": 1,
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-29 20:45:52.566500",
+ "modified": "2026-04-30 15:29:48.775054",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",
