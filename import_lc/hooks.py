@@ -20,15 +20,14 @@ fixtures = [
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "import_lc",
-# 		"logo": "/assets/import_lc/logo.png",
-# 		"title": "Import LC",
-# 		"route": "/import_lc",
-# 		"has_permission": "import_lc.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "import_lc",
+		"logo": "/assets/import_lc/logo.png",
+		"title": "Import LC",
+		"route": "/desk#Workspace/Import LC"
+	}
+]
 
 # Includes in <head>
 # ------------------

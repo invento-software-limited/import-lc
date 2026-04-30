@@ -46,7 +46,6 @@
   "shipment_details_section",
   "port_of_loading",
   "port_of_discharge",
-  "final_destination",
   "col_shipment_1",
   "country_of_final_destination",
   "mode_of_transport",
@@ -289,11 +288,6 @@
    "label": "Port of Discharge"
   },
   {
-   "fieldname": "final_destination",
-   "fieldtype": "Data",
-   "label": "Final Destination"
-  },
-  {
    "fieldname": "col_shipment_1",
    "fieldtype": "Column Break"
   },
@@ -489,7 +483,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-30 15:29:48.775054",
+ "modified": "2026-04-30 18:28:55.518112",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",
