@@ -5,6 +5,15 @@ app_description = "A LC Management App developed by Invento Software Limited"
 app_email = "importlc@invento.com.bd"
 app_license = "mit"
 
+fixtures = [
+    # {
+    #     "dt": "Custom Field",
+    #     "filters": [
+    #         ["dt", "in", ["Purchase Order", "Purchase Order Item"]]
+    #     ]
+    # }
+]
+
 # Apps
 # ------------------
 
@@ -43,7 +52,11 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Purchase Order": "public/js/purchase_order.js",
+    "Proforma Invoice": "public/js/proforma_invoice.js"
+}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}

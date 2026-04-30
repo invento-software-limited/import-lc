@@ -1,0 +1,246 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "IMP-INS-.####",
+ "creation": "2026-04-29 18:16:53.338119",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "policy_section",
+  "policy_number",
+  "insured_party",
+  "col_policy_1",
+  "insured_value",
+  "coverage_type",
+  "war_risk",
+  "validity_section",
+  "validity_from",
+  "validity_to",
+  "col_validity",
+  "goods_description",
+  "shipment_section",
+  "port_of_loading",
+  "port_of_discharge",
+  "col_shipment",
+  "proforma_invoice",
+  "purchase_invoice",
+  "accounting_section",
+  "company",
+  "currency",
+  "col_accounting",
+  "insurance_premium",
+  "debit_account",
+  "credit_account",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "policy_section",
+   "fieldtype": "Section Break",
+   "label": "Insurance Policy Details"
+  },
+  {
+   "description": "Unique reference to be quoted in LC field 46A.",
+   "fieldname": "policy_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Policy / Certificate Number",
+   "reqd": 1
+  },
+  {
+   "description": "Buyer or supplier depending on incoterm (CIF/CIP \u2192 supplier, FOB/EXW \u2192 buyer).",
+   "fieldname": "insured_party",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Insured Party",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_policy_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Minimum 110% of CIF invoice value per UCP 600 Article 28.",
+   "fieldname": "insured_value",
+   "fieldtype": "Currency",
+   "label": "Insured Value",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "description": "All risks / Institute Cargo Clauses A, B, or C.",
+   "fieldname": "coverage_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Coverage Type",
+   "options": "\nAll Risks (Institute Cargo Clauses A)\nInstitute Cargo Clauses B\nInstitute Cargo Clauses C",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "description": "Required if routing through high-risk zones.",
+   "fieldname": "war_risk",
+   "fieldtype": "Check",
+   "label": "War Risk Cover"
+  },
+  {
+   "fieldname": "validity_section",
+   "fieldtype": "Section Break",
+   "label": "Validity & Goods"
+  },
+  {
+   "description": "Must cover the shipment period and presentation period.",
+   "fieldname": "validity_from",
+   "fieldtype": "Date",
+   "label": "Validity From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "validity_to",
+   "fieldtype": "Date",
+   "label": "Validity To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_validity",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Must match LC field 45A exactly.",
+   "fieldname": "goods_description",
+   "fieldtype": "Small Text",
+   "label": "Goods Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shipment_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment & References"
+  },
+  {
+   "description": "Must match LC and B/L.",
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port of Loading",
+   "reqd": 1
+  },
+  {
+   "description": "Must match LC and B/L.",
+   "fieldname": "port_of_discharge",
+   "fieldtype": "Data",
+   "label": "Port of Discharge",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_shipment",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proforma_invoice",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Proforma Invoice",
+   "options": "Proforma Invoice"
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice"
+  },
+  {
+   "fieldname": "accounting_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting Entry"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_accounting",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Book on policy issue date. Transfer to landed cost clearing account when goods are received.",
+   "fieldname": "insurance_premium",
+   "fieldtype": "Currency",
+   "label": "Insurance Premium Amount",
+   "options": "currency"
+  },
+  {
+   "description": "Dr: Insurance expense / prepaid insurance account.",
+   "fieldname": "debit_account",
+   "fieldtype": "Link",
+   "label": "Debit Account (Insurance Expense / Prepaid)",
+   "options": "Account"
+  },
+  {
+   "description": "Cr: Insurance company or bank account.",
+   "fieldname": "credit_account",
+   "fieldtype": "Link",
+   "label": "Credit Account (Insurance Company / Bank)",
+   "options": "Account"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Import Insurance",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-29 20:42:45.293553",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "Import Insurance",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
