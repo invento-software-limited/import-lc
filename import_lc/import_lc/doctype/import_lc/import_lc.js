@@ -3,7 +3,14 @@
 
 frappe.ui.form.on("Import LC", {
     refresh(frm) {
-        // Any refresh logic
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button(__('Purchase Invoice'), function() {
+                frappe.model.open_mapped_doc({
+                    method: "import_lc.import_lc.doctype.import_lc.import_lc.make_purchase_invoice",
+                    frm: frm
+                });
+            }, __('Create'));
+        }
     },
     tc_name: function(frm) {
         if (frm.doc.tc_name) {

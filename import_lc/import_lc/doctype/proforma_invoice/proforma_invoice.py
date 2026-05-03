@@ -174,3 +174,74 @@ def make_import_lc(source_name, target_doc=None):
 	}, target_doc, set_missing_values)
 
 	return doclist
+
+@frappe.whitelist()
+def make_purchase_invoice(source_name, target_doc=None):
+	"""Create Purchase Invoice from Proforma Invoice."""
+	def set_missing_values(source, target):
+		target.purchase_type = "Import"
+		target.proforma_invoice = source.name
+
+	doclist = get_mapped_doc("Proforma Invoice", source_name, {
+		"Proforma Invoice": {
+			"doctype": "Purchase Invoice",
+			"field_map": {
+				"pi_number": "pi_number",
+				"pi_date": "pi_date",
+				"invoice_date": "invoice_date",
+				"pi_validity_date": "pi_validity_date",
+				"supplier": "supplier",
+				"supplier_name": "supplier_name",
+				"supplier_address": "supplier_address",
+				"address_display": "address_display",
+				"supplier_phone_no": "supplier_phone_no",
+				"supplier_email": "supplier_email",
+				"bank": "bank",
+				"swift_code": "swift_code",
+				"bank_branch": "bank_branch",
+				"account_number_iban": "account_number_iban",
+				"bank_address": "bank_address",
+				"buyer": "buyer",
+				"buyer_name": "buyer_name",
+				"phone_no": "phone_no",
+				"email": "email",
+				"buyer_address": "buyer_address",
+				"currency": "currency",
+				"payment_terms": "payment_terms",
+				"incoterm": "incoterm",
+				"tolerance_percent": "tolerance_percent",
+				"freight_charges": "freight_charges",
+				"delivery_terms": "delivery_terms",
+				"safta_clause": "safta_clause",
+				"port_of_loading": "port_of_loading",
+				"port_of_discharge": "port_of_discharge",
+				"country_of_final_destination": "country_of_final_destination",
+				"mode_of_transport": "mode_of_transport",
+				"mode_of_shipment": "mode_of_shipment",
+				"transshipment": "transshipment",
+				"partial_shipment": "partial_shipment",
+				"shipment_conditions": "shipment_conditions"
+			}
+		},
+		"Proforma Invoice Item": {
+			"doctype": "Purchase Invoice Item",
+			"field_map": {
+				"item_code": "item_code",
+				"item_name": "item_name",
+				"description": "description",
+				"brand": "brand",
+				"hs_code": "hs_code",
+				"qty": "qty",
+				"uom": "uom",
+				"rate": "rate",
+				"amount": "amount",
+				"packing_type": "packing_type",
+				"total_qty": "custom_total_qty",
+				"total_volume_weight": "total_volume_weight",
+				"rate_per_carton": "rate_per_carton",
+				"total_amount_usd": "total_amount_usd"
+			}
+		}
+	}, target_doc, set_missing_values)
+
+	return doclist

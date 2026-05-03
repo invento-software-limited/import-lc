@@ -16,10 +16,11 @@
   "supplier_section",
   "supplier",
   "supplier_name",
-  "supplier_address",
+  "supplier_phone_no",
+  "supplier_email",
   "col_seller_1",
+  "supplier_address",
   "address_display",
-  "country_of_origin",
   "supplier_bank_section",
   "bank",
   "swift_code",
@@ -137,6 +138,18 @@
    "options": "Address"
   },
   {
+   "fetch_from": "supplier_address.phone",
+   "fieldname": "supplier_phone_no",
+   "fieldtype": "Data",
+   "label": "Supplier Phone No."
+  },
+  {
+   "fetch_from": "supplier_address.email_id",
+   "fieldname": "supplier_email",
+   "fieldtype": "Data",
+   "label": "Supplier Email"
+  },
+  {
    "fieldname": "col_seller_1",
    "fieldtype": "Column Break"
   },
@@ -146,13 +159,6 @@
    "fieldtype": "Small Text",
    "label": "Full Address",
    "read_only": 1
-  },
-  {
-   "fetch_from": "supplier.country",
-   "fieldname": "country_of_origin",
-   "fieldtype": "Link",
-   "label": "Country of Origin",
-   "options": "Country"
   },
   {
    "collapsible": 1,
@@ -483,7 +489,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-30 18:28:55.518112",
+ "modified": "2026-05-03 15:29:41.509473",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",
