@@ -82,7 +82,8 @@ def make_purchase_invoice(source_name, target_doc=None):
 				"final_destination": "country_of_final_destination",
 				"mode_of_transport": "mode_of_transport",
 				"transshipment": "transshipment",
-				"partial_shipments": "partial_shipment"
+				"partial_shipments": "partial_shipment",
+				"conversion_rate": "conversion_rate"
 			}
 		},
 		"Import LC Item": {
@@ -115,6 +116,7 @@ def make_journal_entry(source_name):
 	
 	# Map custom fields
 	je.import_lc = lc.name
+	je.import_lc_amount = lc.grand_total
 	je.lc_margin = lc.lc_margin
 	
 	# Calculate LC Margin Amount
@@ -131,6 +133,35 @@ def make_journal_entry(source_name):
 		"account": "", # User to select account
 		"credit_in_account_currency": amount,
 		"credit": amount
+	})
+	
+	return je
+
+
+@frappe.whitelist()
+def make_lc_expense_journal_entry(source_name):
+	"""Create Journal Entry (LC Expense) from Import LC."""
+	lc = frappe.get_doc("Import LC", source_name)
+	
+	je = frappe.new_doc("Journal Entry")
+	je.voucher_type = "LC Expense"
+	je.company = lc.company
+	je.posting_date = frappe.utils.nowdate()
+	
+	# Map custom fields
+	je.import_lc = lc.name
+	je.import_lc_amount = lc.grand_total
+	
+	# Add placeholder account rows
+	je.append("accounts", {
+		"account": "", # User to select account
+		"debit_in_account_currency": 0,
+		"debit": 0
+	})
+	je.append("accounts", {
+		"account": "", # User to select account
+		"credit_in_account_currency": 0,
+		"credit": 0
 	})
 	
 	return je

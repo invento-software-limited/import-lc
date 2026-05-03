@@ -35,10 +35,11 @@
   "beneficiary_bank",
   "value_terms_section",
   "currency",
+  "conversion_rate",
   "drafts_at",
   "incoterm",
-  "percentage_credit_amount_tolerance",
   "col_value",
+  "percentage_credit_amount_tolerance",
   "available_with",
   "shipment_section",
   "partial_shipments",
@@ -54,6 +55,7 @@
   "items",
   "totals_section",
   "freight_charges",
+  "total_qty",
   "column_break_totals",
   "total",
   "grand_total",
@@ -126,7 +128,8 @@
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "F32B: Currency",
-   "options": "Currency"
+   "options": "Currency",
+   "reqd": 1
   },
   {
    "description": "Type of LC (Irrevocable etc.)",
@@ -335,7 +338,7 @@
    "collapsible": 1,
    "fieldname": "banks_section",
    "fieldtype": "Section Break",
-   "label": "Banks"
+   "label": "Bank Inforamtion"
   },
   {
    "fieldname": "col_banks",
@@ -470,6 +473,7 @@
   {
    "fieldname": "freight_charges",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Freight Charges",
    "options": "currency"
   },
@@ -483,13 +487,23 @@
    "label": "Grand Total",
    "options": "currency",
    "read_only": 1
+  },
+  {
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Conversion Rate"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 16:53:11.156877",
+ "modified": "2026-05-03 17:34:44.941858",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",

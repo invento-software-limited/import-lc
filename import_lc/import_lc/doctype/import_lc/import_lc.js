@@ -25,6 +25,21 @@ frappe.ui.form.on("Import LC", {
                     }
                 });
             }, __('Create'));
+
+            frm.add_custom_button(__('Difference Expense Booking'), function () {
+                frappe.call({
+                    method: "import_lc.import_lc.doctype.import_lc.import_lc.make_lc_expense_journal_entry",
+                    args: {
+                        source_name: frm.doc.name
+                    },
+                    callback: function (r) {
+                        if (r.message) {
+                            var doc = frappe.model.sync(r.message)[0];
+                            frappe.set_route("Form", doc.doctype, doc.name);
+                        }
+                    }
+                });
+            }, __('Create'));
         }
     },
     tc_name: function (frm) {
@@ -57,6 +72,29 @@ frappe.ui.form.on("Import LC", {
     },
     lc_margin: function (frm) {
         calculate_totals(frm);
+    },
+    currency: function (frm) {
+        frm.trigger("get_conversion_rate");
+    },
+    date_of_issue: function (frm) {
+        frm.trigger("get_conversion_rate");
+    },
+    get_conversion_rate: function (frm) {
+        if (frm.doc.currency && frm.doc.company) {
+            frappe.call({
+                method: "erpnext.setup.utils.get_exchange_rate",
+                args: {
+                    from_currency: frm.doc.currency,
+                    to_currency: frappe.get_doc(":Company", frm.doc.company).default_currency,
+                    transaction_date: frm.doc.date_of_issue || frappe.datetime.get_today()
+                },
+                callback: function (r) {
+                    if (r.message) {
+                        frm.set_value("conversion_rate", r.message);
+                    }
+                }
+            });
+        }
     }
 });
 
@@ -82,10 +120,13 @@ var calculate_item_amount = function (frm, cdt, cdn) {
 
 var calculate_totals = function (frm) {
     var subtotal = 0;
+    var total_qty = 0;
     (frm.doc.items || []).forEach(function (item) {
         subtotal += flt(item.amount);
+        total_qty += flt(item.qty);
     });
     frm.set_value("total", subtotal);
+    frm.set_value("total_qty", total_qty);
 
     var grand_total = subtotal + flt(frm.doc.freight_charges) + flt(frm.doc.insurance_amount) + flt(frm.doc.other_charges);
     frm.set_value("grand_total", grand_total);
