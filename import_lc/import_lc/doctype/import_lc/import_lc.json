@@ -496,14 +496,15 @@
   {
    "fieldname": "total_qty",
    "fieldtype": "Float",
-   "label": "Total Qty"
+   "label": "Total Qty",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 17:34:44.941858",
+ "modified": "2026-05-03 17:47:14.961042",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",

@@ -130,12 +130,4 @@ var calculate_totals = function (frm) {
 
     var grand_total = subtotal + flt(frm.doc.freight_charges) + flt(frm.doc.insurance_amount) + flt(frm.doc.other_charges);
     frm.set_value("grand_total", grand_total);
-
-    // Calculate LC Margin Amount
-    if (frm.doc.lc_margin) {
-        var lc_margin_amount = grand_total * (flt(frm.doc.lc_margin) / 100.0);
-        frm.set_value("lc_margin_amount", lc_margin_amount);
-    } else {
-        frm.set_value("lc_margin_amount", 0);
-    }
 };
