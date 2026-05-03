@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "IMP-LC-.####",
  "creation": "2026-04-30 13:47:13.497259",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -25,6 +26,7 @@
   "applicant_address",
   "banks_section",
   "issuing_bank",
+  "lc_margin",
   "col_banks",
   "beneficiary_bank",
   "value_terms_section",
@@ -446,16 +448,24 @@
    "fieldname": "additional_conditions_section",
    "fieldtype": "Section Break",
    "label": "Additional Conditions"
+  },
+  {
+   "description": "Set by issuing bank based on credit rating.(e.g. 10% to 100% of LC value)",
+   "fieldname": "lc_margin",
+   "fieldtype": "Percent",
+   "label": "LC Margin (%)",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-30 18:49:47.772164",
+ "modified": "2026-05-03 16:16:32.990350",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
