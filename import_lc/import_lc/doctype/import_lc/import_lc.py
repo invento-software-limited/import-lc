@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
+from frappe.utils import flt
 
 
 class ImportLC(Document):
@@ -100,3 +101,36 @@ def make_purchase_invoice(source_name, target_doc=None):
 	}, target_doc, set_missing_values)
 
 	return doclist
+
+
+@frappe.whitelist()
+def make_journal_entry(source_name):
+	"""Create Journal Entry (LC Margin) from Import LC."""
+	lc = frappe.get_doc("Import LC", source_name)
+	
+	je = frappe.new_doc("Journal Entry")
+	je.voucher_type = "LC Margin"
+	je.company = lc.company
+	je.posting_date = frappe.utils.nowdate()
+	
+	# Map custom fields
+	je.import_lc = lc.name
+	je.lc_margin = lc.lc_margin
+	
+	# Calculate LC Margin Amount
+	amount = flt(lc.grand_total) * (flt(lc.lc_margin) / 100.0)
+	je.lc_margin_amount = amount
+	
+	# Add placeholder account rows
+	je.append("accounts", {
+		"account": "", # User to select account
+		"debit_in_account_currency": amount,
+		"debit": amount
+	})
+	je.append("accounts", {
+		"account": "", # User to select account
+		"credit_in_account_currency": amount,
+		"credit": amount
+	})
+	
+	return je

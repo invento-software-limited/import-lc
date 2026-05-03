@@ -16,6 +16,10 @@
   "applicable_rules",
   "date_and_place_of_expiry",
   "place",
+  "reference_section",
+  "proforma_invoice",
+  "column_break_ciqj",
+  "purchase_order",
   "supplier_information_section",
   "beneficiary",
   "column_break_npxx",
@@ -48,15 +52,16 @@
   "mode_of_transport",
   "items_section",
   "items",
+  "totals_section",
+  "freight_charges",
+  "column_break_totals",
+  "total",
+  "grand_total",
   "charges_presentation_section",
   "charges",
   "col_charges",
   "period_for_presentation",
   "confirmation_instructions",
-  "reference_section",
-  "proforma_invoice",
-  "column_break_ciqj",
-  "purchase_order",
   "description_and_documents_tab",
   "description_docs_section",
   "documents_required",
@@ -69,7 +74,6 @@
   "sender_to_receiver_information",
   "section_break_cjfi",
   "narrative",
-  "section_break_jsmu",
   "amended_from"
  ],
  "fields": [
@@ -440,10 +444,6 @@
    "label": "Narrative"
   },
   {
-   "fieldname": "section_break_jsmu",
-   "fieldtype": "Section Break"
-  },
-  {
    "collapsible": 1,
    "fieldname": "additional_conditions_section",
    "fieldtype": "Section Break",
@@ -455,13 +455,41 @@
    "fieldtype": "Percent",
    "label": "LC Margin (%)",
    "precision": "2"
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "freight_charges",
+   "fieldtype": "Currency",
+   "label": "Freight Charges",
+   "options": "currency"
+  },
+  {
+   "fieldname": "column_break_totals",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "options": "currency",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 16:16:32.990350",
+ "modified": "2026-05-03 16:53:11.156877",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",

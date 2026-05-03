@@ -6,12 +6,12 @@ app_email = "importlc@invento.com.bd"
 app_license = "mit"
 
 fixtures = [
-    # {
-    #     "dt": "Custom Field",
-    #     "filters": [
-    #         ["dt", "in", ["Purchase Order", "Purchase Order Item"]]
-    #     ]
-    # }
+    {
+        "dt": "Property Setter",
+        "filters": [
+            ["doc_type", "==", "Journal Entry"]
+        ]
+    }
 ]
 
 # Apps
@@ -54,7 +54,8 @@ add_to_apps_screen = [
 doctype_js = {
     "Purchase Order": "public/js/purchase_order.js",
     "Proforma Invoice": "public/js/proforma_invoice.js",
-    "Purchase Invoice": "public/js/purchase_invoice.js"
+    "Purchase Invoice": "public/js/purchase_invoice.js",
+    "Journal Entry": "public/js/journal_entry.js"
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
