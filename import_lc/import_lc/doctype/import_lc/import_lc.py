@@ -165,3 +165,66 @@ def make_lc_expense_journal_entry(source_name):
 	})
 	
 	return je
+@frappe.whitelist()
+def make_landed_cost_voucher(source_name):
+	"""Create Landed Cost Voucher from Import LC."""
+	lc = frappe.get_doc("Import LC", source_name)
+	
+	# Ensure Custom Field exists in Landed Cost Voucher to keep the reference
+	if not frappe.db.exists("Custom Field", "Landed Cost Voucher-import_lc"):
+		frappe.get_doc({
+			"doctype": "Custom Field",
+			"dt": "Landed Cost Voucher",
+			"fieldname": "import_lc",
+			"label": "Import LC",
+			"fieldtype": "Link",
+			"options": "Import LC",
+			"insert_after": "company",
+			"read_only": 1
+		}).insert()
+
+	lcv = frappe.new_doc("Landed Cost Voucher")
+	lcv.company = lc.company
+	lcv.distribute_charges_based_on = "Amount"
+	lcv.import_lc = lc.name
+	lcv.posting_date = frappe.utils.nowdate()
+
+	# Find Purchase Invoices linked to this Import LC
+	# LCV specifically works against documents with stock impact (update_stock=1)
+	pis = frappe.get_all("Purchase Invoice", 
+		filters={"import_lc": source_name, "docstatus": 1, "update_stock": 1},
+		fields=["name", "supplier", "posting_date", "base_grand_total"]
+	)
+	
+	for pi in pis:
+		lcv.append("purchase_receipts", {
+			"receipt_document_type": "Purchase Invoice",
+			"receipt_document": pi.name,
+			"supplier": pi.supplier,
+			"posting_date": pi.posting_date,
+			"grand_total": pi.base_grand_total
+		})
+	
+	# Fetch charges from Import LC
+	if flt(lc.freight_charges) > 0:
+		lcv.append("taxes", {
+			"description": "Freight Charges",
+			"amount": flt(lc.freight_charges)
+		})
+	
+	if lc.get("insurance_amount") and flt(lc.insurance_amount) > 0:
+		lcv.append("taxes", {
+			"description": "Insurance Amount",
+			"amount": flt(lc.insurance_amount)
+		})
+		
+	if lc.get("other_charges") and flt(lc.other_charges) > 0:
+		lcv.append("taxes", {
+			"description": "Other Charges",
+			"amount": flt(lc.other_charges)
+		})
+
+	if lcv.purchase_receipts:
+		lcv.get_items_from_purchase_receipts()
+	
+	return lcv

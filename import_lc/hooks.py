@@ -11,6 +11,12 @@ fixtures = [
         "filters": [
             ["doc_type", "==", "Journal Entry"]
         ]
+    },
+    {
+        "dt": "Workspace",
+        "filters": [
+            ["name", "==", "Import LC"]
+        ]
     }
 ]
 
@@ -55,7 +61,8 @@ doctype_js = {
     "Purchase Order": "public/js/purchase_order.js",
     "Proforma Invoice": "public/js/proforma_invoice.js",
     "Purchase Invoice": "public/js/purchase_invoice.js",
-    "Journal Entry": "public/js/journal_entry.js"
+    "Journal Entry": "public/js/journal_entry.js",
+    "Purchase Receipt": "public/js/purchase_receipt.js"
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -198,9 +205,13 @@ doctype_js = {
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "import_lc.task.get_dashboard_data"
-# }
+override_doctype_dashboards = {
+	"Purchase Order": "import_lc.custom_dashboards.update_purchase_order_dashboard",
+	"Purchase Invoice": "import_lc.custom_dashboards.update_purchase_invoice_dashboard",
+	"Journal Entry": "import_lc.custom_dashboards.update_journal_entry_dashboard",
+	"Landed Cost Voucher": "import_lc.custom_dashboards.update_landed_cost_voucher_dashboard",
+	"Purchase Receipt": "import_lc.custom_dashboards.update_purchase_receipt_dashboard"
+}
 
 # exempt linked doctypes from being automatically cancelled
 #

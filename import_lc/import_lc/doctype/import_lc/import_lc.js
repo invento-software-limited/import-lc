@@ -40,6 +40,13 @@ frappe.ui.form.on("Import LC", {
                     }
                 });
             }, __('Create'));
+
+            frm.add_custom_button(__('Landed Cost Voucher'), function () {
+                frappe.model.open_mapped_doc({
+                    method: "import_lc.import_lc.doctype.import_lc.import_lc.make_landed_cost_voucher",
+                    frm: frm
+                });
+            }, __('Create'));
         }
     },
     tc_name: function (frm) {
