@@ -12,12 +12,12 @@ fixtures = [
             ["doc_type", "==", "Journal Entry"]
         ]
     },
-    {
-        "dt": "Workspace",
-        "filters": [
-            ["name", "==", "Import LC"]
-        ]
-    }
+    # {
+    #     "dt": "Workspace",
+    #     "filters": [
+    #         ["name", "in", ["Import LC"]]
+    #     ]
+    # }
 ]
 
 # Apps
@@ -26,14 +26,14 @@ fixtures = [
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-add_to_apps_screen = [
-	{
-		"name": "import_lc",
-		"logo": "/assets/import_lc/logo.png",
-		"title": "Import LC",
-		"route": "/desk#Workspace/Import LC"
-	}
-]
+# add_to_apps_screen = [
+# 	{
+# 		"name": "import_lc",
+# 		"logo": "/assets/import_lc/logo.png",
+# 		"title": "Import LC",
+# 		"route": "/Import LC Sidebar"
+#     }
+# ]
 
 # Includes in <head>
 # ------------------
