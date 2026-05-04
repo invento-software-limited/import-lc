@@ -6,11 +6,11 @@ def get_data():
 		"transactions": [
 			{
 				"label": _("Procurement"),
-				"items": ["Purchase Order", "Proforma Invoice", "Purchase Invoice", "Purchase Receipt", "LC Shipment"]
+				"items": ["Purchase Invoice", "Purchase Receipt", "LC Shipment"]
 			},
 			{
 				"label": _("Finance"),
-				"items": ["Journal Entry", "Landed Cost Voucher"]
+				"items": ["Journal Entry"]
 			},
 			{
 				"label": _("Others"),

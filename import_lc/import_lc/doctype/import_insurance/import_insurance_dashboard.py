@@ -10,7 +10,7 @@ def get_data():
 		"transactions": [
 			{
 				"label": _("Procurement"),
-				"items": ["Import LC", "Purchase Invoice", "Proforma Invoice", "Purchase Receipt"]
+				"items": []
 			}
 		]
 	}

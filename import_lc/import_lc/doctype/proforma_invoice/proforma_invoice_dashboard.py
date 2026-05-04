@@ -6,7 +6,7 @@ def get_data():
 		"transactions": [
 			{
 				"label": _("Procurement"),
-				"items": ["Purchase Order", "Import LC", "Purchase Invoice", "Purchase Receipt"]
+				"items": ["Import LC", "Purchase Invoice"]
 			},
 			{
 				"label": _("Logistics"),
