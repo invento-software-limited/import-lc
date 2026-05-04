@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.tests.utils import FrappeTestCase
+from frappe.model.document import Document
 
-class TestLCShipment(FrappeTestCase):
+class LCShipmentContainer(Document):
 	pass

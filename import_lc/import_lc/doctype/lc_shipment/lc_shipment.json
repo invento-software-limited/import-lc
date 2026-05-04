@@ -1,20 +1,68 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "LC-SHIP-.####",
- "creation": "2026-05-04 15:15:49.748687",
+ "autoname": "LC-SH-.####",
+ "creation": "2026-05-04 13:12:43.045696",
+ "custom": 0,
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_fj1w",
   "import_lc",
   "shipment_date",
-  "column_break_hhtm",
-  "lc_number",
+  "status",
+  "col_break_1",
+  "company",
+  "supplier",
+  "purchase_order",
+  "section_bol",
+  "bill_of_lading_no",
+  "bill_of_lading_date",
+  "col_break_2",
+  "mode_of_transport",
+  "transshipment_allowed",
+  "section_vessel",
+  "vessel_name",
+  "voyage_no",
+  "col_break_3",
+  "shipping_line",
+  "cnf_agent",
+  "section_ports",
+  "country_of_origin",
+  "port_of_loading",
+  "col_break_4",
+  "port_of_discharge",
+  "place_of_delivery",
+  "section_dates",
+  "etd",
+  "eta",
+  "col_break_5",
+  "actual_arrival_date",
+  "customs_clearance_date",
+  "section_items",
+  "currency",
+  "items",
+  "section_containers",
+  "container_details",
+  "section_charges",
+  "freight_currency",
+  "freight_amount",
+  "col_break_6",
+  "insurance_amount",
+  "other_charges",
+  "total_cnf_amount",
+  "section_docs",
+  "documents_received",
+  "documents_received_date",
+  "col_break_7",
+  "documents_submitted_to_bank",
+  "documents_submission_date",
+  "section_remarks",
+  "remarks",
   "amended_from"
  ],
  "fields": [
   {
+   "bold": 1,
    "fieldname": "import_lc",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -22,6 +70,277 @@
    "label": "Import LC",
    "options": "Import LC",
    "reqd": 1
+  },
+  {
+   "fieldname": "shipment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Shipment Date"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nIn Transit\nArrived\nCustoms Clearance\nDelivered\nCancelled"
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier (Beneficiary)",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  },
+  {
+   "fieldname": "section_bol",
+   "fieldtype": "Section Break",
+   "label": "Bill of Lading"
+  },
+  {
+   "bold": 1,
+   "fieldname": "bill_of_lading_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bill of Lading No."
+  },
+  {
+   "fieldname": "bill_of_lading_date",
+   "fieldtype": "Date",
+   "label": "Bill of Lading Date"
+  },
+  {
+   "fieldname": "col_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Sea",
+   "fieldname": "mode_of_transport",
+   "fieldtype": "Select",
+   "label": "Mode of Transport",
+   "options": "Sea\nAir\nRoad\nRail\nMultimodal"
+  },
+  {
+   "fieldname": "transshipment_allowed",
+   "fieldtype": "Check",
+   "label": "Transshipment Allowed"
+  },
+  {
+   "fieldname": "section_vessel",
+   "fieldtype": "Section Break",
+   "label": "Vessel / Flight Details"
+  },
+  {
+   "fieldname": "vessel_name",
+   "fieldtype": "Data",
+   "label": "Vessel / Flight Name"
+  },
+  {
+   "fieldname": "voyage_no",
+   "fieldtype": "Data",
+   "label": "Voyage / Flight No."
+  },
+  {
+   "fieldname": "col_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipping_line",
+   "fieldtype": "Data",
+   "label": "Shipping Line / Airline"
+  },
+  {
+   "fieldname": "cnf_agent",
+   "fieldtype": "Link",
+   "label": "C&F Agent",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "section_ports",
+   "fieldtype": "Section Break",
+   "label": "Ports & Origin"
+  },
+  {
+   "fieldname": "country_of_origin",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
+  },
+  {
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port of Loading"
+  },
+  {
+   "fieldname": "col_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "port_of_discharge",
+   "fieldtype": "Data",
+   "label": "Port of Discharge"
+  },
+  {
+   "fieldname": "place_of_delivery",
+   "fieldtype": "Data",
+   "label": "Place of Delivery"
+  },
+  {
+   "fieldname": "section_dates",
+   "fieldtype": "Section Break",
+   "label": "Shipment Timeline"
+  },
+  {
+   "fieldname": "etd",
+   "fieldtype": "Date",
+   "label": "ETD (Est. Departure)"
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Date",
+   "label": "ETA (Est. Arrival)"
+  },
+  {
+   "fieldname": "col_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_arrival_date",
+   "fieldtype": "Date",
+   "label": "Actual Arrival Date"
+  },
+  {
+   "fieldname": "customs_clearance_date",
+   "fieldtype": "Date",
+   "label": "Customs Clearance Date"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Shipment Items"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "LC Shipment Item"
+  },
+  {
+   "fieldname": "section_containers",
+   "fieldtype": "Section Break",
+   "label": "Container Details"
+  },
+  {
+   "fieldname": "container_details",
+   "fieldtype": "Table",
+   "label": "Containers",
+   "options": "LC Shipment Container"
+  },
+  {
+   "fieldname": "section_charges",
+   "fieldtype": "Section Break",
+   "label": "Charges & Costs"
+  },
+  {
+   "fieldname": "freight_currency",
+   "fieldtype": "Link",
+   "label": "Freight Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "freight_amount",
+   "fieldtype": "Currency",
+   "label": "Freight Amount",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "col_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_amount",
+   "fieldtype": "Currency",
+   "label": "Insurance Amount",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "other_charges",
+   "fieldtype": "Currency",
+   "label": "Other Charges",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "total_cnf_amount",
+   "fieldtype": "Currency",
+   "label": "Total C&F Amount",
+   "options": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_docs",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "documents_received",
+   "fieldtype": "Check",
+   "label": "Documents Received"
+  },
+  {
+   "depends_on": "eval:doc.documents_received == 1",
+   "fieldname": "documents_received_date",
+   "fieldtype": "Date",
+   "label": "Documents Received Date"
+  },
+  {
+   "fieldname": "col_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "documents_submitted_to_bank",
+   "fieldtype": "Check",
+   "label": "Documents Submitted to Bank"
+  },
+  {
+   "depends_on": "eval:doc.documents_submitted_to_bank == 1",
+   "fieldname": "documents_submission_date",
+   "fieldtype": "Date",
+   "label": "Submission Date"
+  },
+  {
+   "fieldname": "section_remarks",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks / Notes"
   },
   {
    "fieldname": "amended_from",
@@ -32,43 +351,21 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
-  },
-  {
-   "fieldname": "section_break_fj1w",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_hhtm",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "import_lc.lc_no",
-   "fieldname": "lc_number",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "LC Number"
-  },
-  {
-   "fieldname": "shipment_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Shipment Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-04 15:29:15.700800",
+ "modified": "2026-05-04 15:37:00.000000",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "LC Shipment",
- "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,

@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "creation": "2026-05-04 13:22:19.339261",
+ "custom": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "container_no",
+  "seal_no",
+  "container_type",
+  "col_break_1",
+  "gross_weight",
+  "net_weight",
+  "weight_uom",
+  "no_of_packages"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "container_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Container No.",
+   "reqd": 1
+  },
+  {
+   "fieldname": "seal_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Seal No."
+  },
+  {
+   "fieldname": "container_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "20' GP\n40' GP\n40' HC\n20' RF\n40' RF\nOther"
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Gross Weight"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "label": "Net Weight"
+  },
+  {
+   "default": "KG",
+   "fieldname": "weight_uom",
+   "fieldtype": "Select",
+   "label": "Weight UOM",
+   "options": "KG\nMT\nLBS"
+  },
+  {
+   "fieldname": "no_of_packages",
+   "fieldtype": "Int",
+   "label": "No. of Packages"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-04 15:37:00.000000",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "LC Shipment Container",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
