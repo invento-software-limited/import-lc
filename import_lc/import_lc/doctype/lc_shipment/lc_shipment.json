@@ -1,24 +1,55 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2026-05-03 19:47:20.720586",
+ "creation": "2026-05-04 15:15:49.748687",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "import_lc"
+  "section_break_fj1w",
+  "import_lc",
+  "column_break_hhtm",
+  "lc_number",
+  "amended_from"
  ],
  "fields": [
   {
    "fieldname": "import_lc",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Import LC",
-   "options": "Import LC"
+   "options": "Import LC",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_fj1w",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "import_lc.lc_no",
+   "fieldname": "lc_number",
+   "fieldtype": "Data",
+   "label": "LC Number"
+  },
+  {
+   "fieldname": "column_break_hhtm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "LC Shipment",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 19:47:54.496601",
+ "modified": "2026-05-04 15:19:37.280043",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "LC Shipment",
@@ -34,6 +65,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
