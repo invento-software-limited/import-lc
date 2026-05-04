@@ -22,6 +22,7 @@
   "purchase_order",
   "supplier_information_section",
   "beneficiary",
+  "country_of_origin",
   "column_break_npxx",
   "beneficiary_address",
   "parties_section",
@@ -109,6 +110,12 @@
    "fieldtype": "Link",
    "label": "F59: Beneficiary",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "country_of_origin",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
   },
   {
    "description": "LC issuing bank",

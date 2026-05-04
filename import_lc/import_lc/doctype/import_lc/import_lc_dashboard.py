@@ -14,7 +14,7 @@ def get_data():
 			},
 			{
 				"label": _("Others"),
-				"items": ["Import Insurance"]
+				"items": []
 			}
 		]
 	}

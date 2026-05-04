@@ -16,6 +16,7 @@
   "supplier_section",
   "supplier",
   "supplier_name",
+  "country_of_origin",
   "supplier_phone_no",
   "supplier_email",
   "col_seller_1",
@@ -130,6 +131,12 @@
    "fieldtype": "Data",
    "label": "Supplier Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "country_of_origin",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
   },
   {
    "fieldname": "supplier_address",
