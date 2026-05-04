@@ -354,7 +354,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "purchase_order.custom_po_number",
+   "fetch_from": "purchase_order.po_no",
    "fieldname": "po_no",
    "fieldtype": "Data",
    "in_list_view": 1,
