@@ -24,6 +24,7 @@
   "col_shipment",
   "proforma_invoice",
   "purchase_invoice",
+  "import_lc",
   "accounting_section",
   "company",
   "currency",
@@ -151,6 +152,12 @@
    "fieldtype": "Link",
    "label": "Purchase Invoice",
    "options": "Purchase Invoice"
+  },
+  {
+   "fieldname": "import_lc",
+   "fieldtype": "Link",
+   "label": "Import LC",
+   "options": "Import LC"
   },
   {
    "fieldname": "accounting_section",

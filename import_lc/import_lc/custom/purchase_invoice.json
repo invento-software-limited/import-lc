@@ -1605,6 +1605,14 @@
    "width": null
   },
   {
+   "fieldname": "lc_shipment",
+   "fieldtype": "Link",
+   "label": "LC Shipment",
+   "options": "LC Shipment",
+   "insert_after": "import_lc",
+   "depends_on": "eval:doc.purchase_type == 'Import'"
+  },
+  {
    "_assign": null,
    "_comments": null,
    "_liked_by": null,

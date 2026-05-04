@@ -3,10 +3,18 @@ from frappe import _
 def get_data():
 	return {
 		"fieldname": "import_lc",
+		"non_standard_fieldnames": {
+			"Purchase Invoice": "import_lc",
+			"Purchase Receipt": "import_lc",
+			"LC Shipment": "import_lc",
+			"Journal Entry": "import_lc",
+			"Landed Cost Voucher": "import_lc",
+			"Import Insurance": "import_lc"
+		},
 		"transactions": [
 			{
 				"label": _("Procurement"),
-				"items": ["Purchase Invoice", "Purchase Receipt", "LC Shipment"]
+				"items": ["Purchase Invoice", "Purchase Receipt", "LC Shipment", "Import Insurance"]
 			},
 			{
 				"label": _("Finance"),
@@ -14,7 +22,7 @@ def get_data():
 			},
 			{
 				"label": _("Others"),
-				"items": []
+				"items": ["Landed Cost Voucher"]
 			}
 		]
 	}
