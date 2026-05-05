@@ -1,0 +1,102 @@
+{
+ "app": "import_lc",
+ "charts": [],
+ "content": "[{\"id\":\"W6M1Z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Import LC Management</span>\",\"col\":12}},{\"id\":\"JtQiYMKrpU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":4}},{\"id\":\"EzKGX1upOd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Proforma Invoice\",\"col\":4}},{\"id\":\"71zEhvYGsR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import Insurance\",\"col\":4}},{\"id\":\"Iiy8mDZK2O\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import LC\",\"col\":4}},{\"id\":\"jz6BRaG6A_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Invoice\",\"col\":4}},{\"id\":\"38fzMo-JNA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Receipt\",\"col\":4}},{\"id\":\"sCUo2KxyFz\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Journal Entry\",\"col\":4}},{\"id\":\"zjAmiRvvW1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landed Cost Voucher\",\"col\":4}},{\"id\":\"FdZUjg8oTM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"LC Shipment\",\"col\":4}},{\"id\":\"links_card\",\"type\":\"links\",\"data\":{\"card_name\":\"Procurement Documents\",\"links\":[{\"type\":\"Link\",\"label\":\"Import LC\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Import LC\"},{\"type\":\"Link\",\"label\":\"Proforma Invoice\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Proforma Invoice\"},{\"type\":\"Link\",\"label\":\"LC Shipment\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"LC Shipment\"},{\"type\":\"Link\",\"label\":\"Import Insurance\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Import Insurance\"}]}},{\"id\":\"finance_card\",\"type\":\"links\",\"data\":{\"card_name\":\"Finance & Logistics\",\"links\":[{\"type\":\"Link\",\"label\":\"Landed Cost Voucher\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Landed Cost Voucher\"},{\"type\":\"Link\",\"label\":\"Journal Entry\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Journal Entry\"}]}},{\"id\":\"erp_card\",\"type\":\"links\",\"data\":{\"card_name\":\"ERPNext Documents\",\"links\":[{\"type\":\"Link\",\"label\":\"Purchase Order\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Purchase Order\"},{\"type\":\"Link\",\"label\":\"Purchase Invoice\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Purchase Invoice\"},{\"type\":\"Link\",\"label\":\"Purchase Receipt\",\"count\":0,\"link_type\":\"DocType\",\"link_to\":\"Purchase Receipt\"}]}}]",
+ "creation": "2026-05-05 11:45:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "package",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Import LC Workspace",
+ "links": [],
+ "modified": "2026-05-05 16:58:22.106997",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "Import LC Workspace",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "LC Shipment",
+   "link_to": "LC Shipment",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Purchase Order",
+   "link_to": "Purchase Order",
+   "stats_filter": "[[\"Purchase Order\",\"purchase_type\",\"=\",\"Import\"]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Proforma Invoice",
+   "link_to": "Proforma Invoice",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Yellow",
+   "doc_view": "List",
+   "label": "Import Insurance",
+   "link_to": "Import Insurance",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Import LC",
+   "link_to": "Import LC",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "label": "Purchase Invoice",
+   "link_to": "Purchase Invoice",
+   "stats_filter": "[[\"Purchase Invoice\",\"purchase_type\",\"=\",\"Import\"]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "label": "Purchase Receipt",
+   "link_to": "Purchase Receipt",
+   "stats_filter": "[[\"Purchase Receipt\",\"purchase_type\",\"=\",\"Import\"]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Journal Entry",
+   "link_to": "Journal Entry",
+   "stats_filter": "[[\"Journal Entry\",\"voucher_type\",\"in\",[\"LC Margin\",\"LC Expense\"]]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Landed Cost Voucher",
+   "link_to": "Landed Cost Voucher",
+   "stats_filter": "[[\"Landed Cost Voucher\",\"import_lc\",\"is\",\"set\"]]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Import LC Workspace",
+ "type": "Workspace"
+}

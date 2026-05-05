@@ -9,5 +9,6 @@
  "owner": "Administrator",
  "app_name": "import_lc",
  "custom": 0,
- "module_name": "Import LC"
+ "module_name": "Import LC",
+ "icon": "ship"
 }

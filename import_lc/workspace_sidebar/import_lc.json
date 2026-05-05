@@ -1,0 +1,113 @@
+{
+ "app": "import_lc",
+ "creation": "2026-05-04 12:00:31.638764",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "import",
+ "idx": 2,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Home",
+   "link_to": "Import LC Workspace",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Purchase Order",
+   "link_to": "Purchase Order",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Proforma Invoice",
+   "link_to": "Proforma Invoice",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "LC Insurance",
+   "link_to": "Import Insurance",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Import LC",
+   "link_to": "Import LC",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Purchase Invoice",
+   "link_to": "Purchase Invoice",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Purchase Receipt",
+   "link_to": "Purchase Receipt",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "list",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Landed Cost Voucher",
+   "link_to": "Landed Cost Voucher",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-05 17:01:19.258962",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "Import LC",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Import LC"
+}

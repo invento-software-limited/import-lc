@@ -4,6 +4,9 @@ app_publisher = "Invento Software Limited"
 app_description = "A LC Management App developed by Invento Software Limited"
 app_email = "importlc@invento.com.bd"
 app_license = "mit"
+app_logo_url = "/assets/import_lc/images/import_lc_logo.svg"
+app_home = "/app/import-lc"
+
 
 fixtures = [
     {
@@ -26,14 +29,14 @@ fixtures = [
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "import_lc",
-# 		"logo": "/assets/import_lc/logo.png",
-# 		"title": "Import LC",
-# 		"route": "/Import LC Sidebar"
-#     }
-# ]
+add_to_apps_screen = [
+	{
+		"name": "import_lc",
+		"logo": "/assets/import_lc/images/import_lc_logo.svg",
+		"title": "Import LC",
+		"route": "/app/import-lc"
+    }
+]
 
 # Includes in <head>
 # ------------------
