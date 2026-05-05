@@ -21,13 +21,22 @@ def make_proforma_invoice(source_name, target_doc=None):
 			"doctype": "Proforma Invoice",
 			"field_map": {
 				"name": "purchase_order",
+				"company": "company",
 				"supplier": "supplier",
+				"supplier_name": "supplier_name",
+				"supplier_address": "supplier_address",
+				"address_display": "address_display",
+				"buyer_name": "buyer_name",
+				"buyer_address": "buyer_address",
 				"currency": "currency",
 				"incoterm": "incoterm",
 				"port_of_loading": "port_of_loading",
 				"port_of_discharge": "port_of_discharge",
 				"partial_shipment": "partial_shipment",
-				"transshipment": "transshipment"
+				"transshipment": "transshipment",
+				"shipment_conditions": "shipment_conditions",
+				"tc_name": "tc_name",
+				"terms": "terms"
 			}
 		},
 		"Purchase Order Item": {

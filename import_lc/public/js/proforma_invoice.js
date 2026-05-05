@@ -39,6 +39,49 @@ frappe.ui.form.on('Proforma Invoice', {
     },
     freight_charges: function (frm) {
         calculate_totals(frm);
+    },
+    purchase_order: function(frm) {
+        if (frm.doc.purchase_order) {
+            frappe.call({
+                method: "import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_proforma_invoice",
+                args: {
+                    source_name: frm.doc.purchase_order
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        let doc = r.message;
+                        
+                        // Map main fields safely
+                        Object.keys(doc).forEach(key => {
+                            if (key !== "name" && key !== "doctype" && key !== "items" && !key.startsWith("_")) {
+                                if (doc[key]) {
+                                    frm.set_value(key, doc[key]);
+                                }
+                            }
+                        });
+
+                        // Map items
+                        if (doc.items && doc.items.length > 0) {
+                            frm.clear_table("items");
+                            doc.items.forEach(item => {
+                                let row = frm.add_child("items");
+                                Object.keys(item).forEach(key => {
+                                    if (key !== "name" && key !== "doctype" && key !== "parent" && key !== "parentfield" && key !== "parenttype" && !key.startsWith("_")) {
+                                        if (item[key] !== undefined && item[key] !== null) {
+                                            row[key] = item[key];
+                                        }
+                                    }
+                                });
+                            });
+                            frm.refresh_field("items");
+                        }
+                        
+                        calculate_totals(frm);
+                        frappe.show_alert({message: __('Data fetched from Purchase Order'), indicator: 'green'});
+                    }
+                }
+            });
+        }
     }
 });
 
