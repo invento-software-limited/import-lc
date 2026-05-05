@@ -102,6 +102,51 @@ frappe.ui.form.on("Import LC", {
                 }
             });
         }
+    },
+    proforma_invoice: function(frm) {
+        if (frm.doc.proforma_invoice) {
+            frappe.call({
+                method: "import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_import_lc",
+                args: {
+                    source_name: frm.doc.proforma_invoice
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        let doc = r.message;
+                        
+                        // Map main fields safely
+                        Object.keys(doc).forEach(key => {
+                            if (key !== "name" && key !== "doctype" && key !== "items" && !key.startsWith("_")) {
+                                if (doc[key] !== undefined && doc[key] !== null && doc[key] !== "") {
+                                    if (frm.fields_dict[key]) {
+                                        frm.set_value(key, doc[key]);
+                                    }
+                                }
+                            }
+                        });
+
+                        // Map items
+                        if (doc.items && doc.items.length > 0) {
+                            frm.clear_table("items");
+                            doc.items.forEach(item => {
+                                let row = frm.add_child("items");
+                                Object.keys(item).forEach(key => {
+                                    if (key !== "name" && key !== "doctype" && key !== "parent" && key !== "parentfield" && key !== "parenttype" && !key.startsWith("_")) {
+                                        if (item[key] !== undefined && item[key] !== null) {
+                                            row[key] = item[key];
+                                        }
+                                    }
+                                });
+                            });
+                            frm.refresh_field("items");
+                        }
+                        
+                        calculate_totals(frm);
+                        frappe.show_alert({message: __('Data fetched from Proforma Invoice'), indicator: 'green'});
+                    }
+                }
+            });
+        }
     }
 });
 

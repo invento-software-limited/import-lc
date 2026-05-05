@@ -157,7 +157,8 @@ def make_import_lc(source_name, target_doc=None):
 				"mode_of_shipment": "mode_of_shipment",
 				"transshipment": "transshipment",
 				"partial_shipment": "partial_shipment",
-				"shipment_conditions": "shipment_conditions"
+				"shipment_conditions": "shipment_conditions",
+				"purchase_order": "purchase_order"
 			}
 		},
 		"Proforma Invoice Item": {

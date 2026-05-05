@@ -55,7 +55,9 @@ frappe.ui.form.on('Proforma Invoice', {
                         Object.keys(doc).forEach(key => {
                             if (key !== "name" && key !== "doctype" && key !== "items" && !key.startsWith("_")) {
                                 if (doc[key]) {
-                                    frm.set_value(key, doc[key]);
+                                    if (frm.fields_dict[key]) {
+                                        frm.set_value(key, doc[key]);
+                                    }
                                 }
                             }
                         });
