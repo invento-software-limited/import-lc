@@ -14,15 +14,15 @@ def get_data():
 		"transactions": [
 			{
 				"label": _("Procurement"),
-				"items": ["Purchase Invoice", "Purchase Receipt", "LC Shipment", "Import Insurance"]
+				"items": ["Purchase Invoice", "Purchase Receipt"]
 			},
 			{
 				"label": _("Finance"),
-				"items": ["Journal Entry"]
+				"items": ["Journal Entry", "Landed Cost Voucher"]
 			},
 			{
 				"label": _("Others"),
-				"items": ["Landed Cost Voucher"]
+				"items": ["Import Insurance", "LC Shipment"]
 			}
 		]
 	}
