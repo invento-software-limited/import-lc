@@ -2,6 +2,16 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("LC Shipment", {
+	refresh: function(frm) {
+		if (frm.doc.docstatus === 1) {
+			frm.add_custom_button(__('Landed Cost Voucher'), function () {
+				frappe.model.open_mapped_doc({
+					method: "import_lc.import_lc.doctype.import_lc.import_lc.make_landed_cost_voucher",
+					frm: frm
+				});
+			}, __('Create'));
+		}
+	},
 	import_lc: function(frm) {
 		if (frm.doc.import_lc) {
 			frappe.db.get_doc("Import LC", frm.doc.import_lc).then(lc => {

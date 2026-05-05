@@ -166,9 +166,16 @@ def make_lc_expense_journal_entry(source_name):
 	
 	return je
 @frappe.whitelist()
-def make_landed_cost_voucher(source_name):
-	"""Create Landed Cost Voucher from Import LC."""
-	lc = frappe.get_doc("Import LC", source_name)
+def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
+	"""Create Landed Cost Voucher from Import LC or LC Shipment."""
+	
+	if source_doctype == "LC Shipment":
+		shipment = frappe.get_doc("LC Shipment", source_name)
+		lc_name = shipment.import_lc
+	else:
+		lc_name = source_name
+
+	lc = frappe.get_doc("Import LC", lc_name)
 	
 	# Ensure Custom Field exists in Landed Cost Voucher to keep the reference
 	if not frappe.db.exists("Custom Field", "Landed Cost Voucher-import_lc"):
@@ -189,10 +196,31 @@ def make_landed_cost_voucher(source_name):
 	lcv.import_lc = lc.name
 	lcv.posting_date = frappe.utils.nowdate()
 
-	# Find Purchase Invoices linked to this Import LC
-	# LCV specifically works against documents with stock impact (update_stock=1)
+	# Find Purchase Receipts linked to this Import LC
+	# If source is a shipment, we filter by shipment name too
+	filters = {"import_lc": lc.name, "docstatus": 1}
+	if source_doctype == "LC Shipment":
+		filters["lc_shipment"] = source_name
+
+	prs = frappe.get_all("Purchase Receipt",
+		filters=filters,
+		fields=["name", "supplier", "posting_date", "base_grand_total"]
+	)
+	
+	for pr in prs:
+		lcv.append("purchase_receipts", {
+			"receipt_document_type": "Purchase Receipt",
+			"receipt_document": pr.name,
+			"supplier": pr.supplier,
+			"posting_date": pr.posting_date,
+			"grand_total": pr.base_grand_total
+		})
+
+	# Find Purchase Invoices linked to this Import LC (only those that update stock)
+	# Reuse the same filters (import_lc and optional lc_shipment)
+	filters["update_stock"] = 1
 	pis = frappe.get_all("Purchase Invoice", 
-		filters={"import_lc": source_name, "docstatus": 1, "update_stock": 1},
+		filters=filters,
 		fields=["name", "supplier", "posting_date", "base_grand_total"]
 	)
 	
@@ -205,23 +233,43 @@ def make_landed_cost_voucher(source_name):
 			"grand_total": pi.base_grand_total
 		})
 	
-	# Fetch charges from Import LC
-	if flt(lc.freight_charges) > 0:
+	# Fetch charges
+	freight = 0
+	insurance = 0
+	other = 0
+
+	if source_doctype == "LC Shipment":
+		shipment = frappe.get_doc("LC Shipment", source_name)
+		freight = flt(shipment.freight_amount)
+		insurance = flt(shipment.insurance_amount)
+		other = flt(shipment.other_charges)
+	else:
+		# Fallback to Import LC charges or sum of all shipments
+		freight = flt(lc.freight_charges)
+		shipments = frappe.get_all("LC Shipment", filters={"import_lc": lc.name, "docstatus": 1}, 
+			fields=["freight_amount", "insurance_amount", "other_charges"])
+		
+		for s in shipments:
+			freight += flt(s.freight_amount)
+			insurance += flt(s.insurance_amount)
+			other += flt(s.other_charges)
+
+	if freight > 0:
 		lcv.append("taxes", {
 			"description": "Freight Charges",
-			"amount": flt(lc.freight_charges)
+			"amount": freight
 		})
 	
-	if lc.get("insurance_amount") and flt(lc.insurance_amount) > 0:
+	if insurance > 0:
 		lcv.append("taxes", {
 			"description": "Insurance Amount",
-			"amount": flt(lc.insurance_amount)
+			"amount": insurance
 		})
 		
-	if lc.get("other_charges") and flt(lc.other_charges) > 0:
+	if other > 0:
 		lcv.append("taxes", {
 			"description": "Other Charges",
-			"amount": flt(lc.other_charges)
+			"amount": other
 		})
 
 	if lcv.purchase_receipts:

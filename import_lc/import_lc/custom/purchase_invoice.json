@@ -1607,6 +1607,7 @@
   {
    "fieldname": "lc_shipment",
    "fieldtype": "Link",
+   "dt": "Purchase Invoice",
    "label": "LC Shipment",
    "options": "LC Shipment",
    "insert_after": "import_lc",
