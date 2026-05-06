@@ -119,7 +119,7 @@
    "reqd": 1
   },
   {
-   "description": "Offer valid until this date \u2014 triggers urgency on LC opening.",
+   "description": "Offer valid until this date — triggers urgency on LC opening.",
    "fieldname": "pi_validity_date",
    "fieldtype": "Date",
    "label": "PI Validity"
@@ -214,7 +214,7 @@
    "reqd": 1
   },
   {
-   "description": "SWIFT BIC \u2014 issuing bank uses this to route MT700 and eventual payment.",
+   "description": "SWIFT BIC — issuing bank uses this to route MT700 and eventual payment.",
    "fetch_from": "bank.swift_number",
    "fieldname": "swift_code",
    "fieldtype": "Data",
@@ -234,7 +234,7 @@
    "options": "Company"
   },
   {
-   "description": "Exact legal name \u2014 becomes the LC applicant.",
+   "description": "Exact legal name — becomes the LC applicant.",
    "fetch_from": "buyer.company_name",
    "fieldname": "buyer_name",
    "fieldtype": "Data",
@@ -254,16 +254,6 @@
    "fieldname": "buyer_address_display",
    "fieldtype": "Small Text",
    "label": "Full Address"
-  },
-  {
-   "fieldname": "col_buyer_contact",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "buyer_contact",
-   "fieldtype": "Link",
-   "label": "Buyer Contact",
-   "options": "Contact"
   },
   {
    "fieldname": "col_buyer_contact",
@@ -344,7 +334,7 @@
   },
   {
    "default": "0",
-   "description": "South Asian Free Trade Area preference \u2014 may reduce customs duty.",
+   "description": "South Asian Free Trade Area preference — may reduce customs duty.",
    "fieldname": "safta_clause",
    "fieldtype": "Check",
    "label": "SAFTA Clause"
@@ -356,13 +346,13 @@
    "label": "Shipment Details"
   },
   {
-   "description": "Origin port \u2014 must match across LC, B/L and commercial invoice.",
+   "description": "Origin port — must match across LC, B/L and commercial invoice.",
    "fieldname": "port_of_loading",
    "fieldtype": "Data",
    "label": "Port of Loading"
   },
   {
-   "description": "Destination port \u2014 must match across all documents.",
+   "description": "Destination port — must match across all documents.",
    "fieldname": "port_of_discharge",
    "fieldtype": "Data",
    "label": "Port of Discharge"
@@ -529,7 +519,7 @@
    "search_index": 1
   },
   {
-   "description": "Beneficiary bank name \u2014 used by issuing bank to route payment.",
+   "description": "Beneficiary bank name — used by issuing bank to route payment.",
    "fieldname": "bank",
    "fieldtype": "Link",
    "label": "Bank",
