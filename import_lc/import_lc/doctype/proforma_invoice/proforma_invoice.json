@@ -10,9 +10,11 @@
   "company",
   "pi_number",
   "pi_date",
+  "pi_validity_date",
   "col_basic_1",
   "invoice_date",
-  "pi_validity_date",
+  "purchase_order",
+  "po_no",
   "supplier_section",
   "supplier",
   "supplier_name",
@@ -61,10 +63,6 @@
   "transshipment",
   "partial_shipment",
   "shipment_conditions",
-  "reference_section",
-  "purchase_order",
-  "col_ref_1",
-  "po_no",
   "product_details_section",
   "items",
   "financial_summary_section",
@@ -122,9 +120,10 @@
    "label": "PI Validity"
   },
   {
+   "collapsible": 1,
    "fieldname": "supplier_section",
    "fieldtype": "Section Break",
-   "label": "Supplier Details"
+   "label": "Supplier Information"
   },
   {
    "fieldname": "supplier",
@@ -186,7 +185,7 @@
    "collapsible": 1,
    "fieldname": "supplier_bank_section",
    "fieldtype": "Section Break",
-   "label": "Supplier Bank Details"
+   "label": "Supplier Bank Information"
   },
   {
    "fieldname": "bank_branch",
@@ -400,21 +399,12 @@
    "options": "\nAllowed\nNot Allowed"
   },
   {
-   "fieldname": "reference_section",
-   "fieldtype": "Section Break",
-   "label": "Reference"
-  },
-  {
    "fieldname": "purchase_order",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Purchase Order Reference",
+   "label": "Purchase Order",
    "options": "Purchase Order"
-  },
-  {
-   "fieldname": "col_ref_1",
-   "fieldtype": "Column Break"
   },
   {
    "fetch_from": "purchase_order.po_no",
@@ -526,7 +516,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-06 17:16:21.675675",
+ "modified": "2026-05-06 18:33:55.002755",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",

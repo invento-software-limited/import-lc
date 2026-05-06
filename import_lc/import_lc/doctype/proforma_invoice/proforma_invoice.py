@@ -15,6 +15,7 @@ def make_proforma_invoice(source_name, target_doc=None):
 	"""Create Proforma Invoice from Purchase Order."""
 	def set_missing_values(source, target):
 		target.purchase_order = source.name
+		target.buyer = source.company  # Set PO company as the buyer in Proforma Invoice
 
 	doclist = get_mapped_doc("Purchase Order", source_name, {
 		"Purchase Order": {

@@ -165,8 +165,8 @@ frappe.ui.form.on('Proforma Invoice', {
                         let phone = '';
                         if (contact.phone_nos && contact.phone_nos.length) {
                             let primary = contact.phone_nos.find(p => p.is_primary_mobile_no) ||
-                                          contact.phone_nos.find(p => p.is_primary_phone) ||
-                                          contact.phone_nos[0];
+                                contact.phone_nos.find(p => p.is_primary_phone) ||
+                                contact.phone_nos[0];
                             phone = primary ? primary.phone : '';
                         }
                         // Get primary email
@@ -297,8 +297,8 @@ frappe.ui.form.on('Proforma Invoice', {
                         let phone = '';
                         if (contact.phone_nos && contact.phone_nos.length) {
                             let primary = contact.phone_nos.find(p => p.is_primary_mobile_no) ||
-                                          contact.phone_nos.find(p => p.is_primary_phone) ||
-                                          contact.phone_nos[0];
+                                contact.phone_nos.find(p => p.is_primary_phone) ||
+                                contact.phone_nos[0];
                             phone = primary ? primary.phone : '';
                         }
                         let email = '';
@@ -356,14 +356,14 @@ frappe.ui.form.on('Proforma Invoice', {
         calculate_totals(frm);
     },
 
-    purchase_order: function(frm) {
+    purchase_order: function (frm) {
         if (frm.doc.purchase_order) {
             frappe.call({
                 method: "import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_proforma_invoice",
                 args: {
                     source_name: frm.doc.purchase_order
                 },
-                callback: function(r) {
+                callback: function (r) {
                     if (r.message) {
                         let doc = r.message;
 
@@ -395,7 +395,14 @@ frappe.ui.form.on('Proforma Invoice', {
                         }
 
                         calculate_totals(frm);
-                        frappe.show_alert({message: __('Data fetched from Purchase Order'), indicator: 'green'});
+
+                        // Cascade all buyer data (phone, email, address, contact)
+                        // since buyer is set from PO's company
+                        if (frm.doc.buyer) {
+                            frm.trigger('buyer');
+                        }
+
+                        frappe.show_alert({ message: __('Data fetched from Purchase Order'), indicator: 'green' });
                     }
                 }
             });
