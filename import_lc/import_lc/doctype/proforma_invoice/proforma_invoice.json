@@ -16,12 +16,13 @@
   "supplier_section",
   "supplier",
   "supplier_name",
-  "country_of_origin",
-  "supplier_phone_no",
-  "supplier_email",
-  "col_seller_1",
+  "col_supplier_address",
   "supplier_address",
   "address_display",
+  "col_supplier_contact",
+  "supplier_contact",
+  "supplier_phone_no",
+  "supplier_email",
   "supplier_bank_section",
   "bank",
   "swift_code",
@@ -32,10 +33,13 @@
   "buyer_information_section",
   "buyer",
   "buyer_name",
-  "phone_no",
-  "col_buyer_1",
-  "email",
+  "col_buyer_address",
   "buyer_address",
+  "buyer_address_display",
+  "col_buyer_contact",
+  "buyer_contact",
+  "buyer_phone_no",
+  "buyer_email",
   "trade_commercial_section",
   "currency",
   "payment_terms",
@@ -46,6 +50,7 @@
   "delivery_terms",
   "safta_clause",
   "shipment_details_section",
+  "country_of_origin",
   "port_of_loading",
   "port_of_discharge",
   "col_shipment_1",
@@ -117,6 +122,11 @@
    "label": "PI Validity"
   },
   {
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Details"
+  },
+  {
    "fieldname": "supplier",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -129,14 +139,11 @@
    "fetch_from": "supplier.supplier_name",
    "fieldname": "supplier_name",
    "fieldtype": "Data",
-   "label": "Supplier Name",
-   "read_only": 1
+   "label": "Supplier Name"
   },
   {
-   "fieldname": "country_of_origin",
-   "fieldtype": "Link",
-   "label": "Country of Origin",
-   "options": "Country"
+   "fieldname": "col_supplier_address",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "supplier_address",
@@ -145,27 +152,35 @@
    "options": "Address"
   },
   {
-   "fetch_from": "supplier_address.phone",
+   "fieldname": "address_display",
+   "fieldtype": "Small Text",
+   "label": "Full Address"
+  },
+  {
+   "fieldname": "col_supplier_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_contact",
+   "fieldtype": "Link",
+   "label": "Supplier Contact",
+   "options": "Contact"
+  },
+  {
    "fieldname": "supplier_phone_no",
    "fieldtype": "Data",
    "label": "Supplier Phone No."
   },
   {
-   "fetch_from": "supplier_address.email_id",
    "fieldname": "supplier_email",
    "fieldtype": "Data",
    "label": "Supplier Email"
   },
   {
-   "fieldname": "col_seller_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "supplier_address.address_display",
-   "fieldname": "address_display",
-   "fieldtype": "Small Text",
-   "label": "Full Address",
-   "read_only": 1
+   "fieldname": "country_of_origin",
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
   },
   {
    "collapsible": 1,
@@ -209,6 +224,12 @@
    "label": "Buyer Information"
   },
   {
+   "fieldname": "buyer",
+   "fieldtype": "Link",
+   "label": "Buyer",
+   "options": "Company"
+  },
+  {
    "description": "Exact legal name \u2014 becomes the LC applicant.",
    "fetch_from": "buyer.company_name",
    "fieldname": "buyer_name",
@@ -216,14 +237,49 @@
    "label": "Buyer Name"
   },
   {
+   "fieldname": "col_buyer_address",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "buyer_address",
-   "fieldtype": "Small Text",
+   "fieldtype": "Link",
    "label": "Buyer Address",
    "options": "Address"
   },
   {
-   "fieldname": "col_buyer_1",
+   "fieldname": "buyer_address_display",
+   "fieldtype": "Small Text",
+   "label": "Full Address"
+  },
+  {
+   "fieldname": "col_buyer_contact",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buyer_contact",
+   "fieldtype": "Link",
+   "label": "Buyer Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "col_buyer_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buyer_contact",
+   "fieldtype": "Link",
+   "label": "Buyer Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "buyer_phone_no",
+   "fieldtype": "Data",
+   "label": "Buyer Phone No."
+  },
+  {
+   "fieldname": "buyer_email",
+   "fieldtype": "Data",
+   "label": "Buyer Email"
   },
   {
    "collapsible": 1,
@@ -452,12 +508,6 @@
    "search_index": 1
   },
   {
-   "collapsible": 1,
-   "fieldname": "supplier_section",
-   "fieldtype": "Section Break",
-   "label": "Supplier Information"
-  },
-  {
    "description": "Beneficiary bank name \u2014 used by issuing bank to route payment.",
    "fieldname": "bank",
    "fieldtype": "Link",
@@ -466,37 +516,17 @@
    "reqd": 1
   },
   {
-   "fieldname": "buyer",
-   "fieldtype": "Link",
-   "label": "Buyer",
-   "options": "Company"
-  },
-  {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
-  },
-  {
-   "fetch_from": "buyer.phone_no",
-   "fetch_if_empty": 1,
-   "fieldname": "phone_no",
-   "fieldtype": "Data",
-   "label": "Phone No."
-  },
-  {
-   "fetch_from": "buyer.email",
-   "fetch_if_empty": 1,
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "label": "Email"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 15:29:41.509473",
+ "modified": "2026-05-06 17:16:21.675675",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",
