@@ -6,8 +6,14 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 
 
+from frappe.utils import money_in_words
+
 class ProformaInvoice(Document):
-	pass
+	def validate(self):
+		self.in_words = money_in_words(self.grand_total, self.currency)
+		company_currency = frappe.db.get_value("Company", self.company, "default_currency")
+		if company_currency:
+			self.base_in_words = money_in_words(self.base_grand_total, company_currency)
 
 
 @frappe.whitelist()
@@ -27,9 +33,14 @@ def make_proforma_invoice(source_name, target_doc=None):
 				"supplier_name": "supplier_name",
 				"supplier_address": "supplier_address",
 				"address_display": "address_display",
+				"contact_person": "supplier_contact",
+				"contact_mobile": "supplier_phone_no",
+				"contact_email": "supplier_email",
 				"buyer_name": "buyer_name",
 				"buyer_address": "buyer_address",
+				"buyer_contact": "buyer_contact",
 				"currency": "currency",
+				"conversion_rate": "conversion_rate",
 				"incoterm": "incoterm",
 				"port_of_loading": "port_of_loading",
 				"port_of_discharge": "port_of_discharge",
@@ -49,7 +60,9 @@ def make_proforma_invoice(source_name, target_doc=None):
 				"qty": "qty",
 				"uom": "uom",
 				"rate": "rate",
+				"base_rate": "base_rate",
 				"amount": "amount",
+				"base_amount": "base_amount",
 				"tolerance_percent": "tolerance_percent",
 				"brand": "brand"
 			}
@@ -143,7 +156,9 @@ def make_import_lc(source_name, target_doc=None):
 				"email": "email",
 				"buyer_address": "buyer_address",
 				"currency": "currency",
+				"conversion_rate": "conversion_rate",
 				"grand_total": "lc_amount",
+				"base_grand_total": "base_lc_amount",
 				"payment_terms": "payment_terms",
 				"incoterm": "incoterm",
 				"tolerance_percent": "tolerance_percent",
@@ -173,7 +188,9 @@ def make_import_lc(source_name, target_doc=None):
 				"qty": "qty",
 				"uom": "uom",
 				"rate": "rate",
+				"base_rate": "base_rate",
 				"amount": "amount",
+				"base_amount": "base_amount",
 				"packing_type": "packing_type",
 				"packing_details": "packing_details",
 				"total_qty": "total_qty",
@@ -218,10 +235,16 @@ def make_purchase_invoice(source_name, target_doc=None):
 				"email": "email",
 				"buyer_address": "buyer_address",
 				"currency": "currency",
+				"conversion_rate": "conversion_rate",
 				"payment_terms": "payment_terms",
 				"incoterm": "incoterm",
 				"tolerance_percent": "tolerance_percent",
 				"freight_charges": "freight_charges",
+				"base_freight_charges_amount": "base_taxes_and_charges_added",
+				"grand_total": "grand_total",
+				"base_grand_total": "base_grand_total",
+				"rounded_total": "rounded_total",
+				"base_rounded_total": "base_rounded_total",
 				"delivery_terms": "delivery_terms",
 				"safta_clause": "safta_clause",
 				"port_of_loading": "port_of_loading",
@@ -245,7 +268,9 @@ def make_purchase_invoice(source_name, target_doc=None):
 				"qty": "qty",
 				"uom": "uom",
 				"rate": "rate",
+				"base_rate": "base_rate",
 				"amount": "amount",
+				"base_amount": "base_amount",
 				"packing_type": "packing_type",
 				"total_qty": "custom_total_qty",
 				"total_volume_weight": "total_volume_weight",

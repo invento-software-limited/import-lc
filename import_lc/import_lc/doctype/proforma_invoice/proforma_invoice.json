@@ -44,13 +44,15 @@
   "buyer_email",
   "trade_commercial_section",
   "currency",
-  "payment_terms",
-  "incoterm",
+  "conversion_rate",
   "tolerance_percent",
   "col_trade_1",
   "freight_charges",
   "delivery_terms",
   "safta_clause",
+  "column_break_muzo",
+  "payment_terms",
+  "incoterm",
   "shipment_details_section",
   "country_of_origin",
   "port_of_loading",
@@ -66,9 +68,12 @@
   "product_details_section",
   "items",
   "financial_summary_section",
-  "subtotal",
-  "freight_charges_amount",
+  "base_subtotal",
+  "base_grand_total",
+  "base_rounded_total",
+  "base_in_words",
   "col_financial_1",
+  "subtotal",
   "grand_total",
   "rounded_total",
   "in_words",
@@ -294,6 +299,13 @@
    "reqd": 1
   },
   {
+   "default": "1",
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate",
+   "precision": "9"
+  },
+  {
    "description": "LC at sight / usance / deferred payment.",
    "fieldname": "payment_terms",
    "fieldtype": "Select",
@@ -439,11 +451,10 @@
    "read_only": 1
   },
   {
-   "description": "Freight charges from Trade & Commercial Details.",
-   "fieldname": "freight_charges_amount",
+   "fieldname": "base_subtotal",
    "fieldtype": "Currency",
-   "label": "Freight Charges",
-   "options": "currency",
+   "label": "Subtotal (Company Currency)",
+   "options": "Company:company:default_currency",
    "read_only": 1
   },
   {
@@ -458,6 +469,13 @@
    "read_only": 1
   },
   {
+   "fieldname": "base_grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
    "fieldname": "rounded_total",
    "fieldtype": "Currency",
    "label": "Rounded Total",
@@ -465,9 +483,22 @@
    "read_only": 1
   },
   {
+   "fieldname": "base_rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
    "fieldname": "in_words",
    "fieldtype": "Data",
    "label": "In Words",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_in_words",
+   "fieldtype": "Data",
+   "label": "In Words (Company Currency)",
    "read_only": 1
   },
   {
@@ -510,13 +541,17 @@
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
+  },
+  {
+   "fieldname": "column_break_muzo",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-06 18:33:55.002755",
+ "modified": "2026-05-06 19:45:41.108221",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",

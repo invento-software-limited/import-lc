@@ -28,6 +28,7 @@ frappe.ui.form.on('Proforma Invoice', {
         if (frm.doc.buyer_contact && !frm.doc.buyer_phone_no) {
             frm.trigger('buyer_contact');
         }
+        toggle_base_currency_fields(frm);
         if (frm.doc.buyer) {
             frm.set_query('buyer_address', function () {
                 return {
@@ -356,6 +357,44 @@ frappe.ui.form.on('Proforma Invoice', {
         calculate_totals(frm);
     },
 
+    currency: function (frm) {
+        if (frm.doc.currency && frm.doc.company) {
+            frappe.db.get_value('Company', frm.doc.company, 'default_currency', function (r) {
+                if (r && r.default_currency) {
+                    if (frm.doc.currency === r.default_currency) {
+                        frm.set_value('conversion_rate', 1.0);
+                    } else {
+                        frappe.call({
+                            method: "erpnext.setup.utils.get_exchange_rate",
+                            args: {
+                                transaction_date: frm.doc.pi_date || frappe.datetime.get_today(),
+                                from_currency: frm.doc.currency,
+                                to_currency: r.default_currency
+                            },
+                            callback: function (r2) {
+                                frm.set_value('conversion_rate', flt(r2.message));
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        toggle_base_currency_fields(frm);
+    },
+
+    conversion_rate: function (frm) {
+        // Re-calculate all items and totals with new conversion rate
+        if (frm.doc.items && frm.doc.items.length > 0) {
+            frm.doc.items.forEach(item => {
+                var base_rate = flt(item.rate) * flt(frm.doc.conversion_rate || 1);
+                var base_amount = flt(item.amount) * flt(frm.doc.conversion_rate || 1);
+                frappe.model.set_value(item.doctype, item.name, 'base_rate', base_rate);
+                frappe.model.set_value(item.doctype, item.name, 'base_amount', base_amount);
+            });
+        }
+        calculate_totals(frm);
+    },
+
     purchase_order: function (frm) {
         if (frm.doc.purchase_order) {
             frappe.call({
@@ -425,7 +464,13 @@ frappe.ui.form.on('Proforma Invoice Item', {
 var calculate_item_amount = function (frm, cdt, cdn) {
     var row = locals[cdt][cdn];
     var amount = flt(row.qty) * flt(row.rate);
+    var base_rate = flt(row.rate) * flt(frm.doc.conversion_rate || 1);
+    var base_amount = amount * flt(frm.doc.conversion_rate || 1);
+
     frappe.model.set_value(cdt, cdn, "amount", amount);
+    frappe.model.set_value(cdt, cdn, "base_rate", base_rate);
+    frappe.model.set_value(cdt, cdn, "base_amount", base_amount);
+
     // Assuming Total Amount (USD) is same as amount for now, or you can add currency conversion logic
     frappe.model.set_value(cdt, cdn, "total_amount_usd", amount);
     calculate_totals(frm);
@@ -433,15 +478,40 @@ var calculate_item_amount = function (frm, cdt, cdn) {
 
 var calculate_totals = function (frm) {
     var subtotal = 0;
+    var base_subtotal = 0;
+
     (frm.doc.items || []).forEach(function (item) {
         subtotal += flt(item.amount);
+        base_subtotal += flt(item.base_amount);
     });
     frm.set_value("subtotal", subtotal);
+    frm.set_value("base_subtotal", base_subtotal);
 
-    // Sync freight charges from Trade Details to Summary
-    frm.set_value("freight_charges_amount", frm.doc.freight_charges);
+    var conversion_rate = flt(frm.doc.conversion_rate) || 1;
+    var base_freight = flt(frm.doc.freight_charges) * conversion_rate;
 
     var grand_total = subtotal + flt(frm.doc.freight_charges);
+    var base_grand_total = base_subtotal + base_freight;
+
     frm.set_value("grand_total", grand_total);
     frm.set_value("rounded_total", Math.round(grand_total));
+
+    frm.set_value("base_grand_total", base_grand_total);
+    frm.set_value("base_rounded_total", Math.round(base_grand_total));
+};
+
+var toggle_base_currency_fields = function(frm) {
+    if (frm.doc.company && frm.doc.currency) {
+        frappe.db.get_value('Company', frm.doc.company, 'default_currency', function(r) {
+            let hide_base = false;
+            if (r && r.default_currency && frm.doc.currency === r.default_currency) {
+                hide_base = true;
+            }
+            frm.toggle_display(['conversion_rate', 'base_subtotal', 'base_grand_total', 'base_rounded_total', 'base_in_words'], !hide_base);
+            if (frm.fields_dict.items && frm.fields_dict.items.grid) {
+                frm.fields_dict.items.grid.toggle_display('base_rate', !hide_base);
+                frm.fields_dict.items.grid.toggle_display('base_amount', !hide_base);
+            }
+        });
+    }
 };
