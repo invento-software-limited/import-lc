@@ -77,7 +77,10 @@ def make_import_insurance(source_name, target_doc=None):
 	"""Create Import Insurance from Proforma Invoice."""
 	def set_missing_values(source, target):
 		target.proforma_invoice = source.name
-		target.currency = source.currency
+		# Set currency to company default since we are using base_grand_total
+		from erpnext import get_company_currency
+		target.currency = get_company_currency(source.company)
+		
 		if source.items:
 			goods = ", ".join([d.item_name for d in source.items if d.item_name])
 			target.goods_description = goods
@@ -87,9 +90,8 @@ def make_import_insurance(source_name, target_doc=None):
 			"doctype": "Import Insurance",
 			"field_map": {
 				"name": "proforma_invoice",
-				"supplier_name": "insured_party",
-				"currency": "currency",
-				"grand_total": "insured_value",
+				"buyer_name": "insured_party",
+				"base_grand_total": "insured_value",
 				"incoterm": "incoterm",
 				"port_of_loading": "port_of_loading",
 				"port_of_discharge": "port_of_discharge"
