@@ -59,6 +59,14 @@ frappe.ui.form.on('Proforma Invoice', {
                     frm: frm
                 });
             }, __('Create'));
+
+            // Create Commercial Invoice button
+            frm.add_custom_button(__('Commercial Invoice'), function () {
+                frappe.model.open_mapped_doc({
+                    method: 'import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_purchase_invoice',
+                    frm: frm
+                });
+            }, __('Create'));
         }
     },
 

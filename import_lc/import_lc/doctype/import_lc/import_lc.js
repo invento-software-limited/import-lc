@@ -4,7 +4,7 @@
 frappe.ui.form.on("Import LC", {
     refresh(frm) {
         if (frm.doc.docstatus === 1) {
-            frm.add_custom_button(__('Purchase Invoice'), function () {
+            frm.add_custom_button(__('Commercial Invoice'), function () {
                 frappe.model.open_mapped_doc({
                     method: "import_lc.import_lc.doctype.import_lc.import_lc.make_purchase_invoice",
                     frm: frm

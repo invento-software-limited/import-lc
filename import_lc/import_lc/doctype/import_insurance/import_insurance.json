@@ -151,7 +151,7 @@
   {
    "fieldname": "purchase_invoice",
    "fieldtype": "Link",
-   "label": "Purchase Invoice",
+   "label": "Commercial Invoice",
    "options": "Purchase Invoice"
   },
   {
