@@ -463,35 +463,35 @@ frappe.ui.form.on('Proforma Invoice Item', {
 
 var calculate_item_amount = function (frm, cdt, cdn) {
     var row = locals[cdt][cdn];
-    var amount = flt(row.qty) * flt(row.rate);
+    var total = flt(row.qty) * flt(row.rate);
     var base_rate = flt(row.rate) * flt(frm.doc.conversion_rate || 1);
-    var base_amount = amount * flt(frm.doc.conversion_rate || 1);
+    var base_total = total * flt(frm.doc.conversion_rate || 1);
 
-    frappe.model.set_value(cdt, cdn, "amount", amount);
+    frappe.model.set_value(cdt, cdn, "total", total);
     frappe.model.set_value(cdt, cdn, "base_rate", base_rate);
-    frappe.model.set_value(cdt, cdn, "base_amount", base_amount);
+    frappe.model.set_value(cdt, cdn, "base_total", base_total);
 
-    // Assuming Total Amount (USD) is same as amount for now, or you can add currency conversion logic
-    frappe.model.set_value(cdt, cdn, "total_amount_usd", amount);
+    // Assuming Total Amount (USD) is same as total for now
+    frappe.model.set_value(cdt, cdn, "total_amount_usd", total);
     calculate_totals(frm);
 };
 
 var calculate_totals = function (frm) {
-    var subtotal = 0;
-    var base_subtotal = 0;
+    var total = 0;
+    var base_total = 0;
 
     (frm.doc.items || []).forEach(function (item) {
-        subtotal += flt(item.amount);
-        base_subtotal += flt(item.base_amount);
+        total += flt(item.total);
+        base_total += flt(item.base_total);
     });
-    frm.set_value("subtotal", subtotal);
-    frm.set_value("base_subtotal", base_subtotal);
+    frm.set_value("total", total);
+    frm.set_value("base_total", base_total);
 
     var conversion_rate = flt(frm.doc.conversion_rate) || 1;
     var base_freight = flt(frm.doc.freight_charges) * conversion_rate;
 
-    var grand_total = subtotal + flt(frm.doc.freight_charges);
-    var base_grand_total = base_subtotal + base_freight;
+    var grand_total = total + flt(frm.doc.freight_charges);
+    var base_grand_total = base_total + base_freight;
 
     frm.set_value("grand_total", grand_total);
     frm.set_value("rounded_total", Math.round(grand_total));
@@ -507,10 +507,10 @@ var toggle_base_currency_fields = function(frm) {
             if (r && r.default_currency && frm.doc.currency === r.default_currency) {
                 hide_base = true;
             }
-            frm.toggle_display(['conversion_rate', 'base_subtotal', 'base_grand_total', 'base_rounded_total', 'base_in_words'], !hide_base);
+            frm.toggle_display(['conversion_rate', 'base_total', 'base_grand_total', 'base_rounded_total', 'base_in_words'], !hide_base);
             if (frm.fields_dict.items && frm.fields_dict.items.grid) {
                 frm.fields_dict.items.grid.toggle_display('base_rate', !hide_base);
-                frm.fields_dict.items.grid.toggle_display('base_amount', !hide_base);
+                frm.fields_dict.items.grid.toggle_display('base_total', !hide_base);
             }
         });
     }

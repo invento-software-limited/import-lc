@@ -18,6 +18,7 @@
   "place",
   "reference_section",
   "proforma_invoice",
+  "import_insurance",
   "column_break_ciqj",
   "purchase_order",
   "supplier_information_section",
@@ -54,12 +55,16 @@
   "mode_of_transport",
   "items_section",
   "items",
-  "totals_section",
-  "freight_charges",
-  "total_qty",
-  "column_break_totals",
+  "financial_summary_section",
+  "base_total",
+  "base_grand_total",
+  "base_rounded_total",
+  "base_in_words",
+  "col_financial_1",
   "total",
   "grand_total",
+  "rounded_total",
+  "in_words",
   "charges_presentation_section",
   "charges",
   "col_charges",
@@ -77,7 +82,9 @@
   "sender_to_receiver_information",
   "section_break_cjfi",
   "narrative",
-  "amended_from"
+  "amended_from",
+  "freight_charges",
+  "total_qty"
  ],
  "fields": [
   {
@@ -429,7 +436,15 @@
    "fieldname": "proforma_invoice",
    "fieldtype": "Link",
    "label": "Proforma Invoice",
-   "options": "Proforma Invoice"
+   "options": "Proforma Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "import_insurance",
+   "fieldtype": "Link",
+   "label": "Import Insurance",
+   "options": "Import Insurance",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ciqj",
@@ -467,7 +482,7 @@
    "precision": "2"
   },
   {
-   "fieldname": "totals_section",
+   "fieldname": "financial_summary_section",
    "fieldtype": "Section Break"
   },
   {
@@ -478,6 +493,57 @@
    "read_only": 1
   },
   {
+   "fieldname": "base_total",
+   "fieldtype": "Currency",
+   "label": "Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col_financial_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "in_words",
+   "fieldtype": "Data",
+   "label": "In Words",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_in_words",
+   "fieldtype": "Data",
+   "label": "In Words (Company Currency)",
+   "read_only": 1
+  },
+  {
    "fieldname": "freight_charges",
    "fieldtype": "Currency",
    "hidden": 1,
@@ -485,20 +551,9 @@
    "options": "currency"
   },
   {
-   "fieldname": "column_break_totals",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "grand_total",
-   "fieldtype": "Currency",
-   "label": "Grand Total",
-   "options": "currency",
-   "read_only": 1
-  },
-  {
    "fieldname": "conversion_rate",
    "fieldtype": "Float",
-   "label": "Conversion Rate"
+   "label": "Exchange Rate"
   },
   {
    "fieldname": "total_qty",
@@ -511,7 +566,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 17:47:14.961042",
+ "modified": "2026-05-07 17:22:35.792730",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",

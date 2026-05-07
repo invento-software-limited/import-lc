@@ -4,11 +4,15 @@
 import frappe
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
-from frappe.utils import flt
+from frappe.utils import flt, money_in_words
 
 
 class ImportLC(Document):
-	pass
+	def validate(self):
+		self.in_words = money_in_words(self.grand_total, self.currency)
+		company_currency = frappe.get_cached_value("Company", self.company, "default_currency")
+		if company_currency:
+			self.base_in_words = money_in_words(self.base_grand_total, company_currency)
 
 
 @frappe.whitelist()
@@ -96,7 +100,9 @@ def make_purchase_invoice(source_name, target_doc=None):
 				"qty": "qty",
 				"uom": "uom",
 				"rate": "rate",
-				"amount": "amount"
+				"base_rate": "base_rate",
+				"total": "amount",
+				"base_total": "base_amount"
 			}
 		}
 	}, target_doc, set_missing_values)

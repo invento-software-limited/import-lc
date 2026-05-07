@@ -15,7 +15,8 @@
   "uom",
   "qty",
   "rate",
-  "amount",
+  "total",
+  "base_total",
   "packing_logistics_section",
   "packing_type",
   "packing_details",
@@ -88,17 +89,17 @@
    "read_only": 1
   },
   {
-   "fieldname": "amount",
+   "fieldname": "total",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Subtotal",
+   "label": "Total",
    "options": "currency",
    "read_only": 1
   },
   {
-   "fieldname": "base_amount",
+   "fieldname": "base_total",
    "fieldtype": "Currency",
-   "label": "Amount (Company Currency)",
+   "label": "Total (Company Currency)",
    "options": "Company:company:default_currency",
    "read_only": 1
   },

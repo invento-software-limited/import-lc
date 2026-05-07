@@ -48,6 +48,16 @@ frappe.ui.form.on("Import LC", {
                 });
             }, __('Create'));
         }
+        
+        frm.set_query('import_insurance', function() {
+            return {
+                filters: {
+                    proforma_invoice: frm.doc.proforma_invoice
+                }
+            };
+        });
+
+        toggle_base_currency_fields(frm);
     },
     tc_name: function (frm) {
         if (frm.doc.tc_name) {
@@ -82,6 +92,19 @@ frappe.ui.form.on("Import LC", {
     },
     currency: function (frm) {
         frm.trigger("get_conversion_rate");
+        toggle_base_currency_fields(frm);
+    },
+    conversion_rate: function (frm) {
+        // Re-calculate all items and totals with new conversion rate
+        if (frm.doc.items && frm.doc.items.length > 0) {
+            frm.doc.items.forEach(item => {
+                var base_rate = flt(item.rate) * flt(frm.doc.conversion_rate || 1);
+                var base_total = flt(item.total) * flt(frm.doc.conversion_rate || 1);
+                frappe.model.set_value(item.doctype, item.name, 'base_rate', base_rate);
+                frappe.model.set_value(item.doctype, item.name, 'base_total', base_total);
+            });
+        }
+        calculate_totals(frm);
     },
     date_of_issue: function (frm) {
         frm.trigger("get_conversion_rate");
@@ -142,6 +165,7 @@ frappe.ui.form.on("Import LC", {
                         }
                         
                         calculate_totals(frm);
+                        toggle_base_currency_fields(frm);
                         frappe.show_alert({message: __('Data fetched from Proforma Invoice'), indicator: 'green'});
                     }
                 }
@@ -164,22 +188,60 @@ frappe.ui.form.on('Import LC Item', {
 
 var calculate_item_amount = function (frm, cdt, cdn) {
     var row = locals[cdt][cdn];
-    var amount = flt(row.qty) * flt(row.rate);
-    frappe.model.set_value(cdt, cdn, "amount", amount);
-    frappe.model.set_value(cdt, cdn, "total_amount_usd", amount);
+    var total = flt(row.qty) * flt(row.rate);
+    var conversion_rate = flt(frm.doc.conversion_rate) || 1;
+    var base_rate = flt(row.rate) * conversion_rate;
+    var base_total = total * conversion_rate;
+
+    frappe.model.set_value(cdt, cdn, "total", total);
+    frappe.model.set_value(cdt, cdn, "base_rate", base_rate);
+    frappe.model.set_value(cdt, cdn, "base_total", base_total);
+    
+    frappe.model.set_value(cdt, cdn, "total_amount_usd", total);
     calculate_totals(frm);
 };
 
 var calculate_totals = function (frm) {
-    var subtotal = 0;
+    var total = 0;
+    var base_total = 0;
     var total_qty = 0;
+
     (frm.doc.items || []).forEach(function (item) {
-        subtotal += flt(item.amount);
+        total += flt(item.total);
+        base_total += flt(item.base_total);
         total_qty += flt(item.qty);
     });
-    frm.set_value("total", subtotal);
+
+    frm.set_value("total", total);
+    frm.set_value("base_total", base_total);
     frm.set_value("total_qty", total_qty);
 
-    var grand_total = subtotal + flt(frm.doc.freight_charges) + flt(frm.doc.insurance_amount) + flt(frm.doc.other_charges);
+    var conversion_rate = flt(frm.doc.conversion_rate) || 1;
+    var freight_charges = flt(frm.doc.freight_charges);
+    var base_freight = freight_charges * conversion_rate;
+
+    var grand_total = total + freight_charges;
+    var base_grand_total = base_total + base_freight;
+
     frm.set_value("grand_total", grand_total);
+    frm.set_value("rounded_total", Math.round(grand_total));
+
+    frm.set_value("base_grand_total", base_grand_total);
+    frm.set_value("base_rounded_total", Math.round(base_grand_total));
+};
+
+var toggle_base_currency_fields = function(frm) {
+    if (frm.doc.company && frm.doc.currency) {
+        frappe.db.get_value('Company', frm.doc.company, 'default_currency', function(r) {
+            let hide_base = false;
+            if (r && r.default_currency && frm.doc.currency === r.default_currency) {
+                hide_base = true;
+            }
+            frm.toggle_display(['conversion_rate', 'base_total', 'base_grand_total', 'base_rounded_total', 'base_in_words'], !hide_base);
+            if (frm.fields_dict.items && frm.fields_dict.items.grid) {
+                frm.fields_dict.items.grid.toggle_display('base_rate', !hide_base);
+                frm.fields_dict.items.grid.toggle_display('base_total', !hide_base);
+            }
+        });
+    }
 };

@@ -68,12 +68,12 @@
   "product_details_section",
   "items",
   "financial_summary_section",
-  "base_subtotal",
+  "base_total",
   "base_grand_total",
   "base_rounded_total",
   "base_in_words",
   "col_financial_1",
-  "subtotal",
+  "total",
   "grand_total",
   "rounded_total",
   "in_words",
@@ -434,16 +434,16 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "subtotal",
+   "fieldname": "total",
    "fieldtype": "Currency",
-   "label": "Subtotal",
+   "label": "Total",
    "options": "currency",
    "read_only": 1
   },
   {
-   "fieldname": "base_subtotal",
+   "fieldname": "base_total",
    "fieldtype": "Currency",
-   "label": "Subtotal (Company Currency)",
+   "label": "Total (Company Currency)",
    "options": "Company:company:default_currency",
    "read_only": 1
   },
