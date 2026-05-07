@@ -145,7 +145,8 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Proforma Invoice",
-   "options": "Proforma Invoice"
+   "options": "Proforma Invoice",
+   "reqd": 1
   },
   {
    "fieldname": "purchase_invoice",
