@@ -212,6 +212,7 @@ def make_purchase_invoice(source_name, target_doc=None):
 	"""Create Purchase Invoice from Proforma Invoice."""
 	def set_missing_values(source, target):
 		target.purchase_type = "Import"
+		target.naming_series = "COM-INV-.YYYY.-"
 		target.proforma_invoice = source.name
 
 	doclist = get_mapped_doc("Proforma Invoice", source_name, {

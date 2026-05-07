@@ -1,595 +1,595 @@
 {
- "actions": [],
- "allow_rename": 1,
- "autoname": "IMP-LC-.####",
- "creation": "2026-04-30 13:47:13.497259",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "header_section",
-  "company",
-  "form_of_documentary_credit",
-  "lc_no",
-  "reference_to_pre_advice",
-  "col_header",
-  "date_of_issue",
-  "applicable_rules",
-  "date_and_place_of_expiry",
-  "place",
-  "reference_section",
-  "proforma_invoice",
-  "import_insurance",
-  "column_break_ciqj",
-  "purchase_order",
-  "supplier_information_section",
-  "beneficiary",
-  "country_of_origin",
-  "column_break_npxx",
-  "beneficiary_address",
-  "parties_section",
-  "applicant",
-  "col_parties",
-  "applicant_address",
-  "banks_section",
-  "issuing_bank",
-  "lc_margin",
-  "col_banks",
-  "beneficiary_bank",
-  "value_terms_section",
-  "currency",
-  "conversion_rate",
-  "drafts_at",
-  "incoterm",
-  "col_value",
-  "percentage_credit_amount_tolerance",
-  "available_with",
-  "shipment_section",
-  "partial_shipments",
-  "transshipment",
-  "latest_date_of_shipment",
-  "place_of_taking_in_charge",
-  "col_shipment",
-  "port_of_loading",
-  "port_of_discharge",
-  "final_destination",
-  "mode_of_transport",
-  "items_section",
-  "items",
-  "financial_summary_section",
-  "base_total",
-  "base_grand_total",
-  "base_rounded_total",
-  "base_in_words",
-  "col_financial_1",
-  "total",
-  "grand_total",
-  "rounded_total",
-  "in_words",
-  "charges_presentation_section",
-  "charges",
-  "col_charges",
-  "period_for_presentation",
-  "confirmation_instructions",
-  "description_and_documents_tab",
-  "description_docs_section",
-  "documents_required",
-  "additional_conditions_section",
-  "additional_conditions",
-  "instruction_and_information_tab",
-  "instructions_info_section",
-  "instructions_to_bank",
-  "section_break_dmph",
-  "sender_to_receiver_information",
-  "section_break_cjfi",
-  "narrative",
-  "amended_from",
-  "freight_charges",
-  "total_qty"
- ],
- "fields": [
-  {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company"
-  },
-  {
-   "description": "LC issuance date",
-   "fieldname": "date_of_issue",
-   "fieldtype": "Date",
-   "label": "F31C: Date of Issue"
-  },
-  {
-   "description": "Expiry date and location",
-   "fieldname": "date_and_place_of_expiry",
-   "fieldtype": "Date",
-   "label": "F31D: Date of Expiry"
-  },
-  {
-   "description": "Links to pre-advice message",
-   "fieldname": "reference_to_pre_advice",
-   "fieldtype": "Data",
-   "label": "F23: Reference to Pre-Advice"
-  },
-  {
-   "description": "Exporter (seller) name",
-   "fieldname": "beneficiary",
-   "fieldtype": "Link",
-   "label": "F59: Beneficiary",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "country_of_origin",
-   "fieldtype": "Link",
-   "label": "Country of Origin",
-   "options": "Country"
-  },
-  {
-   "description": "LC issuing bank",
-   "fieldname": "issuing_bank",
-   "fieldtype": "Link",
-   "label": "F52A: Issuing Bank",
-   "options": "Bank"
-  },
-  {
-   "description": "Beneficiary\u2019s bank",
-   "fieldname": "beneficiary_bank",
-   "fieldtype": "Link",
-   "label": "F58A: Beneficiary Bank",
-   "options": "Bank"
-  },
-  {
-   "fieldname": "currency",
-   "fieldtype": "Link",
-   "label": "F32B: Currency",
-   "options": "Currency",
-   "reqd": 1
-  },
-  {
-   "description": "Type of LC (Irrevocable etc.)",
-   "fieldname": "form_of_documentary_credit",
-   "fieldtype": "Select",
-   "label": "F40A: Form of Documentary Credit",
-   "options": "\nREVOCABLE\nIRREVOCABLE\nSTANDBY\nIRREVOCABLE TRANSFERABLE\nIRREVOCABLE STANDBY\nIRREVOCABLE TRANS STANDBY"
-  },
-  {
-   "description": "Rules (e.g. UCP 600)",
-   "fieldname": "applicable_rules",
-   "fieldtype": "Select",
-   "label": "F40E: Applicable Rules",
-   "options": "\nUCP LATEST VERSION\nUCP 600\nEUCP LATEST VERSION\nEUCP 2.0\nISP LATEST VERSION\nURDG LATEST VERSION\nOTHR"
-  },
-  {
-   "description": "payment terms",
-   "fieldname": "drafts_at",
-   "fieldtype": "Select",
-   "label": "F42C: Drafts at",
-   "options": "\nLC at Sight\nUsance\nDeferred Payment"
-  },
-  {
-   "description": "Loading port",
-   "fieldname": "port_of_loading",
-   "fieldtype": "Data",
-   "label": "F44E: Port of Loading"
-  },
-  {
-   "description": "Discharge port",
-   "fieldname": "port_of_discharge",
-   "fieldtype": "Data",
-   "label": "F44F: Port of Discharge"
-  },
-  {
-   "description": "Shipment starting point",
-   "fieldname": "place_of_taking_in_charge",
-   "fieldtype": "Data",
-   "label": "F44A: Place of Taking in Charge"
-  },
-  {
-   "description": "Shipment deadline",
-   "fieldname": "latest_date_of_shipment",
-   "fieldtype": "Date",
-   "label": "F44C: Latest Date of Shipment"
-  },
-  {
-   "description": "Allowed or not",
-   "fieldname": "transshipment",
-   "fieldtype": "Select",
-   "label": "F43T: Transshipment",
-   "options": "\nAllowed\nNot Allowed"
-  },
-  {
-   "fieldname": "items_section",
-   "fieldtype": "Section Break",
-   "label": "F45A: Description of Goods"
-  },
-  {
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "options": "Import LC Item"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "description_docs_section",
-   "fieldtype": "Section Break",
-   "label": "Documents Required"
-  },
-  {
-   "description": "Required documents list",
-   "fieldname": "documents_required",
-   "fieldtype": "Text Editor",
-   "label": "F46A: Documents Required"
-  },
-  {
-   "description": "Special conditions",
-   "fieldname": "additional_conditions",
-   "fieldtype": "Text Editor",
-   "label": "F47A: Additional Conditions"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "instructions_info_section",
-   "fieldtype": "Section Break",
-   "label": "Instructions to Bank"
-  },
-  {
-   "description": "Payment/negotiation instructions",
-   "fieldname": "instructions_to_bank",
-   "fieldtype": "Text Editor",
-   "label": "F78: Instructions to Bank"
-  },
-  {
-   "description": "Additional info",
-   "fieldname": "sender_to_receiver_information",
-   "fieldtype": "Text Editor",
-   "label": "F72Z: Sender to Receiver Information"
-  },
-  {
-   "description": "Extra narrative Details",
-   "fieldname": "narrative",
-   "fieldtype": "Text Editor",
-   "label": "F77A: Narrative"
-  },
-  {
-   "description": "Charges responsibility",
-   "fieldname": "charges",
-   "fieldtype": "Small Text",
-   "label": "F71D: Charges"
-  },
-  {
-   "description": "Days to present documents",
-   "fieldname": "period_for_presentation",
-   "fieldtype": "Data",
-   "label": "F48: Period for Presentation"
-  },
-  {
-   "description": "Confirmation requirement",
-   "fieldname": "confirmation_instructions",
-   "fieldtype": "Select",
-   "label": "F49: Confirmation Instructions",
-   "options": "\nWITHOUT\nMAY ADD\nCONFIRM"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Import LC",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
-   "fieldname": "header_section",
-   "fieldtype": "Section Break",
-   "label": "Identification & General"
-  },
-  {
-   "fieldname": "col_header",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "parties_section",
-   "fieldtype": "Section Break",
-   "label": "Buyer Information"
-  },
-  {
-   "description": "Importer (buyer) name",
-   "fieldname": "applicant",
-   "fieldtype": "Link",
-   "label": "F50: Applicant",
-   "options": "Company"
-  },
-  {
-   "fieldname": "col_parties",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "value_terms_section",
-   "fieldtype": "Section Break",
-   "label": "Trade & Commercial Details"
-  },
-  {
-   "description": "Allowed variance (+/- %)",
-   "fieldname": "percentage_credit_amount_tolerance",
-   "fieldtype": "Data",
-   "label": "F39A: Percentage Credit Amount Tolerance"
-  },
-  {
-   "fieldname": "col_value",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "shipment_section",
-   "fieldtype": "Section Break",
-   "label": "Shipment Details"
-  },
-  {
-   "description": "Allowed or not",
-   "fieldname": "partial_shipments",
-   "fieldtype": "Select",
-   "label": "F43P: Partial Shipments",
-   "options": "\nAllowed\nNot Allowed"
-  },
-  {
-   "fieldname": "col_shipment",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "charges_presentation_section",
-   "fieldtype": "Section Break",
-   "label": "Charges & Presentation"
-  },
-  {
-   "fieldname": "col_charges",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "banks_section",
-   "fieldtype": "Section Break",
-   "label": "Bank Inforamtion"
-  },
-  {
-   "fieldname": "col_banks",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "description_and_documents_tab",
-   "fieldtype": "Tab Break",
-   "label": "Description and Documents"
-  },
-  {
-   "fieldname": "instruction_and_information_tab",
-   "fieldtype": "Tab Break",
-   "label": "Instruction and Information"
-  },
-  {
-   "description": "Unique LC number",
-   "fieldname": "lc_no",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "F20: LC Number",
-   "reqd": 1
-  },
-  {
-   "description": "Bank & method (e.g. negotiation)",
-   "fieldname": "available_with",
-   "fieldtype": "Small Text",
-   "label": "F41A: Available With"
-  },
-  {
-   "fieldname": "place",
-   "fieldtype": "Data",
-   "label": "F31D: Place"
-  },
-  {
-   "fieldname": "applicant_address",
-   "fieldtype": "Link",
-   "label": "F50: Applicant Address",
-   "options": "Address"
-  },
-  {
-   "fieldname": "beneficiary_address",
-   "fieldtype": "Link",
-   "label": "F59: Beneficiary Address",
-   "options": "Address"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "supplier_information_section",
-   "fieldtype": "Section Break",
-   "label": "Supplier Information"
-  },
-  {
-   "fieldname": "column_break_npxx",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "incoterm",
-   "fieldtype": "Link",
-   "label": "Incoterm",
-   "options": "Incoterm"
-  },
-  {
-   "fieldname": "mode_of_transport",
-   "fieldtype": "Select",
-   "label": "Mode of Transport",
-   "options": "\nSea\nAir\nRoad\nRail\nMultimodal"
-  },
-  {
-   "description": "Final destination",
-   "fieldname": "final_destination",
-   "fieldtype": "Data",
-   "label": "F44B: Place of Final Destination"
-  },
-  {
-   "fieldname": "reference_section",
-   "fieldtype": "Section Break",
-   "label": "Reference"
-  },
-  {
-   "fieldname": "proforma_invoice",
-   "fieldtype": "Link",
-   "label": "Proforma Invoice",
-   "options": "Proforma Invoice",
-   "reqd": 1
-  },
-  {
-   "fieldname": "import_insurance",
-   "fieldtype": "Link",
-   "label": "Import Insurance",
-   "options": "Import Insurance",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_ciqj",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "purchase_order",
-   "fieldtype": "Link",
-   "label": "Purchase Order",
-   "options": "Purchase Order"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "section_break_dmph",
-   "fieldtype": "Section Break",
-   "label": "Sender to Receiver Information"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "section_break_cjfi",
-   "fieldtype": "Section Break",
-   "label": "Narrative"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "additional_conditions_section",
-   "fieldtype": "Section Break",
-   "label": "Additional Conditions"
-  },
-  {
-   "description": "Set by issuing bank based on credit rating.(e.g. 10% to 100% of LC value)",
-   "fieldname": "lc_margin",
-   "fieldtype": "Percent",
-   "label": "LC Margin (%)",
-   "precision": "2"
-  },
-  {
-   "fieldname": "financial_summary_section",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "total",
-   "fieldtype": "Currency",
-   "label": "Total",
-   "options": "currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "base_total",
-   "fieldtype": "Currency",
-   "label": "Total (Company Currency)",
-   "options": "Company:company:default_currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "col_financial_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "grand_total",
-   "fieldtype": "Currency",
-   "label": "Grand Total Amount",
-   "options": "currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "base_grand_total",
-   "fieldtype": "Currency",
-   "label": "Grand Total (Company Currency)",
-   "options": "Company:company:default_currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "rounded_total",
-   "fieldtype": "Currency",
-   "label": "Rounded Total",
-   "options": "currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "base_rounded_total",
-   "fieldtype": "Currency",
-   "label": "Rounded Total (Company Currency)",
-   "options": "Company:company:default_currency",
-   "read_only": 1
-  },
-  {
-   "fieldname": "in_words",
-   "fieldtype": "Data",
-   "label": "In Words",
-   "read_only": 1
-  },
-  {
-   "fieldname": "base_in_words",
-   "fieldtype": "Data",
-   "label": "In Words (Company Currency)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "freight_charges",
-   "fieldtype": "Currency",
-   "hidden": 1,
-   "label": "Freight Charges",
-   "options": "currency"
-  },
-  {
-   "fieldname": "conversion_rate",
-   "fieldtype": "Float",
-   "label": "Exchange Rate"
-  },
-  {
-   "fieldname": "total_qty",
-   "fieldtype": "Float",
-   "label": "Total Qty",
-   "read_only": 1
-  }
- ],
- "grid_page_length": 50,
- "index_web_pages_for_search": 1,
- "is_submittable": 1,
- "links": [],
- "modified": "2026-05-07 17:22:35.792730",
- "modified_by": "Administrator",
- "module": "Import LC",
- "name": "Import LC",
- "naming_rule": "Expression",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "submit": 1,
-   "write": 1
-  }
- ],
- "row_format": "Dynamic",
- "rows_threshold_for_grid_search": 20,
- "sort_field": "creation",
- "sort_order": "DESC",
- "states": []
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "IMP-LC-.####",
+    "creation": "2026-04-30 13:47:13.497259",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "header_section",
+        "company",
+        "form_of_documentary_credit",
+        "lc_no",
+        "reference_to_pre_advice",
+        "col_header",
+        "date_of_issue",
+        "applicable_rules",
+        "date_and_place_of_expiry",
+        "place",
+        "reference_section",
+        "proforma_invoice",
+        "import_insurance",
+        "column_break_ciqj",
+        "purchase_order",
+        "supplier_information_section",
+        "beneficiary",
+        "country_of_origin",
+        "column_break_npxx",
+        "beneficiary_address",
+        "parties_section",
+        "applicant",
+        "col_parties",
+        "applicant_address",
+        "banks_section",
+        "issuing_bank",
+        "lc_margin",
+        "col_banks",
+        "beneficiary_bank",
+        "value_terms_section",
+        "currency",
+        "conversion_rate",
+        "drafts_at",
+        "incoterm",
+        "col_value",
+        "percentage_credit_amount_tolerance",
+        "available_with",
+        "shipment_section",
+        "partial_shipments",
+        "transshipment",
+        "latest_date_of_shipment",
+        "place_of_taking_in_charge",
+        "col_shipment",
+        "port_of_loading",
+        "port_of_discharge",
+        "final_destination",
+        "mode_of_transport",
+        "items_section",
+        "items",
+        "financial_summary_section",
+        "base_total",
+        "base_grand_total",
+        "base_rounded_total",
+        "base_in_words",
+        "col_financial_1",
+        "total",
+        "grand_total",
+        "rounded_total",
+        "in_words",
+        "charges_presentation_section",
+        "charges",
+        "col_charges",
+        "period_for_presentation",
+        "confirmation_instructions",
+        "description_and_documents_tab",
+        "description_docs_section",
+        "documents_required",
+        "additional_conditions_section",
+        "additional_conditions",
+        "instruction_and_information_tab",
+        "instructions_info_section",
+        "instructions_to_bank",
+        "section_break_dmph",
+        "sender_to_receiver_information",
+        "section_break_cjfi",
+        "narrative",
+        "amended_from",
+        "freight_charges",
+        "total_qty"
+    ],
+    "fields": [
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company"
+        },
+        {
+            "description": "LC issuance date",
+            "fieldname": "date_of_issue",
+            "fieldtype": "Date",
+            "label": "F31C: Date of Issue"
+        },
+        {
+            "description": "Expiry date and location",
+            "fieldname": "date_and_place_of_expiry",
+            "fieldtype": "Date",
+            "label": "F31D: Date of Expiry"
+        },
+        {
+            "description": "Links to pre-advice message",
+            "fieldname": "reference_to_pre_advice",
+            "fieldtype": "Data",
+            "label": "F23: Reference to Pre-Advice"
+        },
+        {
+            "description": "Exporter (seller) name",
+            "fieldname": "beneficiary",
+            "fieldtype": "Link",
+            "label": "F59: Beneficiary",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "country_of_origin",
+            "fieldtype": "Link",
+            "label": "Country of Origin",
+            "options": "Country"
+        },
+        {
+            "description": "LC issuing bank",
+            "fieldname": "issuing_bank",
+            "fieldtype": "Link",
+            "label": "F52A: Issuing Bank",
+            "options": "Bank"
+        },
+        {
+            "description": "Beneficiary\u2019s bank",
+            "fieldname": "beneficiary_bank",
+            "fieldtype": "Link",
+            "label": "F58A: Beneficiary Bank",
+            "options": "Bank"
+        },
+        {
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "F32B: Currency",
+            "options": "Currency",
+            "reqd": 1
+        },
+        {
+            "description": "Type of LC (Irrevocable etc.)",
+            "fieldname": "form_of_documentary_credit",
+            "fieldtype": "Select",
+            "label": "F40A: Form of Documentary Credit",
+            "options": "\nREVOCABLE\nIRREVOCABLE\nSTANDBY\nIRREVOCABLE TRANSFERABLE\nIRREVOCABLE STANDBY\nIRREVOCABLE TRANS STANDBY"
+        },
+        {
+            "description": "Rules (e.g. UCP 600)",
+            "fieldname": "applicable_rules",
+            "fieldtype": "Select",
+            "label": "F40E: Applicable Rules",
+            "options": "\nUCP LATEST VERSION\nUCP 600\nEUCP LATEST VERSION\nEUCP 2.0\nISP LATEST VERSION\nURDG LATEST VERSION\nOTHR"
+        },
+        {
+            "description": "payment terms",
+            "fieldname": "drafts_at",
+            "fieldtype": "Select",
+            "label": "F42C: Drafts at",
+            "options": "\nLC at Sight\nUsance\nDeferred Payment"
+        },
+        {
+            "description": "Loading port",
+            "fieldname": "port_of_loading",
+            "fieldtype": "Data",
+            "label": "F44E: Port of Loading"
+        },
+        {
+            "description": "Discharge port",
+            "fieldname": "port_of_discharge",
+            "fieldtype": "Data",
+            "label": "F44F: Port of Discharge"
+        },
+        {
+            "description": "Shipment starting point",
+            "fieldname": "place_of_taking_in_charge",
+            "fieldtype": "Data",
+            "label": "F44A: Place of Taking in Charge"
+        },
+        {
+            "description": "Shipment deadline",
+            "fieldname": "latest_date_of_shipment",
+            "fieldtype": "Date",
+            "label": "F44C: Latest Date of Shipment"
+        },
+        {
+            "description": "Allowed or not",
+            "fieldname": "transshipment",
+            "fieldtype": "Select",
+            "label": "F43T: Transshipment",
+            "options": "\nAllowed\nNot Allowed"
+        },
+        {
+            "fieldname": "items_section",
+            "fieldtype": "Section Break",
+            "label": "F45A: Description of Goods"
+        },
+        {
+            "fieldname": "items",
+            "fieldtype": "Table",
+            "label": "Items",
+            "options": "Import LC Item"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "description_docs_section",
+            "fieldtype": "Section Break",
+            "label": "Documents Required"
+        },
+        {
+            "description": "Required documents list",
+            "fieldname": "documents_required",
+            "fieldtype": "Text Editor",
+            "label": "F46A: Documents Required"
+        },
+        {
+            "description": "Special conditions",
+            "fieldname": "additional_conditions",
+            "fieldtype": "Text Editor",
+            "label": "F47A: Additional Conditions"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "instructions_info_section",
+            "fieldtype": "Section Break",
+            "label": "Instructions to Bank"
+        },
+        {
+            "description": "Payment/negotiation instructions",
+            "fieldname": "instructions_to_bank",
+            "fieldtype": "Text Editor",
+            "label": "F78: Instructions to Bank"
+        },
+        {
+            "description": "Additional info",
+            "fieldname": "sender_to_receiver_information",
+            "fieldtype": "Text Editor",
+            "label": "F72Z: Sender to Receiver Information"
+        },
+        {
+            "description": "Extra narrative Details",
+            "fieldname": "narrative",
+            "fieldtype": "Text Editor",
+            "label": "F77A: Narrative"
+        },
+        {
+            "description": "Charges responsibility",
+            "fieldname": "charges",
+            "fieldtype": "Small Text",
+            "label": "F71D: Charges"
+        },
+        {
+            "description": "Days to present documents",
+            "fieldname": "period_for_presentation",
+            "fieldtype": "Data",
+            "label": "F48: Period for Presentation"
+        },
+        {
+            "description": "Confirmation requirement",
+            "fieldname": "confirmation_instructions",
+            "fieldtype": "Select",
+            "label": "F49: Confirmation Instructions",
+            "options": "\nWITHOUT\nMAY ADD\nCONFIRM"
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Import LC",
+            "print_hide": 1,
+            "read_only": 1,
+            "search_index": 1
+        },
+        {
+            "fieldname": "header_section",
+            "fieldtype": "Section Break",
+            "label": "Identification & General"
+        },
+        {
+            "fieldname": "col_header",
+            "fieldtype": "Column Break"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "parties_section",
+            "fieldtype": "Section Break",
+            "label": "Buyer Information"
+        },
+        {
+            "description": "Importer (buyer) name",
+            "fieldname": "applicant",
+            "fieldtype": "Link",
+            "label": "F50: Applicant",
+            "options": "Company"
+        },
+        {
+            "fieldname": "col_parties",
+            "fieldtype": "Column Break"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "value_terms_section",
+            "fieldtype": "Section Break",
+            "label": "Trade & Commercial Details"
+        },
+        {
+            "description": "Allowed variance (+/- %)",
+            "fieldname": "percentage_credit_amount_tolerance",
+            "fieldtype": "Data",
+            "label": "F39A: Percentage Credit Amount Tolerance"
+        },
+        {
+            "fieldname": "col_value",
+            "fieldtype": "Column Break"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "shipment_section",
+            "fieldtype": "Section Break",
+            "label": "Shipment Details"
+        },
+        {
+            "description": "Allowed or not",
+            "fieldname": "partial_shipments",
+            "fieldtype": "Select",
+            "label": "F43P: Partial Shipments",
+            "options": "\nAllowed\nNot Allowed"
+        },
+        {
+            "fieldname": "col_shipment",
+            "fieldtype": "Column Break"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "charges_presentation_section",
+            "fieldtype": "Section Break",
+            "label": "Charges & Presentation"
+        },
+        {
+            "fieldname": "col_charges",
+            "fieldtype": "Column Break"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "banks_section",
+            "fieldtype": "Section Break",
+            "label": "Bank Inforamtion"
+        },
+        {
+            "fieldname": "col_banks",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "description_and_documents_tab",
+            "fieldtype": "Tab Break",
+            "label": "Description and Documents"
+        },
+        {
+            "fieldname": "instruction_and_information_tab",
+            "fieldtype": "Tab Break",
+            "label": "Instruction and Information"
+        },
+        {
+            "description": "Unique LC number",
+            "fieldname": "lc_no",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "F20: LC Number",
+            "reqd": 1
+        },
+        {
+            "description": "Bank & method (e.g. negotiation)",
+            "fieldname": "available_with",
+            "fieldtype": "Small Text",
+            "label": "F41A: Available With"
+        },
+        {
+            "fieldname": "place",
+            "fieldtype": "Data",
+            "label": "F31D: Place"
+        },
+        {
+            "fieldname": "applicant_address",
+            "fieldtype": "Link",
+            "label": "F50: Applicant Address",
+            "options": "Address"
+        },
+        {
+            "fieldname": "beneficiary_address",
+            "fieldtype": "Link",
+            "label": "F59: Beneficiary Address",
+            "options": "Address"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "supplier_information_section",
+            "fieldtype": "Section Break",
+            "label": "Supplier Information"
+        },
+        {
+            "fieldname": "column_break_npxx",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "incoterm",
+            "fieldtype": "Link",
+            "label": "Incoterm",
+            "options": "Incoterm"
+        },
+        {
+            "fieldname": "mode_of_transport",
+            "fieldtype": "Select",
+            "label": "Mode of Transport",
+            "options": "\nSea\nAir\nRoad\nRail\nMultimodal"
+        },
+        {
+            "description": "Final destination",
+            "fieldname": "final_destination",
+            "fieldtype": "Data",
+            "label": "F44B: Place of Final Destination"
+        },
+        {
+            "fieldname": "reference_section",
+            "fieldtype": "Section Break",
+            "label": "Reference"
+        },
+        {
+            "fieldname": "proforma_invoice",
+            "fieldtype": "Link",
+            "label": "Proforma Invoice",
+            "options": "Proforma Invoice",
+            "reqd": 1
+        },
+        {
+            "fieldname": "import_insurance",
+            "fieldtype": "Link",
+            "label": "Import Insurance",
+            "options": "Import Insurance",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_ciqj",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "purchase_order",
+            "fieldtype": "Link",
+            "label": "Purchase Order",
+            "options": "Purchase Order"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_break_dmph",
+            "fieldtype": "Section Break",
+            "label": "Sender to Receiver Information"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_break_cjfi",
+            "fieldtype": "Section Break",
+            "label": "Narrative"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "additional_conditions_section",
+            "fieldtype": "Section Break",
+            "label": "Additional Conditions"
+        },
+        {
+            "description": "Set by issuing bank based on credit rating.(e.g. 10% to 100% of LC value)",
+            "fieldname": "lc_margin",
+            "fieldtype": "Percent",
+            "label": "LC Margin (%)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "financial_summary_section",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "total",
+            "fieldtype": "Currency",
+            "label": "Total",
+            "options": "currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "base_total",
+            "fieldtype": "Currency",
+            "label": "Total (Company Currency)",
+            "options": "Company:company:default_currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "col_financial_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "grand_total",
+            "fieldtype": "Currency",
+            "label": "Grand Total Amount",
+            "options": "currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "base_grand_total",
+            "fieldtype": "Currency",
+            "label": "Grand Total (Company Currency)",
+            "options": "Company:company:default_currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "rounded_total",
+            "fieldtype": "Currency",
+            "label": "Rounded Total",
+            "options": "currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "base_rounded_total",
+            "fieldtype": "Currency",
+            "label": "Rounded Total (Company Currency)",
+            "options": "Company:company:default_currency",
+            "read_only": 1
+        },
+        {
+            "fieldname": "in_words",
+            "fieldtype": "Data",
+            "label": "In Words",
+            "read_only": 1
+        },
+        {
+            "fieldname": "base_in_words",
+            "fieldtype": "Data",
+            "label": "In Words (Company Currency)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "freight_charges",
+            "fieldtype": "Currency",
+            "hidden": 1,
+            "label": "Freight Charges",
+            "options": "currency"
+        },
+        {
+            "fieldname": "conversion_rate",
+            "fieldtype": "Float",
+            "label": "Exchange Rate"
+        },
+        {
+            "fieldname": "total_qty",
+            "fieldtype": "Float",
+            "label": "Total Qty",
+            "read_only": 1
+        }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2026-05-07 17:22:35.792730",
+    "modified_by": "Administrator",
+    "module": "Import LC",
+    "name": "Import LC",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        }
+    ],
+    "row_format": "Dynamic",
+    "rows_threshold_for_grid_search": 20,
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "states": []
 }

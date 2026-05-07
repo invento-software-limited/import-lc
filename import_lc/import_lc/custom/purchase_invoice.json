@@ -3203,6 +3203,14 @@
  "links": [],
  "property_setters": [
   {
+   "doc_type": "Purchase Invoice",
+   "doctype_or_field": "DocField",
+   "field_name": "naming_series",
+   "property": "options",
+   "property_type": "Select",
+   "value": "ACC-PINV-.YYYY.-\nACC-PINV-RET-.YYYY.-\nCOM-INV-.YYYY.-"
+  },
+  {
    "_assign": null,
    "_comments": null,
    "_liked_by": null,

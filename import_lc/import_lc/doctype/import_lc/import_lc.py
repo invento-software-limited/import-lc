@@ -21,6 +21,7 @@ def make_purchase_invoice(source_name, target_doc=None):
 	
 	def set_missing_values(source, target):
 		target.purchase_type = "Import"
+		target.naming_series = "COM-INV-.YYYY.-"
 		target.import_lc = source.name
 		
 		if source.proforma_invoice:

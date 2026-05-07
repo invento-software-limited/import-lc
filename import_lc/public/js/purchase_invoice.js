@@ -8,9 +8,25 @@ frappe.ui.form.on('Purchase Invoice', {
 			'trade_commercial_section',
 			'shipment_details_section'
 		], frm.doc.purchase_type === 'Import');
+		frm.trigger('set_naming_series');
 	},
 	purchase_type: function (frm) {
 		frm.trigger('refresh');
+		frm.trigger('set_naming_series');
+	},
+	set_naming_series: function (frm) {
+		let options = "ACC-PINV-.YYYY.-\nACC-PINV-RET-.YYYY.-";
+		if (frm.doc.purchase_type === 'Import') {
+			options += "\nCOM-INV-.YYYY.-";
+			if (!frm.doc.naming_series || !frm.doc.naming_series.startsWith('COM-INV-')) {
+				frm.set_value('naming_series', 'COM-INV-.YYYY.-');
+			}
+		} else {
+			if (frm.doc.naming_series && frm.doc.naming_series.startsWith('COM-INV-')) {
+				frm.set_value('naming_series', 'ACC-PINV-.YYYY.-');
+			}
+		}
+		frm.set_df_property('naming_series', 'options', options);
 	},
 	import_lc: function (frm) {
 		if (frm.doc.import_lc) {
