@@ -85,7 +85,7 @@
    "description": null,
    "docstatus": 0,
    "dt": "Journal Entry",
-   "fetch_from": "import_lc.grand_total",
+   "fetch_from": "import_lc.base_grand_total",
    "fetch_if_empty": 0,
    "fieldname": "import_lc_amount",
    "fieldtype": "Currency",

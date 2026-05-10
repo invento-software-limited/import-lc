@@ -1,9 +1,9 @@
 frappe.ui.form.on("Journal Entry", {
 	import_lc: function (frm) {
 		if (frm.doc.import_lc && (frm.doc.voucher_type === "LC Margin" || frm.doc.voucher_type === "LC Expense")) {
-			frappe.db.get_value("Import LC", frm.doc.import_lc, "grand_total", (r) => {
-				if (r && r.grand_total) {
-					frm.set_value("import_lc_amount", r.grand_total);
+			frappe.db.get_value("Import LC", frm.doc.import_lc, "base_grand_total", (r) => {
+				if (r && r.base_grand_total) {
+					frm.set_value("import_lc_amount", r.base_grand_total);
 					if (frm.doc.voucher_type === "LC Margin") {
 						calculate_margin_amount(frm);
 					}

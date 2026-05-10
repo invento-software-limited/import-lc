@@ -123,11 +123,11 @@ def make_journal_entry(source_name):
 	
 	# Map custom fields
 	je.import_lc = lc.name
-	je.import_lc_amount = lc.grand_total
+	je.import_lc_amount = lc.base_grand_total
 	je.lc_margin = lc.lc_margin
 	
 	# Calculate LC Margin Amount
-	amount = flt(lc.grand_total) * (flt(lc.lc_margin) / 100.0)
+	amount = flt(lc.base_grand_total) * (flt(lc.lc_margin) / 100.0)
 	je.lc_margin_amount = amount
 	
 	# Add placeholder account rows
@@ -157,7 +157,7 @@ def make_lc_expense_journal_entry(source_name):
 	
 	# Map custom fields
 	je.import_lc = lc.name
-	je.import_lc_amount = lc.grand_total
+	je.import_lc_amount = lc.base_grand_total
 	
 	# Add placeholder account rows
 	je.append("accounts", {
