@@ -6,10 +6,34 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 
 
-from frappe.utils import money_in_words
+from frappe.utils import flt, money_in_words
 
 class ProformaInvoice(Document):
 	def validate(self):
+		self.calculate_totals()
+		self.set_in_words()
+
+	def calculate_totals(self):
+		self.total = 0
+		self.base_total = 0
+		self.total_qty = 0
+		
+		for item in self.items:
+			item.total = flt(item.qty) * flt(item.rate)
+			item.base_rate = flt(item.rate) * flt(self.conversion_rate or 1)
+			item.base_total = flt(item.total) * flt(self.conversion_rate or 1)
+			
+			self.total += item.total
+			self.base_total += item.base_total
+			self.total_qty += flt(item.qty)
+		
+		self.grand_total = flt(self.total) + flt(self.freight_charges)
+		self.base_grand_total = flt(self.base_total) + (flt(self.freight_charges) * flt(self.conversion_rate or 1))
+		
+		self.rounded_total = round(self.grand_total)
+		self.base_rounded_total = round(self.base_grand_total)
+
+	def set_in_words(self):
 		self.in_words = money_in_words(self.grand_total, self.currency)
 		company_currency = frappe.db.get_value("Company", self.company, "default_currency")
 		if company_currency:
