@@ -190,6 +190,16 @@ def make_import_lc(source_name, target_doc=None):
 		target.currency = source.currency
 		target.lc_amount = source.grand_total
 
+		# Auto fetch linked Import Insurance
+		insurance = frappe.db.get_value("Import Insurance", 
+			{"proforma_invoice": source.name, "docstatus": ["<", 2]}, 
+			["name", "insurance_premium"], as_dict=True)
+		
+		if insurance:
+			target.import_insurance = insurance.name
+			if hasattr(target, "insurance_amount"):
+				target.insurance_amount = insurance.insurance_premium
+
 	doclist = get_mapped_doc("Proforma Invoice", source_name, {
 		"Proforma Invoice": {
 			"doctype": "Import LC",

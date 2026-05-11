@@ -84,6 +84,15 @@ frappe.ui.form.on("Import LC", {
     insurance_amount: function (frm) {
         calculate_totals(frm);
     },
+    import_insurance: function(frm) {
+        if (frm.doc.import_insurance) {
+            frappe.db.get_value('Import Insurance', frm.doc.import_insurance, 'insurance_premium', (r) => {
+                if (r && r.insurance_premium) {
+                    frm.set_value('insurance_amount', r.insurance_premium);
+                }
+            });
+        }
+    },
     other_charges: function (frm) {
         calculate_totals(frm);
     },
@@ -218,10 +227,12 @@ var calculate_totals = function (frm) {
 
     var conversion_rate = flt(frm.doc.conversion_rate) || 1;
     var freight_charges = flt(frm.doc.freight_charges);
+    var insurance_amount = flt(frm.doc.insurance_amount);
     var base_freight = freight_charges * conversion_rate;
+    var base_insurance = insurance_amount * conversion_rate;
 
-    var grand_total = total + freight_charges;
-    var base_grand_total = base_total + base_freight;
+    var grand_total = total + freight_charges + insurance_amount;
+    var base_grand_total = base_total + base_freight + base_insurance;
 
     frm.set_value("grand_total", grand_total);
     frm.set_value("rounded_total", Math.round(grand_total));

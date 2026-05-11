@@ -10,11 +10,10 @@
   "company",
   "pi_number",
   "pi_date",
-  "pi_validity_date",
   "col_basic_1",
-  "invoice_date",
+  "posting_date",
+  "pi_validity_date",
   "purchase_order",
-  "po_no",
   "supplier_section",
   "supplier",
   "supplier_name",
@@ -111,15 +110,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Today",
-   "description": "Date of invoice issuance.",
-   "fieldname": "invoice_date",
-   "fieldtype": "Date",
-   "label": "Invoice Date",
-   "reqd": 1
-  },
-  {
-   "description": "Offer valid until this date — triggers urgency on LC opening.",
+   "description": "Offer valid until this date \u2014 triggers urgency on LC opening.",
    "fieldname": "pi_validity_date",
    "fieldtype": "Date",
    "label": "PI Validity"
@@ -214,7 +205,7 @@
    "reqd": 1
   },
   {
-   "description": "SWIFT BIC — issuing bank uses this to route MT700 and eventual payment.",
+   "description": "SWIFT BIC \u2014 issuing bank uses this to route MT700 and eventual payment.",
    "fetch_from": "bank.swift_number",
    "fieldname": "swift_code",
    "fieldtype": "Data",
@@ -234,7 +225,7 @@
    "options": "Company"
   },
   {
-   "description": "Exact legal name — becomes the LC applicant.",
+   "description": "Exact legal name \u2014 becomes the LC applicant.",
    "fetch_from": "buyer.company_name",
    "fieldname": "buyer_name",
    "fieldtype": "Data",
@@ -298,9 +289,9 @@
   {
    "description": "LC at sight / usance / deferred payment.",
    "fieldname": "payment_terms",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Payment Terms",
-   "options": "\nLC at Sight\nUsance\nDeferred Payment",
+   "options": "Payment Term",
    "reqd": 1
   },
   {
@@ -334,7 +325,7 @@
   },
   {
    "default": "0",
-   "description": "South Asian Free Trade Area preference — may reduce customs duty.",
+   "description": "South Asian Free Trade Area preference \u2014 may reduce customs duty.",
    "fieldname": "safta_clause",
    "fieldtype": "Check",
    "label": "SAFTA Clause"
@@ -346,13 +337,13 @@
    "label": "Shipment Details"
   },
   {
-   "description": "Origin port — must match across LC, B/L and commercial invoice.",
+   "description": "Origin port \u2014 must match across LC, B/L and commercial invoice.",
    "fieldname": "port_of_loading",
    "fieldtype": "Data",
    "label": "Port of Loading"
   },
   {
-   "description": "Destination port — must match across all documents.",
+   "description": "Destination port \u2014 must match across all documents.",
    "fieldname": "port_of_discharge",
    "fieldtype": "Data",
    "label": "Port of Discharge"
@@ -407,14 +398,6 @@
    "in_standard_filter": 1,
    "label": "Purchase Order",
    "options": "Purchase Order"
-  },
-  {
-   "fetch_from": "purchase_order.po_no",
-   "fieldname": "po_no",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "PO Number",
-   "read_only": 1
   },
   {
    "description": "Goods description wording MUST be frozen before LC application. Any subsequent change requires an LC amendment (MT707) and incurs charges.",
@@ -519,7 +502,7 @@
    "search_index": 1
   },
   {
-   "description": "Beneficiary bank name — used by issuing bank to route payment.",
+   "description": "Beneficiary bank name \u2014 used by issuing bank to route payment.",
    "fieldname": "bank",
    "fieldtype": "Link",
    "label": "Bank",
@@ -535,13 +518,20 @@
   {
    "fieldname": "column_break_muzo",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-06 19:45:41.108221",
+ "modified": "2026-05-11 17:04:59.842502",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Proforma Invoice",
