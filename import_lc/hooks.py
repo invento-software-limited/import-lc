@@ -155,13 +155,14 @@ doctype_js = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Purchase Invoice": {
+		"validate": "import_lc.import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one"
+	},
+	"Journal Entry": {
+		"validate": "import_lc.import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"
+	}
+}
 
 # Scheduled Tasks
 # ---------------

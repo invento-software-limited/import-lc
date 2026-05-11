@@ -10,8 +10,19 @@ from frappe.utils import flt, money_in_words
 
 class ProformaInvoice(Document):
 	def validate(self):
+		self.validate_one_to_one()
 		self.calculate_totals()
 		self.set_in_words()
+
+	def validate_one_to_one(self):
+		if self.purchase_order:
+			existing_pi = frappe.db.get_value("Proforma Invoice", 
+				{"purchase_order": self.purchase_order, "name": ["!=", self.name], "docstatus": ["<", 2]}, "name")
+			if existing_pi:
+				from frappe.utils import get_link_to_form
+				link = get_link_to_form("Proforma Invoice", existing_pi)
+				po_link = get_link_to_form("Purchase Order", self.purchase_order)
+				frappe.throw(f"Proforma Invoice <b>{link}</b> already exists for Purchase Order <b>{po_link}</b>")
 
 	def calculate_totals(self):
 		self.total = 0

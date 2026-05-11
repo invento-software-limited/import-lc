@@ -9,8 +9,19 @@ from frappe.utils import flt, money_in_words
 
 class ImportLC(Document):
 	def validate(self):
+		self.validate_one_to_one()
 		self.calculate_totals()
 		self.set_in_words()
+
+	def validate_one_to_one(self):
+		if self.proforma_invoice:
+			existing_lc = frappe.db.get_value("Import LC", 
+				{"proforma_invoice": self.proforma_invoice, "name": ["!=", self.name], "docstatus": ["<", 2]}, "name")
+			if existing_lc:
+				from frappe.utils import get_link_to_form
+				link = get_link_to_form("Import LC", existing_lc)
+				pi_link = get_link_to_form("Proforma Invoice", self.proforma_invoice)
+				frappe.throw(f"Import LC <b>{link}</b> already exists for Proforma Invoice <b>{pi_link}</b>")
 
 	def calculate_totals(self):
 		self.total = 0
