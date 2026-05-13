@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("LC Shipment", {
-	refresh: function(frm) {
+	refresh: function (frm) {
 		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__('Landed Cost Voucher'), function () {
 				frappe.model.open_mapped_doc({
@@ -12,7 +12,7 @@ frappe.ui.form.on("LC Shipment", {
 			}, __('Create'));
 		}
 	},
-	import_lc: function(frm) {
+	import_lc: function (frm) {
 		if (frm.doc.import_lc) {
 			frappe.db.get_doc("Import LC", frm.doc.import_lc).then(lc => {
 				frm.set_value("company", lc.company);
@@ -25,16 +25,16 @@ frappe.ui.form.on("LC Shipment", {
 		}
 	},
 
-	freight_amount: function(frm) { calculate_total_charges(frm); },
-	insurance_amount: function(frm) { calculate_total_charges(frm); },
-	other_charges: function(frm) { calculate_total_charges(frm); }
+	freight_amount: function (frm) { calculate_total_charges(frm); },
+	insurance_amount: function (frm) { calculate_total_charges(frm); },
+	other_charges: function (frm) { calculate_total_charges(frm); }
 });
 
 frappe.ui.form.on("LC Shipment Item", {
-	qty: function(frm, cdt, cdn) { calculate_item_amount(frm, cdt, cdn); },
-	rate: function(frm, cdt, cdn) { calculate_item_amount(frm, cdt, cdn); },
-	
-	item_code: function(frm, cdt, cdn) {
+	qty: function (frm, cdt, cdn) { calculate_item_amount(frm, cdt, cdn); },
+	rate: function (frm, cdt, cdn) { calculate_item_amount(frm, cdt, cdn); },
+
+	item_code: function (frm, cdt, cdn) {
 		let row = locals[cdt][cdn];
 		if (row.item_code) {
 			frappe.db.get_value("Item", row.item_code, ["item_name", "description", "stock_uom", "brand"]).then(r => {
@@ -55,8 +55,8 @@ function calculate_item_amount(frm, cdt, cdn) {
 }
 
 function calculate_total_charges(frm) {
-	let total = (frm.doc.freight_amount || 0) + 
-				(frm.doc.insurance_amount || 0) + 
-				(frm.doc.other_charges || 0);
+	let total = (frm.doc.freight_amount || 0) +
+		(frm.doc.insurance_amount || 0) +
+		(frm.doc.other_charges || 0);
 	frm.set_value("total_cnf_amount", total);
 }

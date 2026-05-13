@@ -49,14 +49,22 @@ frappe.ui.form.on("Import LC", {
             }, __('Create'));
 
             frm.add_custom_button(__('Landed Cost Voucher'), function () {
-                frappe.model.open_mapped_doc({
+                frappe.call({
                     method: "import_lc.import_lc.doctype.import_lc.import_lc.make_landed_cost_voucher",
-                    frm: frm
+                    args: {
+                        source_name: frm.doc.name
+                    },
+                    callback: function (r) {
+                        if (r.message) {
+                            var doc = frappe.model.sync(r.message)[0];
+                            frappe.set_route("Form", doc.doctype, doc.name);
+                        }
+                    }
                 });
             }, __('Create'));
         }
-        
-        frm.set_query('import_insurance', function() {
+
+        frm.set_query('import_insurance', function () {
             return {
                 filters: {
                     proforma_invoice: frm.doc.proforma_invoice
@@ -91,7 +99,7 @@ frappe.ui.form.on("Import LC", {
     insurance_amount: function (frm) {
         calculate_totals(frm);
     },
-    import_insurance: function(frm) {
+    import_insurance: function (frm) {
         if (frm.doc.import_insurance) {
             frappe.db.get_value('Import Insurance', frm.doc.import_insurance, 'insurance_premium', (r) => {
                 if (r && r.insurance_premium) {
@@ -142,17 +150,17 @@ frappe.ui.form.on("Import LC", {
             });
         }
     },
-    proforma_invoice: function(frm) {
+    proforma_invoice: function (frm) {
         if (frm.doc.proforma_invoice) {
             frappe.call({
                 method: "import_lc.import_lc.doctype.proforma_invoice.proforma_invoice.make_import_lc",
                 args: {
                     source_name: frm.doc.proforma_invoice
                 },
-                callback: function(r) {
+                callback: function (r) {
                     if (r.message) {
                         let doc = r.message;
-                        
+
                         // Map main fields safely
                         Object.keys(doc).forEach(key => {
                             if (key !== "name" && key !== "doctype" && key !== "items" && !key.startsWith("_")) {
@@ -179,10 +187,10 @@ frappe.ui.form.on("Import LC", {
                             });
                             frm.refresh_field("items");
                         }
-                        
+
                         calculate_totals(frm);
                         toggle_base_currency_fields(frm);
-                        frappe.show_alert({message: __('Data fetched from Proforma Invoice'), indicator: 'green'});
+                        frappe.show_alert({ message: __('Data fetched from Proforma Invoice'), indicator: 'green' });
                     }
                 }
             });
@@ -212,7 +220,7 @@ var calculate_item_amount = function (frm, cdt, cdn) {
     frappe.model.set_value(cdt, cdn, "total", total);
     frappe.model.set_value(cdt, cdn, "base_rate", base_rate);
     frappe.model.set_value(cdt, cdn, "base_total", base_total);
-    
+
     frappe.model.set_value(cdt, cdn, "total_amount_usd", total);
     calculate_totals(frm);
 };
@@ -248,9 +256,9 @@ var calculate_totals = function (frm) {
     frm.set_value("base_rounded_total", Math.round(base_grand_total));
 };
 
-var toggle_base_currency_fields = function(frm) {
+var toggle_base_currency_fields = function (frm) {
     if (frm.doc.company && frm.doc.currency) {
-        frappe.db.get_value('Company', frm.doc.company, 'default_currency', function(r) {
+        frappe.db.get_value('Company', frm.doc.company, 'default_currency', function (r) {
             let hide_base = false;
             if (r && r.default_currency && frm.doc.currency === r.default_currency) {
                 hide_base = true;

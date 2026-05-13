@@ -306,8 +306,8 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 	lcv.distribute_charges_based_on = "Amount"
 	lcv.import_lc = lc_name
 	
-	if hasattr(lcv, "custom_lc_no"):
-		lcv.custom_lc_no = lc.lc_no
+	if hasattr(lcv, "lc_no"):
+		lcv.lc_no = lc.lc_no
 	if source_doctype == "LC Shipment" and hasattr(lcv, "custom_lc_shipment"):
 		lcv.custom_lc_shipment = source_name
 
@@ -315,8 +315,6 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 
 	# Aggregate linked documents
 	filters = {"import_lc": lc_name, "docstatus": 1}
-	if source_doctype == "LC Shipment":
-		filters["lc_shipment"] = source_name
 
 	# Fetch PRs
 	prs = frappe.get_all("Purchase Receipt", filters=filters, fields=["name", "supplier", "posting_date", "base_grand_total"])
@@ -344,51 +342,126 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 	
 	# Fetch and Aggregate Charges
 	freight = flt(lc.freight_charges)
-	# Start insurance from the direct field on LC; will also add linked Import Insurance doc + shipment amounts
-	insurance = flt(lc.import_insurance)
+	insurance = 0.0
 	expenses = 0.0
 
-	# Add insurance premium from linked Import Insurance document(s)
-	insurance_docs = frappe.get_all("Import Insurance", 
-		filters={"import_lc": lc_name, "docstatus": 1}, 
-		fields=["purchase_invoice", "insurance_premium"]
+	# Add insurance premium from the linked Import Insurance document
+	if lc.import_insurance:
+		# Search for a PI that points to this insurance document
+		pi_name = frappe.db.get_value("Purchase Invoice", 
+			{"import_insurance": lc.import_insurance, "docstatus": 1}, "name")
+		
+		if pi_name:
+			# Fetch PI details
+			pi_data = frappe.db.get_value("Purchase Invoice", pi_name, 
+				["name", "supplier", "posting_date", "base_grand_total"], as_dict=1)
+			
+			if pi_data:
+				# frappe.msgprint(f"Found PI {pi_data.name} via Import Insurance field")
+				# Add to the VENDOR INVOICES table
+				lcv.append("vendor_invoices", {
+					"vendor_invoice": pi_data.name,
+					"amount": pi_data.base_grand_total
+				})
+				# Add to the insurance charge total
+				insurance += flt(pi_data.base_grand_total)
+		else:
+			# Fallback: use premium from the insurance doc itself
+			prem = frappe.db.get_value("Import Insurance", lc.import_insurance, "insurance_premium")
+			insurance += flt(prem)
+
+	# Combine header other_charges and Journal Entry expenses
+	total_lc_expenses = flt(lc.other_charges)
+	
+	# Fetch LC Expense Journal Entries (including draft for easier verification)
+	# Fetch ALL Journal Entries linked to this LC (debugging why LC Expense is not fetching)
+	# Fetch ALL Journal Entries linked to this LC (debugging why LC Expense is not fetching)
+	jes = frappe.get_all("Journal Entry", 
+		filters={"import_lc": lc_name, "docstatus": ["<", 2]},
+		fields=["name", "total_amount", "total_debit", "docstatus", "voucher_type"]
 	)
 	
-	for ins_doc in insurance_docs:
-		if ins_doc.purchase_invoice:
-			# If a Purchase Invoice exists, use its actual base grand total
-			pi_amount = frappe.db.get_value("Purchase Invoice", ins_doc.purchase_invoice, "base_grand_total")
-			insurance += flt(pi_amount)
-		else:
-			# Fallback to the premium estimate on the Import Insurance document
-			insurance += flt(ins_doc.insurance_premium)
+	if not jes:
+		# Try searching with custom_ prefix just in case
+		jes = frappe.get_all("Journal Entry", 
+			filters={"custom_import_lc": lc_name, "docstatus": ["<", 2]},
+			fields=["name", "total_amount", "total_debit", "docstatus", "voucher_type"]
+		)
+		if jes:
+			# If found with custom_ prefix, update the field names in the list
+			for d in jes: d.import_lc = d.custom_import_lc
 
-	# Add charges from LC Shipments
-	shipments = frappe.get_all("LC Shipment", filters={"import_lc": lc_name, "docstatus": 1}, 
-		fields=["freight_amount", "insurance_amount", "other_charges"])
+	je_info = [f"{d.name} ({d.voucher_type}) - Amt: {d.get('total_amount') or d.get('total_debit')}" for d in jes]
+	# frappe.msgprint(f"LC Number: {lc.lc_no}<br>Header Other Charges: {lc.other_charges}<br>Found {len(jes)} Journal Entries: {', '.join(je_info)}")
 	
-	for s in shipments:
-		freight += flt(s.freight_amount)
-		insurance += flt(s.insurance_amount)
-		expenses += flt(s.other_charges)
+	# Filter for expenses and margin journals
+	je_expense_list = [d for d in jes if d.voucher_type != "LC Margin"]
+	je_margin_list = [d for d in jes if d.voucher_type == "LC Margin"]
+	
+	je_expense_total = 0
+	for d in je_expense_list:
+		je_expense_total += flt(d.get("total_amount")) or flt(d.get("total_debit"))
+	
+	je_margin_total = 0
+	for d in je_margin_list:
+		je_margin_total += flt(d.get("total_amount")) or flt(d.get("total_debit"))
+	
+	total_lc_expenses += je_expense_total
 
-	# Also include other_charges from Import LC header itself
-	expenses += flt(lc.other_charges)
+	if total_lc_expenses:
+		# Distinguish between submitted and draft in the description
+		je_names = [d.name for d in je_expense_list]
+		draft_jes = [d.name for d in je_expense_list if d.docstatus == 0]
+		desc = "LC Expenses"
+		if je_names:
+			desc += f" (Journals: {', '.join(je_names)})"
+		if draft_jes:
+			desc += " [Note: includes draft journals]"
+			
+		lcv.append("taxes", {
+			"description": desc,
+			"amount": total_lc_expenses,
+			"base_amount": total_lc_expenses
+		})
 
 	if freight: lcv.append("taxes", {"description": "Freight Charges", "amount": freight, "base_amount": freight})
 	
 	if insurance:
 		desc = "Import Insurance"
-		# Find the PI name to include in description for better traceability
-		pi_names = [d.purchase_invoice for d in insurance_docs if d.purchase_invoice]
-		if pi_names:
-			desc += f" (Invoices: {', '.join(pi_names)})"
-		lcv.append("taxes", {"description": desc, "amount": insurance, "base_amount": insurance})
+		account = None
+		
+		if lc.import_insurance:
+			# Get account from insurance doc
+			account = frappe.db.get_value("Import Insurance", lc.import_insurance, "debit_account")
+			# Try to find if we used a PI for the name
+			pi_name = frappe.db.get_value("Purchase Invoice", {"import_insurance": lc.import_insurance, "docstatus": 1}, "name")
+			if pi_name:
+				desc += f" (Invoice: {pi_name})"
+		
+		lcv.append("taxes", {
+			"description": desc, 
+			"amount": insurance, 
+			"base_amount": insurance,
+			"account": account
+		})
 
-	if expenses: lcv.append("taxes", {"description": "LC Expenses", "amount": expenses, "base_amount": expenses})
-	if lc.lc_margin:
-		margin = flt(lc.base_grand_total) * (flt(lc.lc_margin) / 100.0)
-		lcv.append("taxes", {"description": "LC Margin", "amount": margin, "base_amount": margin})
+	# Use JEs if they exist, otherwise fallback to percentage-based calculation
+	total_margin = 0
+	if je_margin_total:
+		total_margin = je_margin_total
+	else:
+		total_margin = flt(lc.base_grand_total) * (flt(lc.lc_margin) / 100.0)
+	
+	if total_margin:
+		desc = "LC Margin"
+		if je_margin_list:
+			desc += f" (Journals: {', '.join([d.name for d in je_margin_list])})"
+		
+		lcv.append("taxes", {
+			"description": desc, 
+			"amount": total_margin, 
+			"base_amount": total_margin
+		})
 
 	# Bulk Fetch Items for optimized performance
 	if lcv.purchase_receipts:
@@ -433,51 +506,9 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 				item.is_fixed_asset = d.is_fixed_asset
 				item.purchase_receipt_item = d.name
 
-		# Calculate totals only when items exist
-		if lcv.items:
-			lcv.set_total_taxes_and_charges()
-			lcv.set_applicable_charges_on_item()
+	# Calculate totals only when items exist
+	if lcv.items:
+		lcv.set_total_taxes_and_charges()
+		lcv.set_applicable_charges_on_item()
 
-	# Return a lightweight plain dict — avoids serializing the entire frappe Document object
-	# which carries heavy metadata and can cause slow JSON encoding and browser hangs.
-	return {
-		"company": lcv.company,
-		"lc_no": lc.lc_no,
-		"distribute_charges_based_on": lcv.distribute_charges_based_on,
-		"posting_date": lcv.posting_date,
-		"total_taxes_and_charges": lcv.total_taxes_and_charges,
-		"purchase_receipts": [
-			{
-				"receipt_document_type": r.receipt_document_type,
-				"receipt_document": r.receipt_document,
-				"supplier": r.supplier,
-				"posting_date": r.posting_date,
-				"grand_total": r.grand_total,
-			}
-			for r in lcv.purchase_receipts
-		],
-		"taxes": [
-			{
-				"description": t.description,
-				"amount": t.amount,
-				"base_amount": t.base_amount,
-			}
-			for t in lcv.taxes
-		],
-		"items": [
-			{
-				"item_code": i.item_code,
-				"description": i.description,
-				"qty": i.qty,
-				"rate": i.rate,
-				"amount": i.amount,
-				"cost_center": i.cost_center,
-				"receipt_document_type": i.receipt_document_type,
-				"receipt_document": i.receipt_document,
-				"is_fixed_asset": i.is_fixed_asset,
-				"purchase_receipt_item": i.purchase_receipt_item,
-				"applicable_charges": i.applicable_charges,
-			}
-			for i in lcv.items
-		],
-	}
+	return lcv
