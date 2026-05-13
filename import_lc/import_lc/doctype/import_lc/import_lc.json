@@ -91,7 +91,8 @@
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "reqd": 1
   },
   {
    "description": "LC issuance date",
@@ -116,7 +117,8 @@
    "fieldname": "beneficiary",
    "fieldtype": "Link",
    "label": "F59: Beneficiary",
-   "options": "Supplier"
+   "options": "Supplier",
+   "reqd": 1
   },
   {
    "fieldname": "country_of_origin",
@@ -129,14 +131,16 @@
    "fieldname": "issuing_bank",
    "fieldtype": "Link",
    "label": "F52A: Issuing Bank",
-   "options": "Bank"
+   "options": "Bank",
+   "reqd": 1
   },
   {
    "description": "Beneficiary\u2019s bank",
    "fieldname": "beneficiary_bank",
    "fieldtype": "Link",
    "label": "F58A: Beneficiary Bank",
-   "options": "Bank"
+   "options": "Bank",
+   "reqd": 1
   },
   {
    "fieldname": "currency",
@@ -206,7 +210,8 @@
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
-   "options": "Import LC Item"
+   "options": "Import LC Item",
+   "reqd": 1
   },
   {
    "collapsible": 1,
@@ -299,7 +304,8 @@
    "fieldname": "applicant",
    "fieldtype": "Link",
    "label": "F50: Applicant",
-   "options": "Company"
+   "options": "Company",
+   "reqd": 1
   },
   {
    "fieldname": "col_parties",
@@ -479,7 +485,9 @@
    "fieldname": "lc_margin",
    "fieldtype": "Percent",
    "label": "LC Margin (%)",
-   "precision": "2"
+   "non_negative": 1,
+   "precision": "2",
+   "reqd": 1
   },
   {
    "fieldname": "financial_summary_section",
@@ -566,7 +574,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-11 17:09:16.386490",
+ "modified": "2026-05-13 10:14:57.732476",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
