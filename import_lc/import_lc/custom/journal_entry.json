@@ -151,7 +151,7 @@
    "description": null,
    "docstatus": 0,
    "dt": "Journal Entry",
-   "fetch_from": "custom_import_lc.lc_margin",
+   "fetch_from": "import_lc.lc_margin",
    "fetch_if_empty": 0,
    "fieldname": "lc_margin",
    "fieldtype": "Percent",
