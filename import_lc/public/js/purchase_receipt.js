@@ -122,5 +122,17 @@ frappe.ui.form.on('Purchase Receipt', {
             frm.set_value('lc_shipment', null);
             frm.set_value('purchase_invoice', null);
         }
+    },
+
+    refresh: function(frm) {
+        // Expand import sections by default
+        if (frm.doc.purchase_type === 'Import') {
+            ['supplier_bank_information', 'trade__commercial_details', 
+             'shipment_details', 'buyer_address_tab'].forEach(section => {
+                if (frm.fields_dict[section]) {
+                    frm.fields_dict[section].collapse(false);
+                }
+            });
+        }
     }
 });

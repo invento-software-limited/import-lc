@@ -86,6 +86,15 @@ frappe.ui.form.on('Purchase Invoice', {
 			'shipment_details_section'
 		], frm.doc.purchase_type === 'Import');
 		frm.trigger('set_naming_series');
+
+		if (frm.doc.purchase_type === 'Import') {
+			['reference_section', 'supplier_bank_section', 'buyer_information_section', 
+			 'trade_commercial_section', 'shipment_details_section'].forEach(section => {
+				if (frm.fields_dict[section]) {
+					frm.fields_dict[section].collapse(false);
+				}
+			});
+		}
 	},
 	purchase_type: function (frm) {
 		frm.trigger('refresh');
