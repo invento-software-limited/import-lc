@@ -90,6 +90,14 @@ frappe.ui.form.on('Purchase Receipt', {
 		// Auto-set purchase type
 		frm.set_value('purchase_type', 'Import');
 
+		// Fetch basic info from Import LC
+		frappe.db.get_value('Import LC', frm.doc.import_lc, ['currency', 'lc_no'], (r) => {
+			if (r) {
+				if (r.currency) frm.set_value('currency', r.currency);
+				if (r.lc_no) frm.set_value('lc_no', r.lc_no);
+			}
+		});
+
 		// Search for linked Purchase Invoice
 		frappe.db.get_value('Purchase Invoice', {
 			'import_lc': frm.doc.import_lc,
