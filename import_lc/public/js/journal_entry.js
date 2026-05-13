@@ -62,21 +62,49 @@ frappe.ui.form.on("Journal Entry", {
 
 var fetch_lc_data = function (frm) {
 	if (frm.doc.import_lc && (frm.doc.voucher_type === "LC Margin" || frm.doc.voucher_type === "LC Expense")) {
-		frappe.db.get_value("Import LC", frm.doc.import_lc, ["base_grand_total", "lc_margin"], (r) => {
-			if (r) {
-				if (r.base_grand_total !== undefined) {
-					frm.set_value("import_lc_amount", r.base_grand_total);
+		
+		let perform_fetch = function() {
+			frappe.db.get_value("Import LC", frm.doc.import_lc, ["base_grand_total", "lc_margin"], (r) => {
+				if (r) {
+					if (r.base_grand_total !== undefined) {
+						frm.set_value("import_lc_amount", r.base_grand_total);
+					}
+					if (r.lc_margin !== undefined && frm.doc.voucher_type === "LC Margin") {
+						frm.set_value("lc_margin", r.lc_margin);
+					}
+					if (frm.doc.voucher_type === "LC Margin") {
+						calculate_margin_amount(frm);
+					} else if (frm.doc.voucher_type === "LC Expense") {
+						update_account_rows(frm, 0);
+					}
 				}
-				if (r.lc_margin !== undefined && frm.doc.voucher_type === "LC Margin") {
-					frm.set_value("lc_margin", r.lc_margin);
+			});
+		};
+
+		// Check for existing LC Margin entry if voucher_type is LC Margin
+		if (frm.doc.voucher_type === "LC Margin") {
+			frappe.db.get_value("Journal Entry", {
+				"import_lc": frm.doc.import_lc,
+				"voucher_type": "LC Margin",
+				"name": ["!=", frm.doc.name],
+				"docstatus": ["<", 2]
+			}, "name", (r) => {
+				if (r && r.name) {
+					frm.set_value("import_lc", "");
+					frappe.msgprint({
+						title: __("Duplicate LC Margin"),
+						indicator: "red",
+						message: __("An active LC Margin Journal Entry {0} already exists for this Import LC.", [
+							frappe.utils.get_form_link("Journal Entry", r.name)
+						])
+					});
+				} else {
+					perform_fetch();
 				}
-				if (frm.doc.voucher_type === "LC Margin") {
-					calculate_margin_amount(frm);
-				} else if (frm.doc.voucher_type === "LC Expense") {
-					update_account_rows(frm, 0);
-				}
-			}
-		});
+			});
+		} else {
+			perform_fetch();
+		}
 	}
 };
 
