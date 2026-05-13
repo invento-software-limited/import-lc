@@ -157,10 +157,10 @@ doctype_js = {
 
 doc_events = {
 	"Purchase Invoice": {
-		"validate": "import_lc.import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one"
+		"validate": "import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one"
 	},
 	"Journal Entry": {
-		"validate": "import_lc.import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"
+		"validate": "import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"
 	}
 }
 
@@ -208,12 +208,13 @@ doc_events = {
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
+
 override_doctype_dashboards = {
-	"Purchase Order": "import_lc.custom_dashboards.update_purchase_order_dashboard",
-	"Purchase Invoice": "import_lc.custom_dashboards.update_purchase_invoice_dashboard",
-	"Journal Entry": "import_lc.custom_dashboards.update_journal_entry_dashboard",
-	"Landed Cost Voucher": "import_lc.custom_dashboards.update_landed_cost_voucher_dashboard",
-	"Purchase Receipt": "import_lc.custom_dashboards.update_purchase_receipt_dashboard"
+	"Purchase Order": "import_lc.custom_dashboards.purchase_order.update_purchase_order_dashboard",
+	"Purchase Invoice": "import_lc.custom_dashboards.purchase_invoice.update_purchase_invoice_dashboard",
+	"Journal Entry": "import_lc.custom_dashboards.journal_entry.update_journal_entry_dashboard",
+	"Landed Cost Voucher": "import_lc.custom_dashboards.landed_cost_voucher.update_landed_cost_voucher_dashboard",
+	"Purchase Receipt": "import_lc.custom_dashboards.purchase_receipt.update_purchase_receipt_dashboard"
 }
 
 # exempt linked doctypes from being automatically cancelled
