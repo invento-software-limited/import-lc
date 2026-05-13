@@ -168,7 +168,7 @@ frappe.ui.form.on('Purchase Invoice', {
 		// Fired when user manually selects a Proforma Invoice
 		fetch_proforma_invoice_data(frm, frm.doc.proforma_invoice);
 	},
-	buyer_address: function(frm) {
+	buyer_address: function (frm) {
 		if (frm.doc.buyer_address) {
 			frappe.contacts.get_address_display(frm, "buyer_address", "buyer_full_address");
 		}
