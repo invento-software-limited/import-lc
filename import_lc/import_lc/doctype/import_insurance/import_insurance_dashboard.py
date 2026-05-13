@@ -3,5 +3,10 @@ from frappe import _
 def get_data():
 	return {
 		"fieldname": "import_insurance",
-		"transactions": []
+		"transactions": [
+			{
+				"label": _("Purchase"),
+				"items": ["Purchase Invoice"]
+			}
+		]
 	}

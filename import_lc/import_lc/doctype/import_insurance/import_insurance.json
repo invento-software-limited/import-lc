@@ -10,8 +10,9 @@
   "proforma_invoice",
   "policy_number",
   "insured_party",
-  "col_policy_1",
   "insured_value",
+  "col_policy_1",
+  "insurance_premium",
   "coverage_type",
   "war_risk",
   "shipment_section",
@@ -30,7 +31,6 @@
   "currency",
   "remarks",
   "col_accounting",
-  "insurance_premium",
   "debit_account",
   "credit_account",
   "amended_from"
@@ -190,7 +190,8 @@
    "fieldname": "insurance_premium",
    "fieldtype": "Currency",
    "label": "Insurance Premium Amount",
-   "options": "currency"
+   "options": "currency",
+   "reqd": 1
   },
   {
    "description": "Dr: Insurance expense / prepaid insurance account.",
@@ -226,7 +227,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-11 18:16:52.202963",
+ "modified": "2026-05-13 17:29:27.133348",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import Insurance",

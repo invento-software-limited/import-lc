@@ -17,7 +17,34 @@ frappe.ui.form.on("Import Insurance", {
                 }
             };
         });
+
+        // Show "Create Purchase Invoice" button only on submitted docs
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button(__('Purchase Invoice'), function() {
+                frappe.call({
+                    method: "import_lc.import_lc.doctype.import_insurance.import_insurance.make_purchase_invoice",
+                    args: {
+                        source_name: frm.doc.name
+                    },
+                    freeze: true,
+                    freeze_message: __("Creating Purchase Invoice..."),
+                    callback: function(r) {
+                        if (r.message) {
+                            let doc = r.message;
+                            frappe.model.sync(doc);
+                            frappe.set_route("Form", "Purchase Invoice", doc.name);
+                            frappe.show_alert({
+                                message: __("Purchase Invoice created. Please select the local insurance supplier and save."),
+                                indicator: "blue"
+                            });
+                        }
+                    }
+                });
+            }, __('Create'));
+        }
+
     },
+
     proforma_invoice: function(frm) {
         if (frm.doc.proforma_invoice) {
             frappe.call({
