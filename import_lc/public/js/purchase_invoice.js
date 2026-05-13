@@ -69,6 +69,10 @@ function fetch_proforma_invoice_data(frm, pi_name) {
 		}
 
 		frm.trigger('refresh');
+		frappe.show_alert({
+			message: __('Data fetched from Proforma Invoice: {0}', [pi_name]),
+			indicator: 'green'
+		});
 	});
 }
 
@@ -163,5 +167,10 @@ frappe.ui.form.on('Purchase Invoice', {
 	proforma_invoice: function (frm) {
 		// Fired when user manually selects a Proforma Invoice
 		fetch_proforma_invoice_data(frm, frm.doc.proforma_invoice);
+	},
+	buyer_address: function(frm) {
+		if (frm.doc.buyer_address) {
+			frappe.contacts.get_address_display(frm, "buyer_address", "buyer_full_address");
+		}
 	}
 });

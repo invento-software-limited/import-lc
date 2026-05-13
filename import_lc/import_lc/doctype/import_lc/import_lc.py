@@ -150,6 +150,78 @@ def make_purchase_invoice(source_name, target_doc=None):
 
 
 @frappe.whitelist()
+def make_purchase_receipt(source_name, target_doc=None):
+	"""Create Purchase Receipt from Import LC and its linked Purchase Invoice."""
+	
+	def set_missing_values(source, target):
+		target.purchase_type = "Import"
+		target.import_lc = source.name
+		
+		# Find linked Purchase Invoice
+		pi_name = frappe.db.get_value("Purchase Invoice", {"import_lc": source.name, "docstatus": ["<", 2]}, "name")
+		if pi_name:
+			pi = frappe.get_doc("Purchase Invoice", pi_name)
+			target.purchase_invoice = pi.name
+			
+			# Map fields from PI if they exist
+			fields_to_map = [
+				"pi_number", "pi_date", "bank", "swift_code", "bank_branch", "account_number_iban",
+				"bank_address", "buyer_name", "phone_no", "email", "buyer_address", "freight_charges",
+				"delivery_terms", "safta_clause", "mode_of_shipment", "shipment_conditions",
+				"country_of_origin"
+			]
+			for field in fields_to_map:
+				if hasattr(pi, field) and getattr(pi, field):
+					setattr(target, field, getattr(pi, field))
+			
+			# Map items from PI to get logistics data
+			pi_items_map = {item.item_code: item for item in pi.items}
+			for item in target.items:
+				if item.item_code in pi_items_map:
+					pi_item = pi_items_map[item.item_code]
+					item.hs_code = pi_item.hs_code
+					item.country_of_origin = pi_item.country_of_origin
+					item.packing_type = pi_item.packing_type
+					item.total_qty = pi_item.total_qty
+					item.total_amount_usd = pi_item.total_amount_usd
+
+	doclist = get_mapped_doc("Import LC", source_name, {
+		"Import LC": {
+			"doctype": "Purchase Receipt",
+			"field_map": {
+				"lc_no": "lc_no",
+				"beneficiary": "supplier",
+				"applicant": "buyer",
+				"currency": "currency",
+				"incoterm": "incoterm",
+				"drafts_at": "payment_terms",
+				"percentage_credit_amount_tolerance": "tolerance__on_total_pi_value",
+				"port_of_loading": "port_of_loading",
+				"port_of_discharge": "port_of_discharge",
+				"final_destination": "country_of_final_destination",
+				"mode_of_transport": "mode_of_transport",
+				"transshipment": "transshipment",
+				"partial_shipments": "partial_shipment",
+				"conversion_rate": "conversion_rate"
+			}
+		},
+		"Import LC Item": {
+			"doctype": "Purchase Receipt Item",
+			"field_map": {
+				"item_code": "item_code",
+				"item_name": "item_name",
+				"description": "description",
+				"qty": "qty",
+				"uom": "uom",
+				"rate": "rate"
+			}
+		}
+	}, target_doc, set_missing_values)
+
+	return doclist
+
+
+@frappe.whitelist()
 def make_journal_entry(source_name):
 	"""Create Journal Entry (LC Margin) from Import LC."""
 	lc = frappe.get_doc("Import LC", source_name)

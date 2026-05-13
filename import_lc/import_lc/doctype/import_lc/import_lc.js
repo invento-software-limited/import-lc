@@ -11,6 +11,13 @@ frappe.ui.form.on("Import LC", {
                 });
             }, __('Create'));
 
+            frm.add_custom_button(__('Purchase Receipt'), function () {
+                frappe.model.open_mapped_doc({
+                    method: "import_lc.import_lc.doctype.import_lc.import_lc.make_purchase_receipt",
+                    frm: frm
+                });
+            }, __('Create'));
+
             frm.add_custom_button(__('LC Margin'), function () {
                 frappe.call({
                     method: "import_lc.import_lc.doctype.import_lc.import_lc.make_journal_entry",
