@@ -28,9 +28,10 @@ def make_purchase_invoice(source_name, target_doc=None):
 	if ins.docstatus != 1:
 		frappe.throw("Please submit the Import Insurance document before creating a Purchase Invoice.")
 
-	# Duplicate check via the back-link field on Import Insurance itself
-	if ins.purchase_invoice:
-		link = get_link_to_form("Purchase Invoice", ins.purchase_invoice)
+	# Duplicate check: check the back-link on the Import Insurance document
+	existing_pi = ins.purchase_invoice
+	if existing_pi:
+		link = get_link_to_form("Purchase Invoice", existing_pi)
 		frappe.throw(f"Purchase Invoice {link} already exists for this Import Insurance.")
 
 	# Get or create a default insurance service item
@@ -52,12 +53,13 @@ def make_purchase_invoice(source_name, target_doc=None):
 
 	pi = frappe.new_doc("Purchase Invoice")
 	pi.company = ins.company
-	# Supplier left blank — user selects the local insurance company
+	pi.supplier = ins.insurance_provider   # local insurance company
 	pi.currency = company_currency
 	pi.purchase_type = "Local"
 	pi.set_posting_time = 1
 
 	# Store reference to Import Insurance for traceability
+	pi.import_insurance = source_name
 	if ins.import_lc:
 		pi.import_lc = ins.import_lc
 	if ins.proforma_invoice:

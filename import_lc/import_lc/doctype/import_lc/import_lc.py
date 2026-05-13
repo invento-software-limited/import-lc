@@ -348,13 +348,20 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 	insurance = flt(lc.import_insurance)
 	expenses = 0.0
 
-	# Add insurance premium from linked Import Insurance document (submitted or draft)
-	ins_premium = flt(frappe.db.get_value(
-		"Import Insurance",
-		{"import_lc": lc_name, "docstatus": 1},  # Only submitted insurance docs
-		"insurance_premium"
-	))
-	insurance += ins_premium
+	# Add insurance premium from linked Import Insurance document(s)
+	insurance_docs = frappe.get_all("Import Insurance", 
+		filters={"import_lc": lc_name, "docstatus": 1}, 
+		fields=["purchase_invoice", "insurance_premium"]
+	)
+	
+	for ins_doc in insurance_docs:
+		if ins_doc.purchase_invoice:
+			# If a Purchase Invoice exists, use its actual base grand total
+			pi_amount = frappe.db.get_value("Purchase Invoice", ins_doc.purchase_invoice, "base_grand_total")
+			insurance += flt(pi_amount)
+		else:
+			# Fallback to the premium estimate on the Import Insurance document
+			insurance += flt(ins_doc.insurance_premium)
 
 	# Add charges from LC Shipments
 	shipments = frappe.get_all("LC Shipment", filters={"import_lc": lc_name, "docstatus": 1}, 
@@ -369,7 +376,15 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 	expenses += flt(lc.other_charges)
 
 	if freight: lcv.append("taxes", {"description": "Freight Charges", "amount": freight, "base_amount": freight})
-	if insurance: lcv.append("taxes", {"description": "Import Insurance", "amount": insurance, "base_amount": insurance})
+	
+	if insurance:
+		desc = "Import Insurance"
+		# Find the PI name to include in description for better traceability
+		pi_names = [d.purchase_invoice for d in insurance_docs if d.purchase_invoice]
+		if pi_names:
+			desc += f" (Invoices: {', '.join(pi_names)})"
+		lcv.append("taxes", {"description": desc, "amount": insurance, "base_amount": insurance})
+
 	if expenses: lcv.append("taxes", {"description": "LC Expenses", "amount": expenses, "base_amount": expenses})
 	if lc.lc_margin:
 		margin = flt(lc.base_grand_total) * (flt(lc.lc_margin) / 100.0)

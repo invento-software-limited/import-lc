@@ -158,7 +158,8 @@ doctype_js = {
 
 doc_events = {
 	"Purchase Invoice": {
-		"validate": "import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one"
+		"validate": "import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one",
+		"onload": "import_lc.doctype_hooks.purchase_invoice.populate_virtual_fields"
 	},
 	"Journal Entry": {
 		"validate": "import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"

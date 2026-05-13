@@ -33,10 +33,6 @@ frappe.ui.form.on("Import Insurance", {
                             let doc = r.message;
                             frappe.model.sync(doc);
                             frappe.set_route("Form", "Purchase Invoice", doc.name);
-                            frappe.show_alert({
-                                message: __("Purchase Invoice created. Please select the local insurance supplier and save."),
-                                indicator: "blue"
-                            });
                         }
                     }
                 });

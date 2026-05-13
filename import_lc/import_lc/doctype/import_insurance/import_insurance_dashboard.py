@@ -5,8 +5,8 @@ def get_data():
 		"fieldname": "import_insurance",
 		"transactions": [
 			{
-				"label": _("Purchase"),
-				"items": ["Purchase Invoice"]
-			}
+				"label": _("Procurement"),
+				"items": ["Purchase Invoice", "Landed Cost Voucher"]
+			},
 		]
 	}

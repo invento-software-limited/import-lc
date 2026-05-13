@@ -8,11 +8,12 @@
  "field_order": [
   "policy_section",
   "proforma_invoice",
+  "insurance_provider",
   "policy_number",
+  "insurance_premium",
+  "col_policy_1",
   "insured_party",
   "insured_value",
-  "col_policy_1",
-  "insurance_premium",
   "coverage_type",
   "war_risk",
   "shipment_section",
@@ -27,7 +28,6 @@
   "col_validity",
   "goods_description",
   "accounting_section",
-  "company",
   "currency",
   "remarks",
   "col_accounting",
@@ -51,12 +51,14 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "description": "Buyer or supplier depending on incoterm (CIF/CIP \u2192 supplier, FOB/EXW \u2192 buyer).",
    "fieldname": "insured_party",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Insured Party",
+   "options": "Company",
    "reqd": 1
   },
   {
@@ -167,14 +169,6 @@
    "label": "Accounting Entry"
   },
   {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company",
-   "remember_last_selected_value": 1,
-   "reqd": 1
-  },
-  {
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",
@@ -186,6 +180,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "description": "Book on policy issue date. Transfer to landed cost clearing account when goods are received.",
    "fieldname": "insurance_premium",
    "fieldtype": "Currency",
@@ -221,13 +216,21 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "insurance_provider",
+   "fieldtype": "Link",
+   "label": "Insurance Provider",
+   "options": "Supplier",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-13 17:29:27.133348",
+ "modified": "2026-05-13 17:48:33.108554",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import Insurance",
