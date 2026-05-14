@@ -4,7 +4,7 @@
  "docstatus": 0,
  "doctype": "Workspace Sidebar",
  "header_icon": "import",
- "idx": 2,
+ "idx": 3,
  "items": [
   {
    "child": 0,
@@ -103,7 +103,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-05 17:01:19.258962",
+ "modified": "2026-05-14 11:12:48.142842",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
