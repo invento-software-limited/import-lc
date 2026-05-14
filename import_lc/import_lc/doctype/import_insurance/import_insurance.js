@@ -6,14 +6,16 @@ frappe.ui.form.on("Import Insurance", {
         frm.set_query('purchase_invoice', function() {
             return {
                 filters: {
-                    proforma_invoice: frm.doc.proforma_invoice
+                    proforma_invoice: frm.doc.proforma_invoice,
+                    company: frm.doc.company
                 }
             };
         });
         frm.set_query('import_lc', function() {
             return {
                 filters: {
-                    proforma_invoice: frm.doc.proforma_invoice
+                    proforma_invoice: frm.doc.proforma_invoice,
+                    company: frm.doc.company
                 }
             };
         });

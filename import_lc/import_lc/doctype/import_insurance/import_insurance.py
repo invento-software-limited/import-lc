@@ -48,11 +48,14 @@ def make_purchase_invoice(source_name, target_doc=None):
 		ins_item_doc.insert(ignore_permissions=True)
 		insurance_item = ins_item_doc.name
 
+	# Determine company (fallback to insured_party if company field is missing)
+	company = getattr(ins, "company", None) or ins.insured_party
+	
 	# Determine company currency (local purchase — always in base currency)
-	company_currency = frappe.get_cached_value("Company", ins.company, "default_currency")
+	company_currency = frappe.get_cached_value("Company", company, "default_currency")
 
-	pi = frappe.new_doc("Purchase Invoice")
-	pi.company = ins.company
+	pi = frappe.new_doc("Purchase Invoice")																							
+	pi.company = company
 	pi.supplier = ins.insurance_provider   # local insurance company
 	pi.currency = company_currency
 	pi.purchase_type = "Local"
