@@ -77,6 +77,12 @@ function fetch_proforma_invoice_data(frm, pi_name) {
 }
 
 frappe.ui.form.on('Purchase Invoice', {
+	onload: function (frm) {
+		// If opened from dashboard (+ button), route_options will contain import_insurance
+		if (frm.is_new() && frappe.route_options && frappe.route_options.import_insurance) {
+			frm.set_value('import_insurance', frappe.route_options.import_insurance);
+		}
+	},
 	refresh: function (frm) {
 		frm.toggle_display([
 			'reference_section',
@@ -88,12 +94,12 @@ frappe.ui.form.on('Purchase Invoice', {
 		frm.trigger('set_naming_series');
 
 		if (frm.doc.purchase_type === 'Import') {
-			['reference_section', 'supplier_bank_section', 'buyer_information_section', 
-			 'trade_commercial_section', 'shipment_details_section'].forEach(section => {
-				if (frm.fields_dict[section]) {
-					frm.fields_dict[section].collapse(false);
-				}
-			});
+			['reference_section', 'supplier_bank_section', 'buyer_information_section',
+				'trade_commercial_section', 'shipment_details_section'].forEach(section => {
+					if (frm.fields_dict[section]) {
+						frm.fields_dict[section].collapse(false);
+					}
+				});
 		}
 	},
 	purchase_type: function (frm) {
@@ -173,13 +179,66 @@ frappe.ui.form.on('Purchase Invoice', {
 			frm.trigger('refresh');
 		});
 	},
-	proforma_invoice: function (frm) {
-		// Fired when user manually selects a Proforma Invoice
-		fetch_proforma_invoice_data(frm, frm.doc.proforma_invoice);
-	},
+	// proforma_invoice: function (frm) {
+	// 	// Fired when user manually selects a Proforma Invoice
+	// 	fetch_proforma_invoice_data(frm, frm.doc.proforma_invoice);
+	// },
 	buyer_address: function (frm) {
 		if (frm.doc.buyer_address) {
 			frappe.contacts.get_address_display(frm, "buyer_address", "buyer_full_address");
 		}
+	},
+	import_insurance: function (frm) {
+		if (!frm.doc.import_insurance || frm.doc.import_lc) return;
+
+		frappe.db.get_doc('Import Insurance', frm.doc.import_insurance).then(ins => {
+			// Determine company (fallback to insured_party if company field is missing)
+			let company = ins.company || ins.insured_party;
+
+			// Fetch company currency (simulating Python's get_cached_value)
+			frappe.db.get_value("Company", company, "default_currency").then(r => {
+				let company_currency = r.message ? r.message.default_currency : null;
+
+				// Map header fields
+				frm.set_value('purchase_type', 'Local');
+				frm.set_value('company', company);
+				frm.set_value('currency', company_currency);
+
+				// Force set supplier (sometimes standard triggers overwrite it)
+				if (ins.insurance_provider) {
+					frm.set_value('supplier', ins.insurance_provider);
+				}
+
+				// Build remarks
+				let desc_parts = [];
+				if (ins.policy_number) desc_parts.push(`Insurance Policy: ${ins.policy_number}`);
+				if (ins.insured_party) desc_parts.push(`Insured Party: ${ins.insured_party}`);
+				if (ins.remarks) desc_parts.push(ins.remarks);
+				frm.set_value('remarks', desc_parts.join(' | '));
+
+				// Map items if no real items exist yet
+				const has_real_items = frm.doc.items && frm.doc.items.some(i => i.item_code);
+				if (!has_real_items) {
+					frm.clear_table('items');
+					let row = frm.add_child('items');
+					frappe.model.set_value(row.doctype, row.name, {
+						'item_code': 'Import Insurance Premium',
+						'item_name': 'Import Insurance Premium',
+						'description': `Insurance Premium – Policy No: ${ins.policy_number || ins.name}`,
+						'qty': 1,
+						'rate': flt(ins.insurance_premium),
+						'uom': 'Nos',
+						'expense_account': ins.debit_account
+					});
+					frm.refresh_field('items');
+				}
+
+				frm.trigger('refresh');
+				frappe.show_alert({
+					message: __('Data fetched from Import Insurance: {0}', [ins.name]),
+					indicator: 'green'
+				});
+			});
+		});
 	}
 });
