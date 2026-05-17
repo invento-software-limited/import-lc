@@ -38,8 +38,8 @@ class ProformaInvoice(Document):
 			self.base_total += item.base_total
 			self.total_qty += flt(item.qty)
 		
-		self.grand_total = flt(self.total) + flt(self.freight_charges)
-		self.base_grand_total = flt(self.base_total) + (flt(self.freight_charges) * flt(self.conversion_rate or 1))
+		self.grand_total = flt(self.total)
+		self.base_grand_total = self.grand_total * flt(self.conversion_rate or 1)
 		
 		self.rounded_total = round(self.grand_total)
 		self.base_rounded_total = round(self.base_grand_total)
@@ -57,6 +57,12 @@ def make_proforma_invoice(source_name, target_doc=None):
 	def set_missing_values(source, target):
 		target.purchase_order = source.name
 		target.buyer = source.company  # Set PO company as the buyer in Proforma Invoice
+		
+		import re
+		if target.address_display:
+			target.address_display = re.sub(r'<br\s*/?>', '\n', target.address_display, flags=re.IGNORECASE)
+		if target.buyer_address_display:
+			target.buyer_address_display = re.sub(r'<br\s*/?>', '\n', target.buyer_address_display, flags=re.IGNORECASE)
 
 	doclist = get_mapped_doc("Purchase Order", source_name, {
 		"Purchase Order": {

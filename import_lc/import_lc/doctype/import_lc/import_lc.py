@@ -38,11 +38,8 @@ class ImportLC(Document):
 			self.base_total += item.base_total
 			self.total_qty += flt(item.qty)
 		
-		# Grand Total includes freight and insurance if any
-		freight = flt(self.freight_charges)
-		insurance = flt(self.get("insurance_amount"))
-		self.grand_total = flt(self.total) + freight + insurance
-		self.base_grand_total = flt(self.base_total) + ((freight + insurance) * flt(self.conversion_rate or 1))
+		self.grand_total = flt(self.total)
+		self.base_grand_total = self.grand_total * flt(self.conversion_rate or 1)
 		
 		self.rounded_total = round(self.grand_total)
 		self.base_rounded_total = round(self.base_grand_total)

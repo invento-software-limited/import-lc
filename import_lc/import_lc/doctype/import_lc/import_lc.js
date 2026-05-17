@@ -241,13 +241,9 @@ var calculate_totals = function (frm) {
     frm.set_value("total_qty", total_qty);
 
     var conversion_rate = flt(frm.doc.conversion_rate) || 1;
-    var freight_charges = flt(frm.doc.freight_charges);
-    var insurance_amount = flt(frm.doc.insurance_amount);
-    var base_freight = freight_charges * conversion_rate;
-    var base_insurance = insurance_amount * conversion_rate;
 
-    var grand_total = total + freight_charges + insurance_amount;
-    var base_grand_total = base_total + base_freight + base_insurance;
+    var grand_total = total;
+    var base_grand_total = grand_total * conversion_rate;
 
     frm.set_value("grand_total", grand_total);
     frm.set_value("rounded_total", Math.round(grand_total));

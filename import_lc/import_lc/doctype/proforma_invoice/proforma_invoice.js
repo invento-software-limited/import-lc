@@ -149,7 +149,7 @@ frappe.ui.form.on('Proforma Invoice', {
                 args: { address_dict: frm.doc.supplier_address },
                 callback: function (r) {
                     if (r.message) {
-                        let address = r.message.replace(/<br\s*\/?>/gi, '');
+                        let address = r.message.replace(/<br\s*\/?>/gi, '\n');
                         frm.set_value('address_display', address);
                     }
                 }
@@ -284,7 +284,7 @@ frappe.ui.form.on('Proforma Invoice', {
                 args: { address_dict: frm.doc.buyer_address },
                 callback: function (r) {
                     if (r.message) {
-                        let address = r.message.replace(/<br\s*\/?>/gi, '');
+                        let address = r.message.replace(/<br\s*\/?>/gi, '\n');
                         frm.set_value('buyer_address_display', address);
                     }
                 }
@@ -496,10 +496,9 @@ var calculate_totals = function (frm) {
     frm.set_value("base_total", base_total);
 
     var conversion_rate = flt(frm.doc.conversion_rate) || 1;
-    var base_freight = flt(frm.doc.freight_charges) * conversion_rate;
 
-    var grand_total = total + flt(frm.doc.freight_charges);
-    var base_grand_total = base_total + base_freight;
+    var grand_total = total;
+    var base_grand_total = grand_total * conversion_rate;
 
     frm.set_value("grand_total", grand_total);
     frm.set_value("rounded_total", Math.round(grand_total));
