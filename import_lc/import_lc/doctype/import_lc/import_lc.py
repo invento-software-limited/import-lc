@@ -76,8 +76,8 @@ def make_purchase_invoice(source_name, target_doc=None):
 			# Bank Information
 			target.bank = pi.bank
 			target.swift_code = pi.swift_code
-			target.bank_branch = pi.bank_branch
-			target.account_number_iban = pi.account_number_iban
+			target.branch = pi.bank_branch
+			target.account_number__iban = pi.account_number_iban
 			target.bank_address = pi.bank_address
 			
 			# Buyer Information
@@ -92,7 +92,8 @@ def make_purchase_invoice(source_name, target_doc=None):
 			target.safta_clause = pi.safta_clause
 			
 			# Shipment Details
-			target.mode_of_shipment = pi.mode_of_shipment
+			target.mode_of_transport = pi.mode_of_transport
+			target.mode_of_shipment_container_details = pi.mode_of_shipment
 			target.shipment_conditions = pi.shipment_conditions
 			
 			# Map items from PI if LC items are generic or missing logistics
@@ -163,9 +164,9 @@ def make_purchase_receipt(source_name, target_doc=None):
 			
 			# Map fields from PI if they exist
 			fields_to_map = [
-				"pi_number", "pi_date", "bank", "swift_code", "bank_branch", "account_number_iban",
+				"pi_number", "pi_date", "bank", "swift_code", "branch", "account_number__iban",
 				"bank_address", "buyer_name", "phone_no", "email", "buyer_address", "freight_charges",
-				"delivery_terms", "safta_clause", "mode_of_shipment", "shipment_conditions",
+				"delivery_terms", "safta_clause", "mode_of_transport", "mode_of_shipment_container_details", "shipment_conditions",
 				"country_of_origin"
 			]
 			for field in fields_to_map:
@@ -322,19 +323,6 @@ def make_landed_cost_voucher(source_name, source_doctype="Import LC"):
 			"supplier": pr.supplier,
 			"posting_date": pr.posting_date,
 			"grand_total": pr.base_grand_total
-		})
-
-	# Fetch Stock-updating PIs
-	pi_filters = filters.copy()
-	pi_filters["update_stock"] = 1
-	pis = frappe.get_all("Purchase Invoice", filters=pi_filters, fields=["name", "supplier", "posting_date", "base_grand_total"])
-	for pi in pis:
-		lcv.append("purchase_receipts", {
-			"receipt_document_type": "Purchase Invoice",
-			"receipt_document": pi.name,
-			"supplier": pi.supplier,
-			"posting_date": pi.posting_date,
-			"grand_total": pi.base_grand_total
 		})
 	
 	# Fetch and Aggregate Charges
