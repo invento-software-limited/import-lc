@@ -1,0 +1,66 @@
+name: CI Tests
+
+on:
+  push:
+    branches:
+      - version-16
+      - main
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    
+    services:
+      mariadb:
+        image: mariadb:10.6
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
+    steps:
+      - name: Clone custom app
+        uses: actions/checkout@v4
+        with:
+          path: apps/import_lc
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup MariaDB Client
+        run: sudo apt-get update && sudo apt-get install -y mariadb-client
+
+      - name: Setup Bench
+        run: |
+          pip install frappe-bench
+          bench init --skip-redis-config-generation --python $(which python) --skip-assets --no-backups frappe-bench
+
+      - name: Install Frappe, ERPNext & Import LC
+        run: |
+          cd frappe-bench
+          bench get-app frappe --branch version-16
+          bench get-app erpnext --branch version-16
+          bench get-app --local import_lc ../apps/import_lc
+
+      - name: Setup Test Site and Install Apps
+        run: |
+          cd frappe-bench
+          # Start MariaDB service mapping if needed, then reinstall site
+          bench --site test_site reinstall --mariadb-root-username root --mariadb-root-password root --yes
+          bench --site test_site install-app erpnext
+          bench --site test_site install-app import_lc
+
+      - name: Run Tests
+        run: |
+          cd frappe-bench
+          bench --site test_site run-tests --app import_lc
+
