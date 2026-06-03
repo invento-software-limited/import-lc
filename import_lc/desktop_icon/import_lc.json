@@ -13,13 +13,13 @@
  "link_to": "",
  "link_type": "External",
  "logo_url": "/assets/import_lc/images/import_lc_logo.svg",
- "modified": "2026-05-05 17:00:06.120119",
+ "modified": "2026-06-03 15:15:03.914802",
  "modified_by": "Administrator",
  "name": "Import LC",
  "owner": "Administrator",
  "parent_icon": "",
  "restrict_removal": 0,
  "roles": [],
- "sidebar": "Import LC Sidebar",
+ "sidebar": "Import LC",
  "standard": 1
 }
