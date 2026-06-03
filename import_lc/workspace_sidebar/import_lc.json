@@ -109,6 +109,18 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "ship",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "LC Shipment",
+   "link_to": "LC Shipment",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "filters": "[[\"Landed Cost Voucher\",\"import_lc\",\"is\",\"set\"]]",
    "icon": "file-plus",
    "indent": 0,
@@ -120,7 +132,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-03 15:57:15.069883",
+ "modified": "2026-06-03 16:22:07.590283",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
