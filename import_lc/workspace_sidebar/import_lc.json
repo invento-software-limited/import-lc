@@ -21,6 +21,7 @@
   {
    "child": 0,
    "collapsible": 1,
+   "filters": "[[\"Purchase Order\",\"purchase_type\",\"=\",\"Import\"]]",
    "icon": "file-box",
    "indent": 0,
    "keep_closed": 0,
@@ -69,10 +70,12 @@
   {
    "child": 0,
    "collapsible": 1,
+   "filters": "[[\"Journal Entry\",\"voucher_type\",\"in\",[\"LC Margin\",\"LC Expense\"]]]",
    "icon": "square-percent",
    "indent": 0,
    "keep_closed": 0,
    "label": "LC Margin/LC Expense",
+   "link_to": "Journal Entry",
    "link_type": "DocType",
    "show_arrow": 0,
    "type": "Link"
@@ -80,6 +83,7 @@
   {
    "child": 0,
    "collapsible": 1,
+   "filters": "[[\"Purchase Invoice\",\"purchase_type\",\"=\",\"Import\"]]",
    "icon": "file-check",
    "indent": 0,
    "keep_closed": 0,
@@ -92,6 +96,7 @@
   {
    "child": 0,
    "collapsible": 1,
+   "filters": "[[\"Purchase Receipt\",\"purchase_type\",\"=\",\"Import\"]]",
    "icon": "receipt",
    "indent": 0,
    "keep_closed": 0,
@@ -104,6 +109,7 @@
   {
    "child": 0,
    "collapsible": 1,
+   "filters": "[[\"Landed Cost Voucher\",\"import_lc\",\"is\",\"set\"]]",
    "icon": "file-plus",
    "indent": 0,
    "keep_closed": 0,
@@ -114,7 +120,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-03 15:23:15.836256",
+ "modified": "2026-06-03 15:57:15.069883",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
