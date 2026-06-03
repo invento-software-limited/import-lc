@@ -9,7 +9,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "home",
    "indent": 0,
    "keep_closed": 0,
    "label": "Home",
@@ -21,7 +21,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "file-box",
    "indent": 0,
    "keep_closed": 0,
    "label": "Purchase Order",
@@ -33,7 +33,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "file-text",
    "indent": 0,
    "keep_closed": 0,
    "label": "Proforma Invoice",
@@ -45,7 +45,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "shield-check",
    "indent": 0,
    "keep_closed": 0,
    "label": "LC Insurance",
@@ -57,7 +57,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "globe",
    "indent": 0,
    "keep_closed": 0,
    "label": "Import LC",
@@ -69,7 +69,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "file-check",
    "indent": 0,
    "keep_closed": 0,
    "label": "Purchase Invoice",
@@ -81,7 +81,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "receipt",
    "indent": 0,
    "keep_closed": 0,
    "label": "Purchase Receipt",
@@ -93,7 +93,7 @@
   {
    "child": 0,
    "collapsible": 1,
-   "icon": "list",
+   "icon": "file-plus",
    "indent": 0,
    "keep_closed": 0,
    "label": "Landed Cost Voucher",
@@ -103,7 +103,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-14 11:12:48.142842",
+ "modified": "2026-06-03 14:43:13.556324",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
