@@ -1,0 +1,29 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-06-10 16:40:52.212686",
+  "name": "Import LC Manager",
+  "role_profile": "Import LC Manager",
+  "roles": [
+   {
+    "role": "Import LC Manager"
+   },
+   {
+    "role": "Import LC User"
+   },
+   {
+    "role": "Purchase Manager"
+   },
+   {
+    "role": "Accounts Manager"
+   },
+   {
+    "role": "Stock Manager"
+   },
+   {
+    "role": "Desk User"
+   }
+  ]
+ }
+]

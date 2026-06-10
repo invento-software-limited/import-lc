@@ -4,7 +4,7 @@ authors = [
     { name = "Invento Software Limited", email = "importlc@invento.com.bd"}
 ]
 description = "A LC Management App developed by Invento Software Limited"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
@@ -21,7 +21,7 @@ build-backend = "flit_core.buildapi"
 
 [tool.ruff]
 line-length = 110
-target-version = "py314"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = [

@@ -9,18 +9,10 @@ app_home = "/app/import-lc"
 
 
 fixtures = [
-    {
-        "dt": "Property Setter",
-        "filters": [
-            ["doc_type", "==", "Journal Entry"]
-        ]
-    },
-    # {
-    #     "dt": "Workspace",
-    #     "filters": [
-    #         ["name", "in", ["Import LC"]]
-    #     ]
-    # }
+	{"dt": "Property Setter", "filters": [["doc_type", "=", "Journal Entry"]]},
+	{"dt": "Role", "filters": [["name", "in", ["Import LC User", "Import LC Manager"]]]},
+	{"dt": "Custom DocPerm", "filters": [["role", "in", ["Import LC User", "Import LC Manager"]]]},
+	{"dt": "Role Profile", "filters": [["name", "in", ["Import LC Manager"]]]},
 ]
 
 # Apps
@@ -34,8 +26,8 @@ add_to_apps_screen = [
 		"name": "import_lc",
 		"logo": "/assets/import_lc/images/import_lc_logo.svg",
 		"title": "Import LC",
-		"route": "/app/import-lc"
-    }
+		"route": "/app/import-lc",
+	}
 ]
 
 # Includes in <head>
@@ -61,11 +53,11 @@ add_to_apps_screen = [
 
 # include js in doctype views
 doctype_js = {
-    "Purchase Order": "public/js/purchase_order.js",
-    "Purchase Invoice": "public/js/purchase_invoice.js",
-    "Journal Entry": "public/js/journal_entry.js",
-    "Purchase Receipt": "public/js/purchase_receipt.js",
-    "Landed Cost Voucher": "public/js/landed_cost_voucher.js"
+	"Purchase Order": "public/js/purchase_order.js",
+	"Purchase Invoice": "public/js/purchase_invoice.js",
+	"Journal Entry": "public/js/journal_entry.js",
+	"Purchase Receipt": "public/js/purchase_receipt.js",
+	"Landed Cost Voucher": "public/js/landed_cost_voucher.js",
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -111,6 +103,7 @@ doctype_js = {
 
 # before_install = "import_lc.install.before_install"
 # after_install = "import_lc.install.after_install"
+after_migrate = "import_lc.setup_permissions.run"
 
 # Uninstallation
 # ------------
@@ -159,11 +152,9 @@ doctype_js = {
 doc_events = {
 	"Purchase Invoice": {
 		"validate": "import_lc.doctype_hooks.purchase_invoice.validate_purchase_invoice_one_to_one",
-		"onload": "import_lc.doctype_hooks.purchase_invoice.populate_virtual_fields"
+		"onload": "import_lc.doctype_hooks.purchase_invoice.populate_virtual_fields",
 	},
-	"Journal Entry": {
-		"validate": "import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"
-	}
+	"Journal Entry": {"validate": "import_lc.doctype_hooks.journal_entry.validate_journal_entry_one_to_one"},
 }
 
 # Scheduled Tasks
@@ -216,7 +207,7 @@ override_doctype_dashboards = {
 	"Purchase Invoice": "import_lc.custom_dashboards.purchase_invoice.update_purchase_invoice_dashboard",
 	"Journal Entry": "import_lc.custom_dashboards.journal_entry.update_journal_entry_dashboard",
 	"Landed Cost Voucher": "import_lc.custom_dashboards.landed_cost_voucher.update_landed_cost_voucher_dashboard",
-	"Purchase Receipt": "import_lc.custom_dashboards.purchase_receipt.update_purchase_receipt_dashboard"
+	"Purchase Receipt": "import_lc.custom_dashboards.purchase_receipt.update_purchase_receipt_dashboard",
 }
 
 # exempt linked doctypes from being automatically cancelled
@@ -280,4 +271,3 @@ override_doctype_dashboards = {
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
