@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Purchase Taxes and Charges",
+ "links": [],
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2026-07-15 13:32:42.625214",
+   "default_value": null,
+   "doc_type": "Purchase Taxes and Charges",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "accounting_dimensions_section",
+   "idx": 0,
+   "is_system_generated": 1,
+   "modified": "2026-07-15 17:07:39.673191",
+   "modified_by": "Administrator",
+   "module": null,
+   "name": "Purchase Taxes and Charges-accounting_dimensions_section-hidden",
+   "owner": "Administrator",
+   "property": "hidden",
+   "property_type": "Check",
+   "row_name": null,
+   "value": "1"
+  }
+ ],
+ "sync_on_migrate": 1
+}

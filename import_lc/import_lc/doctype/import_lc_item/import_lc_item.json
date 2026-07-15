@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-30 14:15:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "item_name",
+  "description",
+  "brand",
+  "hs_code",
+  "qty",
+  "uom",
+  "rate",
+  "base_rate",
+  "total",
+  "base_total",
+  "packing_logistics_section",
+  "packing_type",
+  "packing_details",
+  "col_packing_1",
+  "total_qty",
+  "total_volume_weight",
+  "commercial_fields_section",
+  "rate_per_carton",
+  "total_amount_usd"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Product Description"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "hs_code",
+   "fieldtype": "Data",
+   "label": "HS Code"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity (QTY)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Unit Price",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_rate",
+   "fieldtype": "Currency",
+   "label": "Rate (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_total",
+   "fieldtype": "Currency",
+   "label": "Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "packing_logistics_section",
+   "fieldtype": "Section Break",
+   "label": "Packing & Logistics"
+  },
+  {
+   "fieldname": "packing_type",
+   "fieldtype": "Data",
+   "label": "Packing Type (UOM + Dimension)"
+  },
+  {
+   "fieldname": "packing_details",
+   "fieldtype": "Data",
+   "label": "Packing Details"
+  },
+  {
+   "fieldname": "col_packing_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Quantity"
+  },
+  {
+   "fieldname": "total_volume_weight",
+   "fieldtype": "Float",
+   "label": "Total Liters / KG"
+  },
+  {
+   "fieldname": "commercial_fields_section",
+   "fieldtype": "Section Break",
+   "label": "Commercial Fields"
+  },
+  {
+   "fieldname": "rate_per_carton",
+   "fieldtype": "Currency",
+   "label": "Rate per Carton (USD)",
+   "options": "currency"
+  },
+  {
+   "fieldname": "total_amount_usd",
+   "fieldtype": "Currency",
+   "label": "Total Amount (USD)",
+   "options": "currency",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-30 14:15:00.000000",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "Import LC Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

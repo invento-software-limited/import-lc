@@ -1,0 +1,511 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PRO-INV-.####",
+ "creation": "2026-04-29 15:33:24.660230",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information_section",
+  "company",
+  "pi_number",
+  "pi_date",
+  "col_basic_1",
+  "posting_date",
+  "pi_validity_date",
+  "purchase_order",
+  "supplier_section",
+  "supplier",
+  "supplier_name",
+  "col_supplier_address",
+  "supplier_address",
+  "address_display",
+  "col_supplier_contact",
+  "supplier_contact",
+  "supplier_phone_no",
+  "supplier_email",
+  "supplier_bank_section",
+  "bank",
+  "swift_code",
+  "col_bank_1",
+  "account_number_iban",
+  "bank_address",
+  "buyer_information_section",
+  "buyer",
+  "buyer_name",
+  "col_buyer_address",
+  "buyer_address",
+  "buyer_address_display",
+  "col_buyer_contact",
+  "buyer_contact",
+  "buyer_phone_no",
+  "buyer_email",
+  "trade_commercial_section",
+  "currency",
+  "conversion_rate",
+  "col_trade_1",
+  "payment_terms",
+  "incoterm",
+  "column_break_muzo",
+  "delivery_terms",
+  "shipment_details_section",
+  "port_of_loading",
+  "port_of_discharge",
+  "col_shipment_1",
+  "country_of_final_destination",
+  "mode_of_transport",
+  "col_shipment_2",
+  "transshipment",
+  "partial_shipment",
+  "product_details_section",
+  "items",
+  "financial_summary_section",
+  "base_total",
+  "base_grand_total",
+  "base_rounded_total",
+  "base_in_words",
+  "col_financial_1",
+  "total",
+  "grand_total",
+  "rounded_total",
+  "in_words",
+  "terms_conditions_section",
+  "tc_name",
+  "terms",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "description": "Unique PI reference number from supplier.",
+   "fieldname": "pi_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "PI Number",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "pi_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "PI Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_basic_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Offer valid until this date \u2014 triggers urgency on LC opening.",
+   "fieldname": "pi_validity_date",
+   "fieldtype": "Date",
+   "label": "PI Validity"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Information"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "supplier.supplier_name",
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name"
+  },
+  {
+   "fieldname": "col_supplier_address",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_address",
+   "fieldtype": "Link",
+   "label": "Supplier Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "address_display",
+   "fieldtype": "Small Text",
+   "label": "Full Address"
+  },
+  {
+   "fieldname": "col_supplier_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_contact",
+   "fieldtype": "Link",
+   "label": "Supplier Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "supplier_phone_no",
+   "fieldtype": "Data",
+   "label": "Supplier Phone No."
+  },
+  {
+   "fieldname": "supplier_email",
+   "fieldtype": "Data",
+   "label": "Supplier Email"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "supplier_bank_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Bank Information"
+  },
+  {
+   "fieldname": "col_bank_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bank_address",
+   "fieldtype": "Small Text",
+   "label": "Bank Address"
+  },
+  {
+   "description": "Must be entered accurately into the LC application.",
+   "fieldname": "account_number_iban",
+   "fieldtype": "Data",
+   "label": "Account Number / IBAN",
+   "reqd": 1
+  },
+  {
+   "description": "SWIFT BIC \u2014 issuing bank uses this to route MT700 and eventual payment.",
+   "fetch_from": "bank.swift_number",
+   "fieldname": "swift_code",
+   "fieldtype": "Data",
+   "label": "SWIFT Code",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "buyer_information_section",
+   "fieldtype": "Section Break",
+   "label": "Buyer Information"
+  },
+  {
+   "fieldname": "buyer",
+   "fieldtype": "Link",
+   "label": "Buyer",
+   "options": "Company"
+  },
+  {
+   "description": "Exact legal name \u2014 becomes the LC applicant.",
+   "fetch_from": "buyer.company_name",
+   "fieldname": "buyer_name",
+   "fieldtype": "Data",
+   "label": "Buyer Name"
+  },
+  {
+   "fieldname": "col_buyer_address",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buyer_address",
+   "fieldtype": "Link",
+   "label": "Buyer Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "buyer_address_display",
+   "fieldtype": "Small Text",
+   "label": "Full Address"
+  },
+  {
+   "fieldname": "col_buyer_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buyer_contact",
+   "fieldtype": "Link",
+   "label": "Buyer Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "buyer_phone_no",
+   "fieldtype": "Data",
+   "label": "Buyer Phone No."
+  },
+  {
+   "fieldname": "buyer_email",
+   "fieldtype": "Data",
+   "label": "Buyer Email"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "trade_commercial_section",
+   "fieldtype": "Section Break",
+   "label": "Trade & Commercial Details"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate",
+   "precision": "9"
+  },
+  {
+   "description": "LC at sight / usance / deferred payment.",
+   "fieldname": "payment_terms",
+   "fieldtype": "Link",
+   "label": "Payment Terms",
+   "options": "Payment Term",
+   "reqd": 1
+  },
+  {
+   "description": "Determines who arranges freight and insurance.",
+   "fieldname": "incoterm",
+   "fieldtype": "Link",
+   "label": "Incoterms",
+   "options": "Incoterm"
+  },
+  {
+   "fieldname": "col_trade_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_terms",
+   "fieldtype": "Small Text",
+   "label": "Delivery Terms"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "shipment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Shipment Details"
+  },
+  {
+   "description": "Origin port \u2014 must match across LC, B/L and commercial invoice.",
+   "fieldname": "port_of_loading",
+   "fieldtype": "Data",
+   "label": "Port of Loading"
+  },
+  {
+   "description": "Destination port \u2014 must match across all documents.",
+   "fieldname": "port_of_discharge",
+   "fieldtype": "Data",
+   "label": "Port of Discharge"
+  },
+  {
+   "fieldname": "col_shipment_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "country_of_final_destination",
+   "fieldtype": "Link",
+   "label": "Country of Final Destination",
+   "options": "Country"
+  },
+  {
+   "fieldname": "mode_of_transport",
+   "fieldtype": "Select",
+   "label": "Mode of Transport",
+   "options": "\nSea\nAir\nRoad\nRail\nMultimodal"
+  },
+  {
+   "fieldname": "col_shipment_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "transshipment",
+   "fieldtype": "Select",
+   "label": "Transshipment",
+   "options": "\nAllowed\nNot Allowed"
+  },
+  {
+   "fieldname": "partial_shipment",
+   "fieldtype": "Select",
+   "label": "Partial Shipment",
+   "options": "\nAllowed\nNot Allowed"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  },
+  {
+   "description": "Goods description wording MUST be frozen before LC application. Any subsequent change requires an LC amendment (MT707) and incurs charges.",
+   "fieldname": "product_details_section",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Proforma Invoice Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "financial_summary_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_total",
+   "fieldtype": "Currency",
+   "label": "Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col_financial_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_rounded_total",
+   "fieldtype": "Currency",
+   "label": "Rounded Total (Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "in_words",
+   "fieldtype": "Data",
+   "label": "In Words",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base_in_words",
+   "fieldtype": "Data",
+   "label": "In Words (Company Currency)",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "terms_conditions_section",
+   "fieldtype": "Section Break",
+   "label": "Terms & Conditions"
+  },
+  {
+   "fieldname": "tc_name",
+   "fieldtype": "Link",
+   "label": "Terms and Conditions",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Proforma Invoice",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Beneficiary bank name \u2014 used by issuing bank to route payment.",
+   "fieldname": "bank",
+   "fieldtype": "Link",
+   "label": "Bank",
+   "options": "Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_muzo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-07-15 16:51:22.216951",
+ "modified_by": "Administrator",
+ "module": "Import LC",
+ "name": "Proforma Invoice",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
