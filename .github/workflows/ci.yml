@@ -1,26 +1,23 @@
-name: CI Tests
+name: CI
 
 on:
   push:
     branches:
-      - version-16
       - main
   pull_request:
+
+concurrency:
+  group: import_lc-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:
     runs-on: ubuntu-latest
-    env:
-      UV_PYTHON: python3.12
-    
+    strategy:
+      fail-fast: false
+    name: Server
+
     services:
-      mariadb:
-        image: mariadb:10.6
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd="mariadb-admin ping" --health-interval=5s --health-timeout=2s --health-retries=3
       redis-cache:
         image: redis:alpine
         ports:
@@ -29,54 +26,83 @@ jobs:
         image: redis:alpine
         ports:
           - 11000:6379
-      redis-socketio:
-        image: redis:alpine
+      mariadb:
+        image: mariadb:10.6
+        env:
+          MYSQL_ROOT_PASSWORD: root
         ports:
-          - 12000:6379
+          - 3306:3306
+        options: --health-cmd="mariadb-admin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
       - name: Clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
+
+      - name: Find tests
+        run: |
+          echo "Finding tests"
+          grep -rn "def test" > /dev/null
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.14'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 24
+          check-latest: true
 
-      - name: Setup MariaDB Client
-        run: sudo apt-get update && sudo apt-get install -y mariadb-client
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/*requirements.txt', '**/pyproject.toml', '**/setup.py', '**/setup.cfg') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
 
-      - name: Setup Bench
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: 'echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT'
+
+      - uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install MariaDB Client
         run: |
-          python3 -m pip install frappe-bench
-          bench() { python3 -c "from bench.cli import cli; cli()" "$@"; }
-          bench init --skip-redis-config-generation --python python3 --skip-assets --no-backups ~/frappe-bench
+          sudo apt update
+          sudo apt-get install mariadb-client
+
+      - name: Setup
+        run: |
+          pip install frappe-bench
+          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" ~/frappe-bench --frappe-branch version-16
           mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL character_set_server = 'utf8mb4'"
           mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL collation_server = 'utf8mb4_unicode_ci'"
 
-      - name: Install Apps
+      - name: Install
         working-directory: /home/runner/frappe-bench
         run: |
-          bench() { python3 -c "from bench.cli import cli; cli()" "$@"; }
-          bench get-app frappe --branch version-16
           bench get-app erpnext --branch version-16
           bench get-app import_lc $GITHUB_WORKSPACE
-          bench new-site --db-root-password root --admin-password admin --db-host 127.0.0.1 test_site
+          bench setup requirements --dev
+          bench new-site --db-root-password root --admin-password admin1 test_site
           bench --site test_site install-app erpnext
           bench --site test_site install-app import_lc
+          bench build
         env:
           CI: 'Yes'
 
       - name: Run Tests
         working-directory: /home/runner/frappe-bench
         run: |
-          bench() { python3 -c "from bench.cli import cli; cli()" "$@"; }
-          bench --site test_site set-config allow_tests true
           bench --site test_site run-tests --app import_lc
         env:
-          TYPE: server
+          CI: 'Yes'

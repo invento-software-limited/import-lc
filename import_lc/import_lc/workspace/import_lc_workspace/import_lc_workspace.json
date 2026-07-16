@@ -6,7 +6,7 @@
    "label": "Import LC Progress"
   }
  ],
- "content": "[{\"id\":\"W6M1Z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Import LC Management</span>\",\"col\":12}},{\"id\":\"0d1nlJV0uo\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Import LC Progress\",\"col\":12}},{\"id\":\"Cy9slrK6u3\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\",\"col\":12}},{\"id\":\"JtQiYMKrpU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":4}},{\"id\":\"EzKGX1upOd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Proforma Invoice\",\"col\":4}},{\"id\":\"71zEhvYGsR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import Insurance\",\"col\":4}},{\"id\":\"Iiy8mDZK2O\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import LC\",\"col\":4}},{\"id\":\"jz6BRaG6A_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commercial Invoice\",\"col\":4}},{\"id\":\"38fzMo-JNA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Receipt\",\"col\":4}},{\"id\":\"sCUo2KxyFz\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"LC Margin/Expenses\",\"col\":4}},{\"id\":\"zjAmiRvvW1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landed Cost Voucher\",\"col\":4}},{\"id\":\"FdZUjg8oTM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"LC Shipment\",\"col\":4}},{\"id\":\"g3CJrB--r8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Master &amp; Reports</b></span>\",\"col\":12}},{\"id\":\"4ZIDoJ8xix\",\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}},{\"id\":\"rmgAbwJzfO\",\"type\":\"card\",\"data\":{\"card_name\":\"Pre-Shipment\",\"col\":4}},{\"id\":\"Az8xu3t89Z\",\"type\":\"card\",\"data\":{\"card_name\":\"Post-Shipment\",\"col\":4}}]",
+ "content": "[{\"id\":\"W6M1Z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Import LC Management</span>\",\"col\":12}},{\"id\":\"0d1nlJV0uo\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Import LC Progress\",\"col\":12}},{\"id\":\"Cy9slrK6u3\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\",\"col\":12}},{\"id\":\"JtQiYMKrpU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Order\",\"col\":4}},{\"id\":\"EzKGX1upOd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Proforma Invoice\",\"col\":4}},{\"id\":\"Iiy8mDZK2O\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import LC\",\"col\":4}},{\"id\":\"jz6BRaG6A_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commercial Invoice\",\"col\":4}},{\"id\":\"38fzMo-JNA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Receipt\",\"col\":4}},{\"id\":\"zjAmiRvvW1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Landed Cost Voucher\",\"col\":4}},{\"id\":\"g3CJrB--r8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Master &amp; Reports</b></span>\",\"col\":12}},{\"id\":\"4ZIDoJ8xix\",\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}},{\"id\":\"rmgAbwJzfO\",\"type\":\"card\",\"data\":{\"card_name\":\"Pre-Shipment\",\"col\":4}},{\"id\":\"Az8xu3t89Z\",\"type\":\"card\",\"data\":{\"card_name\":\"Post-Shipment\",\"col\":4}}]",
  "creation": "2026-05-14 08:33:37.487524",
  "custom_blocks": [],
  "docstatus": 0,
@@ -110,16 +110,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Import Insurance",
-   "link_count": 0,
-   "link_to": "Import Insurance",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Import LC",
    "link_count": 0,
    "link_to": "Import LC",
@@ -149,26 +139,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "LC Margin",
-   "link_count": 0,
-   "link_to": "Journal Entry",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "LC Expense",
-   "link_count": 0,
-   "link_to": "Journal Entry",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Purchase Receipt",
    "link_count": 0,
    "link_to": "Purchase Receipt",
@@ -187,7 +157,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-15 16:02:02.258911",
+ "modified": "2026-07-16 12:34:34.062653",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC Workspace",
@@ -231,14 +201,6 @@
    "label": "Proforma Invoice",
    "link_to": "Proforma Invoice",
    "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Blue",
-   "doc_view": "List",
-   "label": "LC Margin/Expenses",
-   "link_to": "Journal Entry",
-   "stats_filter": "[[\"Journal Entry\",\"voucher_type\",\"in\",[\"LC Margin\",\"LC Expense\"]]]",
    "type": "DocType"
   },
   {
