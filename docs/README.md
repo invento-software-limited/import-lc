@@ -11,7 +11,7 @@
 </div>
 
 <div align="center">
-	<img src="images/workspace_screenshot.png" alt="Hero Image" width="100%" />
+	<img src="assets/import_lc_workspace.png" alt="Hero Image" width="100%" />
 </div>
 <br />
 <div align="center">
@@ -40,11 +40,11 @@ Managing import billing, commercial documentation, and tracking bank letters of 
 
 #### Import Proforma Invoice
 
-![Import Proforma Invoice](images/proforma_invoice_screenshot.png)
+![Import Proforma Invoice](assets/import_proforma_invoice.png)
 
 #### Import LC
 
-![Import LC](images/import_lc_screenshot.png)
+![Import LC](assets/import_lc.png)
 
 </details>
 <br>
