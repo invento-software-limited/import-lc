@@ -14,8 +14,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated CI action triggers in `.github/workflows/ci.yml` to run checks on `version-16` and `develop` branches.
 
+---
+
+## [1.0.1] - 2026-06-10
+
+### Added
+- **Permissions & Security Configuration:**
+  - Created the new `Import LC Manager` Role Profile containing managerial and core transactional roles.
+  - Implemented the permission and profile setup script (`import_lc/setup_permissions.py`) to automate roles configuration.
+  - Granted full operational permissions (read, write, create, delete, submit, cancel, amend) for `Payment Entry` to both `Import LC User` and `Import LC Manager` roles.
+  - Added an `after_migrate` hook to automate the execution of permissions and role profile setups during migrations.
+
 ### Fixed
-- Data fetching logic in Landed Cost Voucher from Import LC to exclude the main Purchase Invoice and only include the Purchase Invoice linked via `import_insurance` (if exist).
+- **UI & Workspace Sidebar:**
+  - Resolved client-side workspace sidebar crash (`TypeError: can't access property "Import LC Workspace", o is null`) by removing the broken/deleted workspace navigation item from the sidebar fixture `import_lc.json`.
+  - Resolved `bench export-fixtures` crash caused by unsupported `==` operator in `Property Setter` filters by switching it to standard `=` in `hooks.py`.
+  - Lowered minimum Python requirements from `py314` / `>=3.14` to `py310` / `>=3.10` in `pyproject.toml` to support current environments.
 
 ---
 
@@ -23,16 +37,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Features / Workspaces:**
-  - New modular workspace configuration and charts dashboard.
+  - New modular workspace configuration and charts dashboard for the Import LC module.
   - Core DocTypes and schema configurations for `Purchase Invoice` and `Landed Cost Voucher` to track and apportion import-specific expenses.
   - Linked financial processes, including data fetching from standard `Import LC` to `Landed Cost Voucher`.
-  - Integration with `Import Insurance` for automating premium and other landing charges computation.
 
 ### Fixed
 - **Integrations & Operations:**
-  - Standardized automated flow of mapping data during `Purchase Invoice` creation specifically from `Import Insurance`.
-  - Configured conditional workflow for disabling key headers upon document submission inside `Import Insurance`.
-  - Cleaned database representations and updated dashboard indicators on `Import Insurance` dashboards.
+  - Standardized automated flow of mapping data during `Purchase Invoice` creation.
 
 ### Changed
 - **Chores & Housekeeping:**
