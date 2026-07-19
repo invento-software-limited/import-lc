@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://invento-software-limited.github.io/export-lc/sitemap.xml

@@ -1,0 +1,8 @@
+{
+  "name": "Import LC Documentation",
+  "short_name": "Import LC Docs",
+  "icons": [],
+  "theme_color": "#2F3181",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
