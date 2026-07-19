@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Created complete Docsify documentation site under `docs/` with sidebar navigation, product overview, and user guide.
+- Revamped root `README.md` to include detailed screenshots, installation, and deployment guidelines.
+
+### Changed
+- Updated CI action triggers in `.github/workflows/ci.yml` to run checks on `version-16` and `develop` branches.
+
 ### Fixed
 - Data fetching logic in Landed Cost Voucher from Import LC to exclude the main Purchase Invoice and only include the Purchase Invoice linked via `import_insurance` (if exist).
 
