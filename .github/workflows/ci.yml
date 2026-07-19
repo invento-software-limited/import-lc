@@ -3,7 +3,8 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - version-16
+      - develop
   pull_request:
 
 concurrency:
