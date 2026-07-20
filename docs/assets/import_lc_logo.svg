@@ -1,0 +1,27 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Professional Container Ship Logo for Import LC -->
+    <rect width="200" height="200" rx="40" fill="#1a5fb4"/>
+    
+    <!-- Ship Hull -->
+    <path d="M30 120 L170 120 L155 160 L45 160 Z" fill="#ffffff"/>
+    
+    <!-- Containers -->
+    <rect x="45" y="100" width="25" height="20" fill="#e01b24" stroke="#ffffff" stroke-width="1"/>
+    <rect x="70" y="100" width="25" height="20" fill="#f5c211" stroke="#ffffff" stroke-width="1"/>
+    <rect x="95" y="100" width="25" height="20" fill="#26a269" stroke="#ffffff" stroke-width="1"/>
+    <rect x="120" y="100" width="25" height="20" fill="#3584e4" stroke="#ffffff" stroke-width="1"/>
+    
+    <!-- Second Tier Containers -->
+    <rect x="55" y="80" width="25" height="20" fill="#f5c211" stroke="#ffffff" stroke-width="1"/>
+    <rect x="80" y="80" width="25" height="20" fill="#3584e4" stroke="#ffffff" stroke-width="1"/>
+    <rect x="105" y="80" width="25" height="20" fill="#e01b24" stroke="#ffffff" stroke-width="1"/>
+
+    <!-- Ship Bridge/Superstructure -->
+    <rect x="140" y="80" width="25" height="40" fill="#ffffff"/>
+    <rect x="145" y="65" width="15" height="15" fill="#ffffff"/>
+    
+    <!-- Waves -->
+    <path d="M30 165 Q 50 175 70 165 T 110 165 T 150 165 T 170 165" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
+
+    <text x="100" y="190" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">IMPORT LC</text>
+</svg>
