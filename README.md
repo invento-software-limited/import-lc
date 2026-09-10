@@ -66,10 +66,24 @@ These fields help structure LC information; they do not claim automatic SWIFT MT
 
 ## Import or export—which app do you need?
 
-| Use case | App |
-| --- | --- |
-| You open an LC to buy goods, materials or machinery from a supplier | **Import LC** (this repository) |
-| A buyer opens an LC in your favour and you ship against it | [**Export LC**](https://github.com/invento-software-limited/export-lc) |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="70%" align="left">Use case</th>
+      <th width="30%" align="left">Choose this app</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>You open an LC to buy goods, materials or machinery from a supplier</td>
+      <td><strong>Import LC</strong><br><sub>THIS REPOSITORY</sub></td>
+    </tr>
+    <tr>
+      <td>A buyer opens an LC in your favour and you ship against it</td>
+      <td><a href="https://github.com/invento-software-limited/export-lc"><strong>Explore Export LC →</strong></a></td>
+    </tr>
+  </tbody>
+</table>
 
 Businesses that handle both directions can install both apps. In the current `version-16` repositories, the apps manage their respective workflows; they do not automatically create a master export LC/back-to-back import LC relationship across apps.
 
@@ -104,12 +118,24 @@ Open the app from the ERPNext app switcher after installation. For a fresh bench
 
 ## Requirements and compatibility
 
-| Component | Supported version |
-| --- | --- |
-| Frappe Framework | `>=16.0.0-dev, <17.0.0-dev` |
-| ERPNext | v16 |
-| Python | 3.10 or newer |
-| App branch | `version-16` |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="25%" align="left">Frappe Framework</th>
+      <th width="25%" align="left">ERPNext</th>
+      <th width="25%" align="left">Python</th>
+      <th width="25%" align="left">App branch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&gt;=16.0.0-dev, &lt;17.0.0-dev</code></td>
+      <td>v16</td>
+      <td>3.10 or newer</td>
+      <td><code>version-16</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Documentation and support
 
