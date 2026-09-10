@@ -1,123 +1,130 @@
-   <div align="center" markdown="1">
+<div align="center">
 
-<img src="import_lc/public/images/import_lc_logo.svg" alt="Import LC logo" width="80"/>
-<h1>Import LC</h1>
+<img src="docs/assets/import_lc_logo.svg" alt="Import LC for ERPNext logo" width="88" />
 
-**Import LC (Letter of Credit) Management, Made Simple and Effective**
+# Import LC for ERPNext
 
-[![CI Tests](https://github.com/invento-software-limited/import-lc/actions/workflows/ci.yml/badge.svg)](https://github.com/invento-software-limited/import-lc/actions/workflows/ci.yml)
+**Import letter of credit management for ERPNext v16—from purchase order to landed cost.**
+
+[![CI](https://github.com/invento-software-limited/import-lc/actions/workflows/ci.yml/badge.svg)](https://github.com/invento-software-limited/import-lc/actions/workflows/ci.yml)
 [![Linters](https://github.com/invento-software-limited/import-lc/actions/workflows/linters.yml/badge.svg)](https://github.com/invento-software-limited/import-lc/actions/workflows/linters.yml)
+[![ERPNext v16](https://img.shields.io/badge/ERPNext-v16-0089FF)](https://github.com/frappe/erpnext)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2F855A.svg)](license.txt)
+
+[Marketplace](https://cloud.frappe.io/marketplace/apps/import_lc) · [Documentation](https://invento-software-limited.github.io/import-lc/) · [LC management guide](https://invento.com.bd/import-export-lc-management-erpnext/) · [Export LC companion app](https://github.com/invento-software-limited/export-lc)
 
 </div>
 
-<div align="center">
-   <img src="docs/assets/import_lc_workspace.png" alt="Hero Image" width="100%" />
-</div>
-<br />
-<div align="center">
-   <a href="https://invento-software-limited.github.io/import-lc/">Documentation</a>
-</div>
+![Import LC workspace in ERPNext with an LC progress chart and shortcuts](docs/assets/import_lc_workspace.png)
 
-## Import LC
-An Import Letter of Credit (LC) tracking and management application for Frappe and ERPNext (version-16), developed by **Invento Software Limited**. It simplifies tracking import contracts, banking requirements, and Letters of Credit to ensure financial compliance and streamline documentation.
+## See every import credit in the same system as purchasing and accounts
 
-### Motivation
-Managing import billing, commercial documentation, and tracking bank letters of credit was complex and manual. We wanted a seamless extension for ERPNext to connect Purchase Orders directly to Import Proforma Invoices, trace active/expired/utilized bank LCs, and automatically map these to Purchase Invoices. This app makes managing import LCs automated and transparent.
+ERPNext manages purchase orders, receipts, invoices and accounting. Import LC adds the documentary-credit record between those steps, so teams can keep commercial terms, bank fields and landed-cost inputs together instead of rebuilding the same information across spreadsheets and files.
 
-### Key Features
+> **Scope:** Import LC records and maps LC data inside ERPNext. It does not connect to a bank, transmit SWIFT messages or replace bank approval and document-checking procedures.
 
-- **Automated Purchase Order Sync**: Instantly link approved ERPNext Purchase Orders to initiate the import lifecycle, ensuring seamless downstream tracking.
-- **Precision Proforma Generation**: Generate detailed Import Proforma Invoices directly from Purchase Orders with zero-touch mapping of items, currencies, and commercial terms.
-- **End-to-End Commercial Mapping**: Seamlessly propagate Import LC and Proforma Invoice attributes to standard Purchase Invoices and related ERPNext documents.
-- **SWIFT MT700 Field Alignment**: Standardize credit validation by mapping crucial MT700 fields, including issuing/beneficiary banks, tolerance limits, expiry timelines, and documentation instructions.
-- **Real-Time Utilization Tracking**: Dynamically monitor and evaluate LC drawdown states (Draft, Active, Partially Utilized, Fully Utilized, Expired, Cancelled) against linked commercial documents.
-- **Executive Workspace & Analytics**: Visualize critical metrics, utilization ratios, and LC distribution patterns through native, interactive Desk dashboards.
+## Import LC workflow at a glance
 
-<details open>
-<summary>View Screenshots</summary>
-<br>
+```text
+Purchase Order
+      │
+      ▼
+Import Proforma Invoice
+      │
+      ▼
+Import LC ─────► Journal Entry for LC margin or expense
+      │
+      ├────────► Purchase Invoice
+      └────────► Purchase Receipt ─────► Landed Cost Voucher
+```
 
+## What teams can do
 
-#### Import Proforma Invoice
+| Task | How Import LC helps |
+| --- | --- |
+| Start from approved purchasing data | Create an **Import Proforma Invoice** from a Purchase Order and carry forward items, currency and commercial details. |
+| Maintain the documentary credit | Record the Import LC with applicant, beneficiary, bank, value, dates, tolerance and shipment/document terms. |
+| Post finance entries | Prepare Journal Entries for LC margin and LC-related expenses from the Import LC. |
+| Continue procurement | Create a Purchase Invoice or Purchase Receipt from the Import LC instead of re-entering the transaction. |
+| Build landed cost | Create a Landed Cost Voucher using submitted Purchase Receipts plus freight, insurance and LC-related charges. |
+| Review activity visually | Use the Import LC workspace, shortcuts and progress chart for a faster operational view. |
 
-![Import Proforma Invoice](docs/assets/import_proforma_invoice.png)
+## Familiar MT700-aligned fields
 
-#### Import LC
+The Import LC form includes commonly used documentary-credit fields such as reference number (F20), issue and expiry dates (F31C/F31D), credit form (F40A/F40E), applicant and beneficiary (F50/F59), tolerance (F39A), partial shipment and transshipment (F43P/F43T), latest shipment date (F44C), goods and documents (F45A/F46A), additional conditions (F47A), charges (F71D) and instructions (F78).
 
-![Import LC](docs/assets/import_lc.png)
+These fields help structure LC information; they do not claim automatic SWIFT MT700 generation or transmission.
 
-</details>
-<br>
+## Product screenshots
 
-### Under the Hood
+| Import Proforma Invoice | Import LC record |
+| --- | --- |
+| ![Import Proforma Invoice created from purchase data in ERPNext](docs/assets/import_proforma_invoice.png) | ![Import LC record with documentary-credit fields in ERPNext](docs/assets/import_lc.png) |
 
-- [**Frappe Framework**](https://github.com/frappe/frappe): A full-stack web application framework written in Python and Javascript.
-- [**ERPNext**](https://github.com/frappe/erpnext): The core open-source ERP system version-16.
+## Import or export—which app do you need?
 
-## Production Setup
+| Use case | App |
+| --- | --- |
+| You open an LC to buy goods, materials or machinery from a supplier | **Import LC** (this repository) |
+| A buyer opens an LC in your favour and you ship against it | [**Export LC**](https://github.com/invento-software-limited/export-lc) |
 
-For self-hosting and deploying on production environments using Docker, refer to our detailed deployment guide:
-- [Docker Deployment Guide](docs/docker-deployment.md)
+Businesses that handle both directions can install both apps. In the current `version-16` repositories, the apps manage their respective workflows; they do not automatically create a master export LC/back-to-back import LC relationship across apps.
 
-## Development Setup
+For the business context, terminology and process gaps these apps address, read [Import and Export LC Management in ERPNext](https://invento.com.bd/import-export-lc-management-erpnext/).
 
-To setup the repository locally in your bench:
+## Installation
 
-1. Install bench and setup your `frappe-bench` directory by following the [Installation Steps](https://frappeframework.com/docs/user/en/installation).
-2. Start the server by running `bench start`.
-3. In a separate terminal window, create a new site by running `bench new-site import-lc.test`.
-4. Map your site to localhost with the command:
-   ```bash
-   bench --site import-lc.test add-to-hosts
-   ```
-5. Get the ERPNext app:
-   ```bash
-   bench get-app erpnext --branch version-16
-   ```
-6. Get the Import LC app:
-   ```bash
-   bench get-app https://github.com/invento-software-limited/import-lc.git --branch version-16
-   ```
-7. Install the app on your site:
-   ```bash
-   bench --site import-lc.test install-app import_lc
-   ```
-8. Run database migrations:
-   ```bash
-   bench --site import-lc.test migrate
-   ```
-9. Build assets:
-   ```bash
-   bench build --app import_lc
-   ```
-10. Now open the URL `http://import-lc.test:8000/app/import-lc-workspace` in your browser.
+### Frappe Cloud
 
+Install [Import LC from the Frappe Marketplace](https://cloud.frappe.io/marketplace/apps/import_lc).
 
-## Compatibility matrix
+### Self-hosted bench
 
-| Import LC Branch | Compatible Frappe/ERPNext Version |
-| ---------------- | --------------------------------- |
-| version-16       | version-16                        |
-| develop          | develop branch                    |
+Use an existing Frappe/ERPNext v16 bench:
+
+```bash
+bench get-app https://github.com/invento-software-limited/import-lc.git --branch version-16
+bench --site your-site.example install-app import_lc
+bench --site your-site.example migrate
+bench build --app import_lc
+```
+
+Open the app from the ERPNext app switcher after installation. For a fresh bench or site, follow the [official Frappe installation guide](https://frappeframework.com/docs/user/en/installation) first.
+
+## Requirements and compatibility
+
+| Component | Supported version |
+| --- | --- |
+| Frappe Framework | `>=16.0.0-dev, <17.0.0-dev` |
+| ERPNext | v16 |
+| Python | 3.10 or newer |
+| App branch | `version-16` |
+
+## Documentation and support
+
+- [User guide](docs/user_guide.md)
+- [Product overview](docs/product_overview.md)
+- [Published documentation](https://invento-software-limited.github.io/import-lc/)
+- [Report a reproducible issue](https://github.com/invento-software-limited/import-lc/issues)
+
+When reporting a problem, include your Frappe and ERPNext versions, the affected document type, steps to reproduce and a redacted screenshot where useful. Never include LC numbers, bank credentials or confidential trade documents in a public issue.
 
 ## Contributing
 
-This application uses `pre-commit` for code formatting, quality checks, and linter validation.
+Contributions are welcome. Install the repository's pre-commit hooks before opening a pull request:
 
-### Setup Pre-commit locally:
-1. Install pre-commit on your system.
-2. Enable pre-commit in this repository:
-   ```bash
-   cd apps/import_lc
-   pre-commit install
-   ```
+```bash
+cd apps/import_lc
+pre-commit install
+pre-commit run --all-files
+```
 
-### Configured Tools:
-- **Ruff**: For Python linting and formatting.
-- **ESLint**: For Javascript code formatting.
-- **Prettier**: For formatting JSON, YAML, and CSS files.
-- **Semgrep**: For security analysis checks.
+The project uses Ruff, ESLint, Prettier and Semgrep alongside its CI checks.
+
+## Publisher
+
+Built and maintained by [Invento Software Limited](https://invento.com.bd/), an ERPNext partner in Bangladesh.
 
 ## License
 
-MIT License. See the [license.txt](license.txt) file for details.
+MIT. See [license.txt](license.txt).
