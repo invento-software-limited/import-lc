@@ -97,11 +97,11 @@ Businesses that handle both directions can install both apps. In the current `ve
 
 ## Installation
 
-### Frappe Cloud
-
-<a href="https://cloud.frappe.io/marketplace/apps/import_lc"><img src="https://img.shields.io/badge/Install_Import_LC-0B7A75?style=for-the-badge&logo=frappe&logoColor=white" alt="Install Import LC from Frappe Marketplace" /></a>
-
-Recommended for managed Frappe Cloud installations.
+> ### Frappe Cloud
+>
+> **The simplest setup for managed installations.**
+>
+> [**Install Import LC from the Marketplace →**](https://cloud.frappe.io/marketplace/apps/import_lc)
 
 ### Self-hosted bench
 
@@ -114,35 +114,18 @@ bench --site your-site.example migrate
 bench build --app import_lc
 ```
 
-Open the app from the ERPNext app switcher after installation. For a fresh bench or site, follow the [official Frappe installation guide](https://frappeframework.com/docs/user/en/installation) first.
+After installation, open **Import LC** from the ERPNext app switcher. Setting up a new bench or site? Start with the [official Frappe installation guide](https://frappeframework.com/docs/user/en/installation).
 
-## Requirements and compatibility
+### Compatibility
 
-<table width="100%">
-  <thead>
-    <tr>
-      <th width="25%" align="left">Frappe Framework</th>
-      <th width="25%" align="left">ERPNext</th>
-      <th width="25%" align="left">Python</th>
-      <th width="25%" align="left">App branch</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>&gt;=16.0.0-dev, &lt;17.0.0-dev</code></td>
-      <td>v16</td>
-      <td>3.10 or newer</td>
-      <td><code>version-16</code></td>
-    </tr>
-  </tbody>
-</table>
+- **Frappe and ERPNext:** v16 (`>=16.0.0-dev, <17.0.0-dev`)
+- **Runtime:** Python 3.10 or newer · **App branch:** `version-16`
 
 ## Documentation and support
 
-- [User guide](docs/user_guide.md)
-- [Product overview](docs/product_overview.md)
-- [Published documentation](https://invento-software-limited.github.io/import-lc/)
-- [Report a reproducible issue](https://github.com/invento-software-limited/import-lc/issues)
+[**Read the user guide →**](docs/user_guide.md) · [**View the product overview →**](docs/product_overview.md) · [**Browse all documentation →**](https://invento-software-limited.github.io/import-lc/)
+
+Need help? [Open a reproducible issue](https://github.com/invento-software-limited/import-lc/issues).
 
 When reporting a problem, include your Frappe and ERPNext versions, the affected document type, steps to reproduce and a redacted screenshot where useful. Never include LC numbers, bank credentials or confidential trade documents in a public issue.
 
