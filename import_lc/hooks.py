@@ -58,6 +58,14 @@ doctype_js = {
 	"Journal Entry": "public/js/journal_entry.js",
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	"Landed Cost Voucher": "public/js/landed_cost_voucher.js",
+	"Import LC": [
+		"public/js/import_lc_dashboard/format.js",
+		"public/js/import_lc_dashboard/charts.js",
+		"public/js/import_lc_dashboard/styles.js",
+		"public/js/import_lc_dashboard/markup.js",
+		"public/js/import_lc_dashboard/sections.js",
+		"public/js/import_lc_dashboard/dashboard.js",
+	],
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}

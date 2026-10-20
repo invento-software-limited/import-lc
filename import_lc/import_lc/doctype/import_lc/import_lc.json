@@ -78,7 +78,9 @@
   "section_break_cjfi",
   "narrative",
   "amended_from",
-  "total_qty"
+  "total_qty",
+  "dashboard_tab",
+  "dashboard_html"
  ],
  "fields": [
   {
@@ -525,13 +527,24 @@
    "fieldtype": "Float",
    "label": "Total Qty",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "dashboard_tab",
+   "fieldtype": "Tab Break",
+   "label": "Dashboard"
+  },
+  {
+   "fieldname": "dashboard_html",
+   "fieldtype": "HTML",
+   "label": "Dashboard"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-07-15 17:10:19.691553",
+ "modified": "2026-10-20 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Import LC",
  "name": "Import LC",
