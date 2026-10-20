@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2026-10-20
 
 ### Added
+- Dashboard tab on the Import LC form: drawn, available to draw (with F39A tolerance), settled and validity, the LC lifecycle (opened, received, invoiced, settled), validity timeline, credit terms with LC margin, landed cost breakdown, goods per line and linked documents.
+- Import LC Dashboard page (`/app/import-lc-dashboard`), linked after Home in the Import LC sidebar: portfolio of LCs by company and period, with lifecycle, opened vs drawn, status mix, top beneficiaries, expiry runway and a paginated worklist.
 - Created complete Docsify documentation site under `docs/` with sidebar navigation, product overview, and user guide.
 - Revamped root `README.md` to include detailed screenshots, installation, and deployment guidelines.
 
